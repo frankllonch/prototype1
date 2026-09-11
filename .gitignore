@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Build output. dist/media alone is ~80 MB of generated image derivatives;
+# regenerate with `npm run images && npm run build`.
+dist/
+
+# Crawl cache: raw WordPress HTML and the downloaded image originals (~176 MB).
+# Deleting it just makes the next `npm run extract` / `npm run images` slower.
+content/raw/
+
+.DS_Store

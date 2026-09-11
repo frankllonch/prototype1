@@ -1,0 +1,22 @@
+{
+  "name": "claudia-valsells-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Redesign prototype for claudiavalsells.com — static output, WordPress stays the CMS.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "extract": "node --experimental-strip-types scripts/extract.ts",
+    "images": "node --experimental-strip-types scripts/images.ts",
+    "build": "node --experimental-strip-types src/build.ts",
+    "serve": "node --experimental-strip-types scripts/serve.ts",
+    "dev": "npm run build && npm run serve",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "node-html-parser": "^7.0.1",
+    "sharp": "^0.34.2",
+    "typescript": "^5.7.2"
+  }
+}
