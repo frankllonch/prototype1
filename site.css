@@ -1,17 +1,19 @@
-/* =========================================================================
-   Claudia Valsells — prototype stylesheet
-
-   The work is the colour, so the interface has none: a warm paper ground, ink
-   type, Inter throughout. Compact and utilitarian — the chrome is a thin rule at
-   the top and a caption in the cursor; everything else is artwork.
-
-   Inter is self-hosted and subset to Latin-1 + Latin Extended-A + typographic
-   punctuation, which covers English, Catalan and Spanish (l·l, ç, à/è/í/ò/ú/ü):
-
-     pyftsubset inter-<style>.woff2 --flavor=woff2 --no-hinting --desubroutinize \
-       --layout-features='kern,liga,clig,calt,tnum' \
-       --unicodes='U+0020-007E,U+00A0-00FF,U+0100-017F,U+00B7,U+00D7,U+2013-2014,U+2018-201A,U+201C-201E,U+2026'
-   ========================================================================= */
+/*
+ * Claudia Valsells — stylesheet
+ *
+ * The work is the colour, so the interface has none: a warm paper ground, ink
+ * type, Inter throughout. Compact and utilitarian — the chrome is a thin rule at
+ * the top and a caption in the cursor; everything else is artwork.
+ *
+ * Files under src/styles/ are concatenated in name order at build time.
+ *
+ * Inter is self-hosted and subset to Latin-1 + Latin Extended-A + typographic
+ * punctuation, which covers English, Catalan and Spanish (l·l, ç, à/è/í/ò/ú/ü):
+ *
+ *   pyftsubset inter-<style>.woff2 --flavor=woff2 --no-hinting --desubroutinize \
+ *     --layout-features='kern,liga,clig,calt,tnum' \
+ *     --unicodes='U+0020-007E,U+00A0-00FF,U+0100-017F,U+00B7,U+00D7,U+2013-2014,U+2018-201A,U+201C-201E,U+2026'
+ */
 
 @font-face {
   font-family: 'Inter';
@@ -29,31 +31,22 @@
 }
 
 /*
- * Registering these makes the browser treat them as real typed values rather than
- * opaque strings: `--unit` becomes an interpolatable <length>, so changing it
- * animates every tile's width in one declaration, and `width: calc(--k * --unit)`
- * reliably recomputes when it changes (with an unregistered property it does not).
+ * Registered so the browser treats them as typed values: `--unit` becomes an
+ * interpolatable <length>, and `width: calc(--k * --unit)` reliably recomputes
+ * when it changes (with an unregistered property it does not).
  */
-@property --unit {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 126px;
-}
-@property --k {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: 1;
-}
+@property --unit { syntax: '<length>'; inherits: true; initial-value: 126px; }
+@property --k { syntax: '<number>'; inherits: false; initial-value: 1; }
 
 :root {
   color-scheme: light;
 
   --paper: #f3f0ea;
   --paper-deep: #eae6de;
-  --ink: #16150f;      /* 16.1:1 on paper */
-  --ink-soft: #524c42; /*  7.5:1 — secondary prose */
-  --ink-faint: #736b5e;/*  4.6:1 — metadata; the floor for anything readable */
-  --rule: #d5cec1;     /* hairlines only, never text */
+  --ink: #16150f;       /* 16.1:1 on paper */
+  --ink-soft: #524c42;  /*  7.5:1 — secondary prose */
+  --ink-faint: #736b5e; /*  4.6:1 — metadata; the floor for anything readable */
+  --rule: #d5cec1;      /* hairlines only, never text */
 
   --sans: 'Inter', ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif;
 
@@ -64,6 +57,14 @@
   --measure: 36rem;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /*
+   * One blur for every overlay, kept light. Legibility comes from the veil's
+   * opacity, not the blur — raising the blur to compensate is what made it read
+   * as a filter rather than a plane.
+   */
+  --veil-blur: 8px;
+  --veil: color-mix(in srgb, var(--paper) 84%, transparent);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -80,6 +81,7 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
+body.is-locked { overflow: hidden; }
 
 img, picture { display: block; max-width: 100%; }
 picture > img { width: 100%; height: auto; }
@@ -96,15 +98,32 @@ main { padding-top: var(--bar); }
 .skip-link:focus { left: 0; }
 
 /* Every label on the site: 10px, caps, tracked. */
-.label, .tile-meta, .zoom, .facts dt, .pager-dir, .site-header, .contents-num,
-.contents-year, .year-marker span, .more, figcaption, .footer-note, .spread-index,
-.spread-facts, .detail-back, .untranslated {
+.label, .tile-meta, .zoom, .facts dt, .pager-dir, .site-header, .band-more,
+figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-count,
+.lightbox-close {
   font-size: 10px;
   letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
-/* ------------------------------------------------------------------ header */
+/* Long-form text, wherever it appears. */
+.prose { max-width: var(--measure); font-size: 13px; line-height: 1.55; }
+.prose p { margin: 0 0 0.8em; }
+.prose p:last-child { margin-bottom: 0; }
+.prose a { border-bottom: 1px solid var(--rule); }
+.prose a:hover { border-color: currentColor; }
+.prose i, .prose em { font-style: italic; }
+.prose strong { font-weight: 600; }
+
+.figure { margin: 0; }
+.figure figcaption, .plate figcaption { color: var(--ink-faint); margin-top: 0.35rem; }
+
+/* A page body in the source site's own 12-column composition. */
+.rows { display: flex; flex-direction: column; gap: var(--block); }
+.row { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--pad); align-items: start; }
+.col { grid-column: span 12; }
+@media (min-width: 800px) { .col { grid-column: span var(--span); } }
+.col-images { display: flex; flex-direction: column; gap: var(--pad); }
 
 /*
  * One fixed rule across the top, after nr.world. No background, no blur: white
@@ -131,7 +150,7 @@ main { padding-top: var(--bar); }
 
 .site-nav { display: flex; gap: clamp(0.7rem, 1.6vw, 1.6rem); margin-inline: auto 0; }
 .site-nav a { opacity: 0.62; transition: opacity 0.2s var(--ease); white-space: nowrap; }
-.site-nav a:hover, .site-nav a[aria-current='page'] { opacity: 1; }
+.site-nav a:hover, .site-nav a[aria-current] { opacity: 1; }
 
 .header-end { display: flex; gap: clamp(0.7rem, 1.6vw, 1.4rem); }
 .header-link { opacity: 0.62; transition: opacity 0.2s var(--ease); white-space: nowrap; }
@@ -145,7 +164,7 @@ main { padding-top: var(--bar); }
 }
 
 /*
- * Below 900px the six sections cannot share the bar. The nav drops into a panel —
+ * Below 900px the sections cannot share the bar. The nav drops into a panel —
  * but only once `nav-js` is set, so a scriptless browser keeps every link on
  * screen instead of behind a button that cannot open.
  */
@@ -158,10 +177,8 @@ main { padding-top: var(--bar); }
   .nav-js .site-nav.is-open { display: flex; }
 }
 
-/* -------------------------------------------------------------------- hero */
-
 /* Just the name. Nothing else earns the space above the work. */
-.hero { padding: calc(var(--block) * 0.8) var(--pad) var(--block); }
+.hero { padding: calc(var(--block) * 0.8) var(--pad) calc(var(--block) * 0.5); }
 .hero-name {
   font-size: clamp(1.9rem, 6vw, 4.5rem);
   line-height: 0.95;
@@ -170,25 +187,18 @@ main { padding-top: var(--bar); }
   text-transform: none;
 }
 
-/* Characters split for the proximity scramble. Each is given a fixed width by the
-   script so the substituted glyph cannot change the word's length. */
-.sc { display: inline-block; white-space: pre; text-align: center; }
-
-/* --------------------------------------------------------------- page head */
+/*
+ * Characters split for the proximity scramble. The script fixes each one to its
+ * own glyph's width, so the substituted asterisk cannot change the word's length,
+ * and scales the asterisk to fit that box (`--x`), so it neither runs into its
+ * neighbours behind a narrow letter nor floats loose behind a wide one.
+ */
+.sc { display: inline-block; white-space: pre; text-align: center; vertical-align: bottom; }
+.sc.is-x { transform: scale(var(--x, 1)); }
 
 .page-head { padding: var(--block) var(--pad) calc(var(--block) * 0.5); }
 .page-head h1 { font-size: clamp(1.5rem, 3.2vw, 2.25rem); line-height: 1.05; font-weight: 500; }
 .page-intro { max-width: var(--measure); color: var(--ink-soft); margin: 0.4rem 0 0; }
-.untranslated { color: var(--ink-faint); margin-top: 0.6rem; }
-
-.strip { padding: 0 var(--pad) var(--block); }
-.strip-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
-  padding: 0.6rem 0; border-top: 1px solid var(--rule); margin-bottom: 0.9rem; }
-.strip-head h2 { font-size: 13px; font-weight: 500; }
-.more { color: var(--ink-faint); }
-.more:hover { color: var(--ink); }
-
-/* ------------------------------------------------------------------- zoom */
 
 .zoom { display: flex; align-items: center; gap: 0.45rem; margin-top: 0.9rem; }
 .zoom-label { color: var(--ink-faint); margin-right: 0.15rem; }
@@ -201,8 +211,6 @@ main { padding-top: var(--bar); }
 .zoom-step:hover { color: var(--ink); }
 .zoom-step.is-active { color: var(--ink); border-bottom-color: var(--ink); }
 
-/* ---------------------------------------------------------------- gallery */
-
 /*
  * A contact sheet, not a grid.
  *
@@ -213,7 +221,7 @@ main { padding-top: var(--bar); }
  * eleven different proportions sit together without any one dominating.
  *
  * `--k` (the square root) is computed at build time; `--unit` is the only thing
- * the zoom control touches, so changing density animates 154 tiles by writing a
+ * the zoom control touches, so changing density animates every tile by writing a
  * single custom property.
  */
 .gallery {
@@ -223,6 +231,7 @@ main { padding-top: var(--bar); }
   gap: var(--gap);
   padding: 0 var(--pad) var(--block);
 }
+.band .gallery { padding: 0; }
 
 .tile {
   position: relative;
@@ -234,9 +243,8 @@ main { padding-top: var(--bar); }
   /*
    * The transition is on `width`, not on `--unit`. Animating the custom property
    * would make the final size *depend* on the animation completing — and a
-   * transition that never runs (a background tab, reduced motion, no @property
-   * support) would leave every tile at the old size. This way the new width
-   * applies instantly and the animation is only decoration over the top.
+   * transition that never runs would leave every tile at the old size. This way
+   * the new width applies instantly and the animation is only decoration.
    */
   transition: width 0.5s var(--ease), opacity 0.4s var(--ease);
 }
@@ -308,54 +316,47 @@ main { padding-top: var(--bar); }
 }
 .js .gallery:has(.tile:hover) .tile.is-in:not(:hover) { transition: opacity 0.25s var(--ease); }
 
-/* ---------------------------------------------------------------- teasers */
+/* Homepage sections share one shell so the rhythm stays identical. */
+.band { padding: var(--block) var(--pad); border-top: 1px solid var(--rule); scroll-margin-top: var(--bar); }
+.band-recent { border-top: 0; padding-top: 0; }
+.band-head { margin-bottom: var(--pad); }
+.band-head-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.band-title { font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; }
+.band-intro { max-width: var(--measure); color: var(--ink-soft); margin: 0.35rem 0 0; }
+.band-more { color: var(--ink-faint); white-space: nowrap; }
+.band-more:hover { color: var(--ink); }
 
-.teasers { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--pad);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
-.teaser h3 { font-size: 12px; margin: 0.5rem 0 0.2rem; font-weight: 500; }
-.teaser p { color: var(--ink-faint); font-size: 11px; line-height: 1.4; margin: 0; }
+/* ------------------------------------------------------------ index grid */
 
-/* --------------------------------------------------------------- editorial */
+.index-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: var(--pad);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+}
+.index-card a { display: block; }
+.index-card img { width: 100%; height: auto; }
+.index-meta { display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline; padding-top: 0.35rem; }
+.index-title { font-size: 11px; line-height: 1.25; }
+.index-year { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.index-card a:hover .index-title { text-decoration: underline; text-underline-offset: 2px; }
 
-.editorial-body { display: flex; flex-direction: column; gap: var(--block); }
-.row { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--pad); align-items: start; }
-.col { grid-column: span 12; }
-@media (min-width: 800px) { .col { grid-column: span var(--span); } }
+/* ---------------------------------------------------------- colour chart */
 
-.col-images { display: flex; flex-direction: column; gap: var(--pad); }
-.figure { margin: 0; }
-.figure figcaption, .plate figcaption { color: var(--ink-faint); margin-top: 0.35rem; }
+.chart { display: grid; gap: var(--pad); }
+@media (min-width: 900px) { .chart { grid-template-columns: 1.1fr 1fr; align-items: start; } }
+.chart-plates { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+.chart-text { max-width: none; }
+@media (min-width: 900px) { .chart-text { font-size: 12.5px; } }
 
-.prose { max-width: var(--measure); font-size: 13px; line-height: 1.55; }
-.prose p { margin: 0 0 0.8em; }
-.prose p:last-child { margin-bottom: 0; }
-.prose a { border-bottom: 1px solid var(--rule); }
-.prose a:hover { border-color: currentColor; }
-.prose i, .prose em { font-style: italic; }
-.prose strong { font-weight: 600; }
+/* ------------------------------------------------------------- inquiries */
 
-.longform { padding: 0 var(--pad) var(--block); }
-
-.publication { padding: 0 var(--pad) var(--block); }
-.spread { padding: var(--block) 0; border-top: 1px solid var(--rule); scroll-margin-top: calc(var(--bar) + 0.5rem); }
-.spread:first-child { border-top: none; padding-top: 0; }
-.spread-head { margin-bottom: var(--pad); }
-.spread-index { color: var(--ink-faint); margin: 0 0 0.3rem; }
-.spread-title { font-size: clamp(1.25rem, 2.6vw, 1.9rem); line-height: 1.05; font-weight: 500;
-  max-width: 24ch; letter-spacing: -0.02em; }
-.spread-facts { display: flex; flex-wrap: wrap; gap: 0.7rem; color: var(--ink-faint); margin: 0.45rem 0 0; }
-
-.contents { list-style: none; margin: 1.2rem 0 0; padding: 0; max-width: 44rem; }
-.contents li { border-top: 1px solid var(--rule); }
-.contents li:last-child { border-bottom: 1px solid var(--rule); }
-.contents a { display: grid; grid-template-columns: 2rem 1fr auto; gap: 0.75rem;
-  align-items: baseline; padding: 0.4rem 0; color: var(--ink-soft);
-  transition: color 0.2s var(--ease), padding-left 0.25s var(--ease); }
-.contents a:hover { color: var(--ink); padding-left: 0.35rem; }
-.contents-title { font-size: 12px; text-transform: none; letter-spacing: 0; }
-.contents-num, .contents-year { color: var(--ink-faint); }
-
-/* ------------------------------------------------------------------ detail */
+.inquiries-line { max-width: var(--measure); color: var(--ink-soft); }
+.inquiries-list { list-style: none; margin: var(--pad) 0 0; padding: 0; display: grid; gap: 0.5rem; max-width: 36rem; }
+.inquiries-list li { display: grid; grid-template-columns: 9rem 1fr; gap: 0.75rem; align-items: baseline;
+  border-top: 1px solid var(--rule); padding-top: 0.45rem; font-size: 12px; }
+.inquiries-list .label { color: var(--ink-faint); }
+.inquiries-list a { border-bottom: 1px solid var(--rule); }
+.inquiries-list a:hover { border-color: currentColor; }
 
 .detail { padding: var(--block) var(--pad); }
 .detail-back { color: var(--ink-faint); }
@@ -374,6 +375,8 @@ main { padding-top: var(--bar); }
 .facts dt { color: var(--ink-faint); margin-bottom: 0.1rem; }
 .facts dd { margin: 0; font-size: 12px; }
 
+/* A painting reads as a museum label: the plate holds the column, the facts sit
+   in the margin beside it and stay there while the page scrolls. */
 @media (min-width: 900px) {
   .detail-work {
     display: grid;
@@ -392,6 +395,17 @@ main { padding-top: var(--bar); }
   .detail-work .facts div:last-child { border-bottom: 1px solid var(--rule); }
 }
 
+/* A collaboration: imagery first, text below. These projects are photographed
+   rather than written, so the pictures carry the page and the text closes it. */
+.collab-gallery { display: flex; flex-direction: column; gap: var(--pad); max-width: 72rem; margin: 0 auto; }
+.collab-figure { margin: 0; }
+.collab-figure img { width: 100%; height: auto; max-height: 86vh; object-fit: contain; }
+.collab-figure figcaption { color: var(--ink-faint); margin-top: 0.35rem; }
+.collab-text { max-width: 42rem; margin: var(--block) auto 0; padding-top: var(--pad); border-top: 1px solid var(--rule); }
+.collab-text .prose { font-size: 13px; line-height: 1.6; }
+.detail-project .detail-head, .detail-project .detail-back, .detail-project .pager { max-width: 72rem; margin-inline: auto; }
+.detail-project .detail-back { display: block; }
+
 .pager { display: flex; justify-content: space-between; gap: 1rem;
   margin-top: var(--block); padding-top: 0.7rem; border-top: 1px solid var(--rule); }
 .pager-link { max-width: 45%; color: var(--ink-faint); transition: color 0.2s var(--ease); }
@@ -400,139 +414,11 @@ main { padding-top: var(--bar); }
 .pager-dir { display: block; margin-bottom: 0.1rem; }
 .pager-title { display: block; font-size: 12px; line-height: 1.25; text-transform: none; letter-spacing: 0; }
 
-/* ------------------------------------------------------------------ footer */
-
-.site-footer {
-  display: grid; gap: var(--pad);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
-  padding: var(--block) var(--pad);
-  border-top: 1px solid var(--rule);
-}
-.footer-col { display: flex; flex-direction: column; gap: 0.2rem; }
-.footer-col .label { color: var(--ink-faint); margin-bottom: 0.2rem; }
-.footer-col a, .footer-col span:not(.label) { font-size: 12px; color: var(--ink-soft); }
-.footer-col a:hover { color: var(--ink); }
-.footer-note { grid-column: 1 / -1; color: var(--ink-faint); margin: 0.6rem 0 0; }
-
-/* ------------------------------------------------------------------ cursor */
-
-.cursor { position: fixed; top: 0; left: 0; z-index: 90; pointer-events: none;
-  opacity: 0; transition: opacity 0.2s var(--ease); will-change: transform; }
-.cursor.is-visible { opacity: 1; }
-.cursor-label {
-  display: inline-block; background: var(--ink); color: var(--paper);
-  font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
-  padding: 0.25rem 0.45rem; white-space: nowrap;
-  transform: translate(0.8rem, 0.8rem);
-}
-@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
-
-/* ------------------------------------------------------------------ reveal */
-
-.js .reveal { opacity: 0; transform: translateY(10px); }
-.js .reveal.is-in { opacity: 1; transform: none;
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
-  .js .reveal, .js .tile { opacity: 1; transform: none; }
-}
-
-@view-transition { navigation: auto; }
-
-
-/* =========================================================================
-   Homepage sections
-   ========================================================================= */
-
-.band { padding: var(--block) var(--pad); border-top: 1px solid var(--rule); scroll-margin-top: var(--bar); }
-.band-head { margin-bottom: var(--pad); }
-.band-title { font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; }
-.band-intro { max-width: var(--measure); color: var(--ink-soft); margin: 0.35rem 0 0; }
-
-.hero-line { max-width: var(--measure); color: var(--ink-soft); margin: 0.6rem 0 0; font-size: 13px; }
-.hero-enter { border-bottom: 1px solid var(--rule); white-space: nowrap; }
-.hero-enter:hover { border-color: currentColor; color: var(--ink); }
-
-/* ------------------------------------------------------------------ about */
-
 /*
- * Newspaper setting inside the About panel. The two studio photographs are set
- * into the column at about two thirds of its width, high in the text, with the
- * prose running around them — a picture in a news column, not a plate between
- * paragraphs.
+ * Overlays: the artwork lightbox, and the panels (About, each exhibition). Both
+ * sit over a veil that blurs the page behind them lightly, so what you were
+ * looking at recedes a plane rather than disappearing.
  */
-.about-columns { columns: 1; column-gap: clamp(1.5rem, 3vw, 2.75rem); max-width: 78rem; margin: 0 auto; }
-@media (min-width: 700px) { .about-columns { columns: 2; } }
-@media (min-width: 1200px) { .about-columns { columns: 3; } }
-
-.about-columns > * { margin: 0 0 0.8em; font-size: 12.5px; line-height: 1.6; text-align: justify; hyphens: auto; }
-.about-columns > p:first-child { font-size: 14px; }
-.about-columns strong { font-weight: 600; }
-.about-columns a { border-bottom: 1px solid var(--rule); }
-.about-columns a:hover { border-color: currentColor; }
-
-.about-plate {
-  break-inside: avoid;
-  float: left;
-  width: 62%;
-  margin: 0.15rem 0.7rem 0.5rem 0;
-}
-.about-plate:nth-of-type(even) { float: right; margin: 0.15rem 0 0.5rem 0.7rem; }
-.about-plate img { width: 100%; height: auto; }
-@media (max-width: 699px) { .about-plate { float: none; width: 100%; margin: 0.6rem 0; } }
-
-.panel-about .panel-head { max-width: 78rem; }
-
-/* ------------------------------------------------------------ index grids */
-
-.index-grid {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; gap: var(--pad);
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
-}
-.index-card a { display: block; }
-.index-card img { width: 100%; height: auto; }
-.index-meta { display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline; padding-top: 0.35rem; }
-.index-title { font-size: 11px; line-height: 1.25; }
-.index-year { font-size: 10px; letter-spacing: 0.07em; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
-.index-card a:hover .index-title { text-decoration: underline; text-underline-offset: 2px; }
-
-/* ------------------------------------------------------------ colour chart */
-
-.chart { display: grid; gap: var(--pad); }
-@media (min-width: 900px) { .chart { grid-template-columns: 1.1fr 1fr; align-items: start; } }
-.chart-plates { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
-.chart-text { max-width: none; columns: 1; }
-@media (min-width: 900px) { .chart-text { font-size: 12.5px; } }
-
-/* -------------------------------------------------------------- inquiries */
-
-.inquiries-line { max-width: var(--measure); color: var(--ink-soft); }
-.inquiries-list { list-style: none; margin: var(--pad) 0 0; padding: 0; display: grid; gap: 0.5rem; max-width: 36rem; }
-.inquiries-list li { display: grid; grid-template-columns: 9rem 1fr; gap: 0.75rem; align-items: baseline;
-  border-top: 1px solid var(--rule); padding-top: 0.45rem; font-size: 12px; }
-.inquiries-list .label { color: var(--ink-faint); }
-.inquiries-list a { border-bottom: 1px solid var(--rule); }
-.inquiries-list a:hover { border-color: currentColor; }
-
-/* =========================================================================
-   Overlays
-
-   One blur value for the whole site, kept deliberately light: enough to push the
-   page back a plane, not so much that it becomes a frosted sheet. Raising it any
-   further made text behind it unreadable and the effect look like a filter.
-   ========================================================================= */
-
-:root {
-  /* Light blur, slightly opaque veil. Legibility comes from the opacity, not from
-     the blur — raising the blur to compensate is what made it read as a filter. */
-  --veil-blur: 8px;
-  --veil: color-mix(in srgb, var(--paper) 84%, transparent);
-}
-
-body.is-locked { overflow: hidden; }
 
 .lightbox-veil, .panel-veil {
   position: fixed; inset: 0;
@@ -545,7 +431,7 @@ body.is-locked { overflow: hidden; }
   .lightbox-veil, .panel-veil { background: color-mix(in srgb, var(--paper) 96%, transparent); }
 }
 
-/* ---------------------------------------------------------------- lightbox */
+/* --------------------------------------------------------------- lightbox */
 
 .lightbox {
   position: fixed; inset: 0; z-index: 80;
@@ -560,15 +446,9 @@ body.is-locked { overflow: hidden; }
 .lightbox.is-open { opacity: 1; }
 .lightbox[hidden] { display: none; }
 
-/*
- * The veil is positioned, so it paints above any static sibling no matter the DOM
- * order. Everything that belongs in front of it has to be positioned too.
- */
-.lightbox-plate,
-.lightbox-caption,
-.lightbox-nav,
-.lightbox-close { position: relative; z-index: 1; }
-.lightbox-close { position: fixed; }
+/* The veil is positioned, so it paints above any static sibling regardless of
+   DOM order. Everything meant to sit in front of it has to be positioned too. */
+.lightbox-plate, .lightbox-caption, .lightbox-nav, .lightbox-close { position: relative; z-index: 1; }
 
 .lightbox-plate {
   grid-column: 2;
@@ -576,37 +456,22 @@ body.is-locked { overflow: hidden; }
   min-width: 0; min-height: 0;
   transition: opacity 0.2s var(--ease);
 }
+.lightbox-plate img { max-height: 74vh; max-width: 100%; width: auto; height: auto; }
 /* The only moving part of a navigation: fade out, swap, fade in. */
 .lightbox.is-changing .lightbox-plate,
 .lightbox.is-changing .lightbox-caption { opacity: 0; }
-.lightbox-plate img { max-height: 74vh; max-width: 100%; width: auto; height: auto; }
 
-/*
- * The caption sits beside the plate, set in black at reading size rather than as
- * a grey label under it — a painting's dimensions and medium are the substance of
- * the page, not a footnote.
- */
-.lightbox-caption {
-  grid-column: 3;
-  align-self: center;
-  transition: opacity 0.2s var(--ease);
-}
-.lightbox-title {
-  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-  font-weight: 500; letter-spacing: -0.02em; color: var(--ink);
-  margin: 0 0 0.5rem;
-}
+/* The caption sits beside the plate, in black at reading size — a painting's
+   dimensions and medium are the substance of the page, not a footnote. */
+.lightbox-caption { grid-column: 3; align-self: center; transition: opacity 0.2s var(--ease); }
+.lightbox-title { font-size: clamp(1.1rem, 1.8vw, 1.5rem); font-weight: 500; letter-spacing: -0.02em; margin: 0 0 0.5rem; }
 .lightbox-meta { display: flex; flex-direction: column; gap: 0.18rem; margin: 0 0 0.9rem; }
-.lightbox-meta span { font-size: 14px; line-height: 1.45; color: var(--ink); }
-.lightbox-count {
-  margin: 0; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
-  color: var(--ink-faint); font-variant-numeric: tabular-nums;
-}
+.lightbox-meta span { font-size: 14px; line-height: 1.45; }
+.lightbox-count { margin: 0; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
 
 .lightbox-close {
-  top: 0; right: var(--pad); height: var(--bar);
-  background: none; border: 0; padding: 0; cursor: pointer; color: var(--ink);
-  font: inherit; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+  position: fixed; top: 0; right: var(--pad); height: var(--bar);
+  background: none; border: 0; padding: 0; cursor: pointer; color: var(--ink); font: inherit;
 }
 .lightbox-nav {
   align-self: center; width: clamp(2rem, 4vw, 3.5rem); height: 40vh;
@@ -627,10 +492,20 @@ body.is-locked { overflow: hidden; }
   .lightbox-plate img { max-height: 58vh; }
 }
 
-/* ------------------------------------------------------- exhibition panel */
+/* ----------------------------------------------------------------- panels */
 
-.panel-veil { z-index: 84; }
-.panel-veil[hidden] { display: none; }
+/*
+ * The veil is always present and only its opacity changes, so a panel opening
+ * reads as the page receding behind it rather than a sheet dropping in front.
+ * Both ease over the same half-second.
+ */
+.panel-veil {
+  z-index: 84;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+}
+.panel-veil.is-open { opacity: 1; pointer-events: auto; }
 
 .panels { display: contents; }
 .panel {
@@ -641,22 +516,16 @@ body.is-locked { overflow: hidden; }
   padding: var(--block) var(--pad) var(--block);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(8px);
-  transition: opacity 0.28s var(--ease), transform 0.28s var(--ease), visibility 0.28s;
+  transform: translateY(12px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), visibility 0s linear 0.5s;
   -webkit-overflow-scrolling: touch;
 }
-.panel.is-open { opacity: 1; visibility: visible; transform: none; }
+.panel.is-open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
 
-.panel-head {
-  display: flex; align-items: baseline; gap: 0.75rem;
-  max-width: 62rem; margin: 0 auto var(--pad);
-}
+.panel-head { display: flex; align-items: baseline; gap: 0.75rem; max-width: 62rem; margin: 0 auto var(--pad); }
 .panel-title { font-size: clamp(1.2rem, 2.4vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; }
-.panel-year { font-size: 10px; letter-spacing: 0.07em; color: var(--ink-faint); }
-.panel-close {
-  margin-inline: auto 0; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
-  color: var(--ink-soft);
-}
+.panel-year { color: var(--ink-faint); }
+.panel-close { margin-inline: auto 0; color: var(--ink-soft); }
 .panel-close:hover { color: var(--ink); }
 
 .panel-body { max-width: 62rem; margin: 0 auto; display: flex; flex-direction: column; gap: var(--pad); }
@@ -664,39 +533,56 @@ body.is-locked { overflow: hidden; }
 .panel-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--gap); }
 .panel-body .prose { max-width: 42rem; }
 
-/*
- * Without scripting the panels are plain anchor targets, so they must be visible
- * when linked to directly rather than hidden behind a class the script adds.
- */
+/* Without scripting the panels are plain anchor targets, so they must be visible
+   when linked to directly rather than hidden behind a class the script adds. */
 html:not(.js) .panel { position: static; opacity: 1; visibility: visible; transform: none; inset: auto; }
+html:not(.js) .panel-veil { display: none; }
+
+/* ------------------------------------------------------------------ about */
+
+/*
+ * Newspaper setting inside the About panel. The two studio photographs are set
+ * into the column at about two thirds of its width, high in the text, with the
+ * prose running around them — a picture in a news column, not a plate between
+ * paragraphs.
+ */
+.panel-about .panel-head { max-width: 78rem; }
+.about-columns { columns: 1; column-gap: clamp(1.5rem, 3vw, 2.75rem); max-width: 78rem; margin: 0 auto; }
+@media (min-width: 700px) { .about-columns { columns: 2; } }
+@media (min-width: 1200px) { .about-columns { columns: 3; } }
+
+.about-columns > * { margin: 0 0 0.8em; font-size: 12.5px; line-height: 1.6; text-align: justify; hyphens: auto; }
+.about-columns > p:first-child { font-size: 14px; }
+.about-columns strong { font-weight: 600; }
+.about-columns a { border-bottom: 1px solid var(--rule); }
+.about-columns a:hover { border-color: currentColor; }
+
+.about-plate { break-inside: avoid; float: left; width: 62%; margin: 0.15rem 0.7rem 0.5rem 0; }
+.about-plate:nth-of-type(even) { float: right; margin: 0.15rem 0 0.5rem 0.7rem; }
+.about-plate img { width: 100%; height: auto; }
+@media (max-width: 699px) { .about-plate { float: none; width: 100%; margin: 0.6rem 0; } }
+
+/* The cursor label. */
+.cursor { position: fixed; top: 0; left: 0; z-index: 90; pointer-events: none;
+  opacity: 0; transition: opacity 0.2s var(--ease); will-change: transform; }
+.cursor.is-visible { opacity: 1; }
+.cursor-label {
+  display: inline-block; background: var(--ink); color: var(--paper);
+  font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 0.25rem 0.45rem; white-space: nowrap;
+  transform: translate(0.8rem, 0.8rem);
+}
+@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+
+/* Scroll reveals. Opted into only once scripting is confirmed, so a failed
+   script can never leave a page blank. */
+.js .reveal { opacity: 0; transform: translateY(10px); }
+.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
 
 @media (prefers-reduced-motion: reduce) {
-  .lightbox, .lightbox-plate, .lightbox-caption, .panel { transition-duration: 0.001ms !important; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  .js .reveal, .js .tile { opacity: 1; transform: none; }
 }
 
-/* --------------------------------------------------- collaboration detail */
-
-/*
- * Imagery first, text below. These projects are photographed rather than
- * written, so the pictures carry the page and the text closes it.
- */
-.collab-gallery { display: flex; flex-direction: column; gap: var(--pad); max-width: 72rem; margin: 0 auto; }
-.collab-figure { margin: 0; }
-.collab-figure img { width: 100%; height: auto; max-height: 86vh; object-fit: contain; }
-.collab-figure figcaption { color: var(--ink-faint); margin-top: 0.35rem; }
-.collab-text {
-  max-width: 42rem; margin: var(--block) auto 0;
-  padding-top: var(--pad); border-top: 1px solid var(--rule);
-}
-.collab-text .prose { font-size: 13px; line-height: 1.6; }
-
-.detail-project .detail-head { max-width: 72rem; margin-inline: auto; }
-.detail-project .detail-back { display: block; max-width: 72rem; margin-inline: auto; }
-.detail-project .pager { max-width: 72rem; margin-inline: auto; }
-
-/* Keep a homepage editorial spread from running away with the page. */
-.band .publication .col-images img { max-height: 62vh; width: auto; }
-.band .publication .col-images { align-items: flex-start; }
-.spread-more { margin: var(--pad) 0 0; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; }
-.spread-more a { color: var(--ink-soft); }
-.spread-more a:hover { color: var(--ink); }
+@view-transition { navigation: auto; }
