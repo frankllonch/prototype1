@@ -1,0 +1,55 @@
+.detail { padding: var(--block) var(--pad); }
+.detail-back { color: var(--ink-faint); }
+.detail-back::before { content: '← '; }
+.detail-back:hover { color: var(--ink); }
+.detail-head { margin: 0.9rem 0 var(--pad); }
+.detail-title { font-size: clamp(1.25rem, 2.6vw, 1.9rem); line-height: 1.05; font-weight: 500; max-width: 24ch; }
+
+.plate { margin: 0 0 var(--pad); max-width: min(100%, 48rem); }
+.plate picture > img { max-height: 74vh; width: auto; }
+.plate-extra { display: grid; gap: var(--gap); margin-top: var(--pad);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+
+.facts { display: flex; flex-wrap: wrap; gap: 0 clamp(1rem, 3vw, 2.5rem); margin: 0 0 var(--pad); }
+.facts div { margin-bottom: 0.5rem; }
+.facts dt { color: var(--ink-faint); margin-bottom: 0.1rem; }
+.facts dd { margin: 0; font-size: 12px; }
+
+/* A painting reads as a museum label: the plate holds the column, the facts sit
+   in the margin beside it and stay there while the page scrolls. */
+@media (min-width: 900px) {
+  .detail-work {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(11rem, 16vw, 14rem);
+    grid-template-areas: 'back back' 'head head' 'main aside';
+    column-gap: var(--block);
+    align-items: start;
+  }
+  .detail-work .detail-back { grid-area: back; }
+  .detail-work .detail-head { grid-area: head; }
+  .detail-work .detail-main { grid-area: main; min-width: 0; }
+  .detail-work .detail-aside { grid-area: aside; position: sticky; top: calc(var(--bar) + 1rem); }
+  .detail-work .pager { grid-column: 1 / -1; }
+  .detail-work .facts { display: block; margin-bottom: 0; }
+  .detail-work .facts div { padding: 0.35rem 0; margin: 0; border-top: 1px solid var(--rule); }
+  .detail-work .facts div:last-child { border-bottom: 1px solid var(--rule); }
+}
+
+/* A collaboration: imagery first, text below. These projects are photographed
+   rather than written, so the pictures carry the page and the text closes it. */
+.collab-gallery { display: flex; flex-direction: column; gap: var(--pad); max-width: 72rem; margin: 0 auto; }
+.collab-figure { margin: 0; }
+.collab-figure img { width: 100%; height: auto; max-height: 86vh; object-fit: contain; }
+.collab-figure figcaption { color: var(--ink-faint); margin-top: 0.35rem; }
+.collab-text { max-width: 42rem; margin: var(--block) auto 0; padding-top: var(--pad); border-top: 1px solid var(--rule); }
+.collab-text .prose { font-size: 13px; line-height: 1.6; }
+.detail-project .detail-head, .detail-project .detail-back, .detail-project .pager { max-width: 72rem; margin-inline: auto; }
+.detail-project .detail-back { display: block; }
+
+.pager { display: flex; justify-content: space-between; gap: 1rem;
+  margin-top: var(--block); padding-top: 0.7rem; border-top: 1px solid var(--rule); }
+.pager-link { max-width: 45%; color: var(--ink-faint); transition: color 0.2s var(--ease); }
+.pager-link:hover { color: var(--ink); }
+.pager-next { text-align: right; }
+.pager-dir { display: block; margin-bottom: 0.1rem; }
+.pager-title { display: block; font-size: 12px; line-height: 1.25; text-transform: none; letter-spacing: 0; }

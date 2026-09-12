@@ -4,18 +4,21 @@
  * Two locations only: the homepage, which carries every section, and the artwork
  * page. Detail pages hang off those — one per painting, one per collaboration.
  */
-import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
 import type { Html } from './components/html.ts';
-import { collaborations, findEditorial, works, workYears } from './content/load.ts';
+import { collaborations, findPage, works, workYears } from './content/load.ts';
 import { DEFAULT_LOCALE, LOCALES, localeDir, type Locale } from './content/i18n.ts';
 import { BASE } from './content/paths.ts';
-import { artworkPage, detailPage, homePage } from './pages/index.ts';
+import { homePage } from './pages/home.ts';
+import { artworkPage } from './pages/artwork.ts';
+import { detailPage } from './pages/detail.ts';
 import type { Project } from './content/types.ts';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
+const SRC = path.join(ROOT, 'src');
 const DIST = path.join(ROOT, 'dist');
 
 let pagesWritten = 0;
@@ -27,17 +30,36 @@ async function writePage(route: string, page: Html) {
   pagesWritten++;
 }
 
-async function buildAssets() {
-  await mkdir(DIST, { recursive: true });
-  const css = await readFile(path.join(ROOT, 'src', 'assets', 'site.css'), 'utf8');
-  await writeFile(path.join(DIST, 'site.css'), BASE ? css.replaceAll("url('/fonts/", `url('${BASE}/fonts/`) : css);
-  await cp(path.join(ROOT, 'src', 'assets', 'fonts'), path.join(DIST, 'fonts'), { recursive: true });
+/** src/styles/*.css, concatenated in name order. Font URLs pick up the base path. */
+async function buildStyles() {
+  const dir = path.join(SRC, 'styles');
+  const files = (await readdir(dir)).filter((f) => f.endsWith('.css')).sort();
+  const css = await Promise.all(files.map((f) => readFile(path.join(dir, f), 'utf8')));
+  const joined = css.join('\n');
+  await writeFile(path.join(DIST, 'site.css'), BASE ? joined.replaceAll("url('/fonts/", `url('${BASE}/fonts/`) : joined);
+  await cp(path.join(SRC, 'assets', 'fonts'), path.join(DIST, 'fonts'), { recursive: true });
+}
 
-  const source = await readFile(path.join(ROOT, 'src', 'assets', 'site.ts'), 'utf8');
-  const { outputText } = ts.transpileModule(source, {
-    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext },
-  });
-  await writeFile(path.join(DIST, 'site.js'), outputText);
+/**
+ * src/client/*.ts → dist/js/*.js, one for one. They are ES modules and the
+ * browser loads them as such; the only build step is stripping the types.
+ */
+async function buildClient() {
+  const dir = path.join(SRC, 'client');
+  const out = path.join(DIST, 'js');
+  await mkdir(out, { recursive: true });
+  for (const file of (await readdir(dir)).filter((f) => f.endsWith('.ts'))) {
+    const source = await readFile(path.join(dir, file), 'utf8');
+    const { outputText } = ts.transpileModule(source, {
+      fileName: file,
+      compilerOptions: {
+        target: ts.ScriptTarget.ES2022,
+        module: ts.ModuleKind.ESNext,
+        rewriteRelativeImportExtensions: true,
+      },
+    });
+    await writeFile(path.join(out, file.replace(/\.ts$/, '.js')), outputText);
+  }
 }
 
 async function buildLocale(locale: Locale) {
@@ -46,19 +68,17 @@ async function buildLocale(locale: Locale) {
   await writePage(route('/'), homePage({
     artwork: works,
     collaborations,
-    about: findEditorial('about'),
-    colourChart: findEditorial('colour-chart'),
-    exhibitionsPage: findEditorial('whats-color-exhibitions'),
+    about: findPage('about'),
+    colourChart: findPage('colour-chart'),
+    exhibitionsPage: findPage('whats-color-exhibitions'),
     locale,
   }));
-
   await writePage(route('/artwork/'), artworkPage(works, workYears, locale));
 
-  const sets: ReadonlyArray<{ items: readonly Project[]; basePath: string; active: string }> = [
+  const sets: ReadonlyArray<{ items: readonly Project[]; basePath: string; active: 'artwork' | 'collaborations' }> = [
     { items: works, basePath: '/artwork', active: 'artwork' },
     { items: collaborations, basePath: '/collaborations', active: 'collaborations' },
   ];
-
   for (const { items, basePath, active } of sets) {
     for (const [i, project] of items.entries()) {
       await writePage(route(`${basePath}/${project.slug}/`), detailPage({
@@ -74,17 +94,17 @@ async function buildLocale(locale: Locale) {
 }
 
 async function main() {
-  // Keep dist/media: re-rendering 370 images on every build would be absurd.
-  const generated = ['site.css', 'site.js', 'fonts', 'index.html', 'artwork', 'collaborations',
-    // Routes from the previous structure, removed now that everything is one page.
-    'works', 'projects', 'editorial', 'about', 'colour-chart', 'exhibitions',
+  // Everything but dist/media, which holds 370 rendered images and is rebuilt
+  // only by `npm run images`.
+  const generated = ['site.css', 'site.js', 'js', 'fonts', 'index.html', 'artwork', 'collaborations',
     ...LOCALES.filter((l) => l !== DEFAULT_LOCALE)];
   for (const entry of generated) {
     const target = path.join(DIST, entry);
     if (existsSync(target)) await rm(target, { recursive: true, force: true });
   }
+  await mkdir(DIST, { recursive: true });
 
-  await buildAssets();
+  await Promise.all([buildStyles(), buildClient()]);
   for (const locale of LOCALES) await buildLocale(locale);
 
   console.log(

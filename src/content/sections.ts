@@ -118,7 +118,7 @@ export function splitExhibitions(page: Project | undefined): readonly Exhibition
 
 /* ----------------------------------------------------------------- about */
 
-export type AboutBlock =
+type AboutBlock =
   | { readonly kind: 'html'; readonly html: string }
   | { readonly kind: 'image'; readonly image: ProjectImage };
 

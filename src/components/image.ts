@@ -1,7 +1,7 @@
 import { html, type Html } from './html.ts';
 import type { ProjectImage } from '../content/types.ts';
 
-export interface ImageProps {
+interface ImageProps {
   readonly image: ProjectImage;
   /** The `sizes` attribute. Get this right or the browser over-fetches. */
   readonly sizes: string;

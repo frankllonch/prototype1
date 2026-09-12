@@ -1,0 +1,24 @@
+/* The cursor label. */
+.cursor { position: fixed; top: 0; left: 0; z-index: 90; pointer-events: none;
+  opacity: 0; transition: opacity 0.2s var(--ease); will-change: transform; }
+.cursor.is-visible { opacity: 1; }
+.cursor-label {
+  display: inline-block; background: var(--ink); color: var(--paper);
+  font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 0.25rem 0.45rem; white-space: nowrap;
+  transform: translate(0.8rem, 0.8rem);
+}
+@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+
+/* Scroll reveals. Opted into only once scripting is confirmed, so a failed
+   script can never leave a page blank. */
+.js .reveal { opacity: 0; transform: translateY(10px); }
+.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  .js .reveal, .js .tile { opacity: 1; transform: none; }
+}
+
+@view-transition { navigation: auto; }

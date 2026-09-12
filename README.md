@@ -47,7 +47,7 @@ navigation moves between its sections without loading anything.
 
 | Route | What it is |
 |---|---|
-| `/` | The name, then Editorial → Exhibitions → Collaborations → Colour Chart → Inquiries |
+| `/` | The name, Recent artwork, then Exhibitions → Collaborations → Colour Chart → Inquiries |
 | `/artwork/` | All 154 paintings as one uninterrupted contact sheet |
 | `/artwork/<slug>/` | One painting |
 | `/collaborations/<slug>/` | One collaboration: imagery first, text below |
@@ -156,35 +156,39 @@ one-to-one onto a PHP partial. That is why there is no framework here.
 
 ```
 scripts/
-  extract.ts      Sitemap-driven crawler → typed dataset
-  images.ts       Image pipeline (download → AVIF/WebP/JPEG at 3 widths)
-  serve.ts        Zero-dependency static server
+  extract.ts        Sitemap-driven crawler → typed dataset
+  images.ts         Image pipeline (download → AVIF/WebP/JPEG at 3 widths)
+  serve.ts          Zero-dependency static server
 src/
-  content/
-    types.ts      The content model. Start here.
-    i18n.ts       Locales and interface strings
-    load.ts       Reads the dataset, merges image variants, derives collections
-    title.ts      Presentation titles (the source bakes metadata into them)
-    describe.ts   Factual alt text from metadata
-  components/
-    html.ts       40-line escaping template tag — the whole "framework"
-    layout.ts     Document shell, nav, footer
-    image.ts      Responsive <picture>
-    gallery.ts    Equal-area contact sheet + density control
-    editorial.ts  Rows/columns, preserving the source composition
-    detail.ts     Detail pages
-  pages/index.ts  Page composition
-  assets/
-    site.css      One stylesheet
-    site.ts       cursor, scramble, staggered reveals, year float,
-                  lightbox, about overlay, nav, density control
-  build.ts        Renders every route
+  content/          The data layer. No HTML here.
+    types.ts        The content model. Start here.
+    load.ts         Reads the dataset, merges image variants, derives collections
+    sections.ts     Splits the source's combined pages: six exhibitions, About
+    title.ts        Presentation titles (the source bakes metadata into them)
+    describe.ts     Factual alt text from metadata
+    i18n.ts         Interface strings, en + ca
+    paths.ts        Deployment base path
+  components/       Pure functions: data → Html. Each maps onto a template partial.
+    html.ts         40-line escaping template tag — the whole "framework"
+    layout.ts       Document shell: head, header, lightbox, panels
+    image.ts        Responsive <picture>
+    gallery.ts      The equal-area contact sheet
+    rows.ts         A page body in the source's own row/column composition
+    detail.ts       Painting and collaboration detail pages
+    sections/       One file per homepage section, sharing band.ts
+  pages/            One file per route: home, artwork, detail
+  client/           Browser code, one ES module per concern, booted by index.ts
+  styles/           One stylesheet per concern, concatenated in name order
+  build.ts          Renders every route
 ```
+
+Every file is under 200 lines. Browser modules are transpiled one-for-one into
+`dist/js/` and loaded natively — there is no bundler because nothing needs
+bundling — with `modulepreload` hints so they fetch in parallel.
 
 **Runtime dependencies: none.** Build dependencies: `typescript`,
 `node-html-parser` (extraction), `sharp` (images). No framework, no bundler, no
-client-side router. `sharp` earns its place — the current site ships 14.5 MB of
-unoptimised JPEG on one page.
+client-side router.
 
 ### Design
 

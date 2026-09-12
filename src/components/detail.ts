@@ -1,12 +1,12 @@
 import { html, join, raw, type Html } from './html.ts';
-import { editorialBody } from './editorial.ts';
+import { rowsBody } from './rows.ts';
 import { responsiveImage } from './image.ts';
 import { describeImage } from '../content/describe.ts';
 import { displayTitle } from '../content/title.ts';
 import type { Dictionary, Locale } from '../content/i18n.ts';
 import type { Project } from '../content/types.ts';
 
-export interface DetailProps {
+interface DetailProps {
   readonly project: Project;
   readonly previous?: Project;
   readonly next?: Project;
@@ -59,11 +59,6 @@ function pager(
 }
 
 /**
- * A painting reads as a museum label: the plate holds the column, the facts sit
- * in the margin. A collaboration reuses the shell but leans on the editorial
- * body, which is where its real content lives.
- */
-/**
  * A collaboration: the imagery first, scrolled through at full width, then the
  * text underneath — the hierarchy the source site uses and the one the work
  * deserves, since these projects are photographed rather than written.
@@ -94,6 +89,11 @@ function collaborationBody(project: Project): Html {
   </div>`;
 }
 
+/**
+ * A painting reads as a museum label: the plate holds the column, the facts sit
+ * in the margin beside it. A collaboration uses the same shell but leads with
+ * its imagery and puts the text underneath.
+ */
 export function detail({
   project, previous, next, locale, t, linkBase, backLabel, backHref,
 }: DetailProps): Html {
@@ -129,7 +129,7 @@ export function detail({
             ${plate.caption ? html`<figcaption>${plate.caption}</figcaption>` : ''}
           </figure>`
         : ''}
-      ${isWork && bodyRows.length ? editorialBody(bodyRows, { eagerRows: 0 }) : ''}
+      ${isWork && bodyRows.length ? rowsBody(bodyRows, { eagerRows: 0 }) : ''}
       ${isWork && rest.length
         ? html`<div class="plate-extra">
             ${join(

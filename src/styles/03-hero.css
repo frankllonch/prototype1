@@ -1,0 +1,33 @@
+/* Just the name. Nothing else earns the space above the work. */
+.hero { padding: calc(var(--block) * 0.8) var(--pad) calc(var(--block) * 0.5); }
+.hero-name {
+  font-size: clamp(1.9rem, 6vw, 4.5rem);
+  line-height: 0.95;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  text-transform: none;
+}
+
+/*
+ * Characters split for the proximity scramble. The script fixes each one to its
+ * own glyph's width, so the substituted asterisk cannot change the word's length,
+ * and scales the asterisk to fit that box (`--x`), so it neither runs into its
+ * neighbours behind a narrow letter nor floats loose behind a wide one.
+ */
+.sc { display: inline-block; white-space: pre; text-align: center; vertical-align: bottom; }
+.sc.is-x { transform: scale(var(--x, 1)); }
+
+.page-head { padding: var(--block) var(--pad) calc(var(--block) * 0.5); }
+.page-head h1 { font-size: clamp(1.5rem, 3.2vw, 2.25rem); line-height: 1.05; font-weight: 500; }
+.page-intro { max-width: var(--measure); color: var(--ink-soft); margin: 0.4rem 0 0; }
+
+.zoom { display: flex; align-items: center; gap: 0.45rem; margin-top: 0.9rem; }
+.zoom-label { color: var(--ink-faint); margin-right: 0.15rem; }
+.zoom-step {
+  font: inherit; font-size: 10px; letter-spacing: 0.07em;
+  background: none; border: 0; padding: 0.15rem 0.1rem; cursor: pointer;
+  color: var(--ink-faint); border-bottom: 1px solid transparent;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.zoom-step:hover { color: var(--ink); }
+.zoom-step.is-active { color: var(--ink); border-bottom-color: var(--ink); }

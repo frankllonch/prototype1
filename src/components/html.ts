@@ -14,15 +14,15 @@ const ESCAPES: Record<string, string> = {
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 };
 
-export const escape = (value: string): string => value.replace(/[&<>"']/g, (c) => ESCAPES[c]!);
+const escape = (value: string): string => value.replace(/[&<>"']/g, (c) => ESCAPES[c]!);
 
 /** Wraps a trusted string (e.g. sanitised WordPress rich text) without escaping. */
 export const raw = (value: string): Html => ({ __html: value });
 
-export const isHtml = (value: unknown): value is Html =>
+const isHtml = (value: unknown): value is Html =>
   typeof value === 'object' && value !== null && '__html' in value;
 
-export type Renderable = Html | string | number | false | null | undefined | readonly Renderable[];
+type Renderable = Html | string | number | false | null | undefined | readonly Renderable[];
 
 function render(value: Renderable): string {
   if (value === null || value === undefined || value === false) return '';
@@ -43,7 +43,6 @@ export function html(strings: TemplateStringsArray, ...values: Renderable[]): Ht
   return { __html: out };
 }
 
-export const toString = (value: Html): string => value.__html;
 
 /** Joins a list of components with an optional separator. */
 export const join = (items: readonly Renderable[], separator = ''): Html =>

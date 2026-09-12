@@ -1,0 +1,104 @@
+/*
+ * A contact sheet, not a grid.
+ *
+ * Each tile is sized so every work occupies the same *area*: width is
+ * `√aspect × unit`, so height is `unit / √aspect` and the product is always
+ * `unit²`. A wide canvas comes out broad and short, a tall one narrow and tall,
+ * and both carry the same visual weight — which is what lets 154 paintings of
+ * eleven different proportions sit together without any one dominating.
+ *
+ * `--k` (the square root) is computed at build time; `--unit` is the only thing
+ * the zoom control touches, so changing density animates every tile by writing a
+ * single custom property.
+ */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--gap);
+  padding: 0 var(--pad) var(--block);
+}
+.band .gallery { padding: 0; }
+
+.tile {
+  position: relative;
+  display: block;
+  width: calc(var(--k) * var(--unit));
+  /* Never let flex shrink a tile below its computed area — that would break the
+     equal-area rule the whole sheet depends on. */
+  flex: 0 0 auto;
+  /*
+   * The transition is on `width`, not on `--unit`. Animating the custom property
+   * would make the final size *depend* on the animation completing — and a
+   * transition that never runs would leave every tile at the old size. This way
+   * the new width applies instantly and the animation is only decoration.
+   */
+  transition: width 0.5s var(--ease), opacity 0.4s var(--ease);
+}
+.tile[hidden] { display: none; }
+.tile-image { background: var(--paper-deep); }
+
+/* Dim the rest of the sheet while one work is under the pointer. */
+.gallery:has(.tile:hover) .tile:not(:hover) { opacity: 0.45; }
+
+.tile-caption { display: block; padding: 0.3rem 0 0; }
+.tile-title { display: block; font-size: 11px; line-height: 1.2; }
+.tile-meta { display: block; color: var(--ink-faint); margin-top: 0.1rem; }
+
+/* On a precise pointer the title lives in the cursor, so the caption is hidden —
+   except on keyboard focus, where there is no cursor to read. */
+@media (hover: hover) and (pointer: fine) {
+  .tile-caption { position: absolute; left: 0; top: 100%; width: max-content; max-width: 16rem;
+    opacity: 0; transition: opacity 0.2s var(--ease); }
+  .tile:focus-visible .tile-caption { opacity: 1; }
+}
+
+/* Two per row on a phone, whatever the zoom level. */
+@media (max-width: 599px) {
+  .gallery { align-items: flex-start; }
+  .tile { width: calc(50% - var(--gap) / 2); }
+  .tile-medium { display: none; }
+}
+
+/*
+ * Year readout, after the iOS photo library. Nothing interrupts the sheet: the
+ * year of whatever is at the top of the viewport floats over it while you scroll
+ * and fades once you stop, so ten years read as one continuous surface.
+ */
+.year-float {
+  position: fixed;
+  top: calc(var(--bar) + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 45;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+}
+.year-float.is-visible.is-scrolling { opacity: 1; }
+.year-float span {
+  display: inline-block;
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  color: var(--paper);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Staggered entry. Tiles fade and lift as they scroll in, each a beat after the
+ * one before, so a dense sheet resolves in a wave instead of snapping into place.
+ * `--i` cycles 0–13 so a tile far down the page never waits half a second.
+ */
+.js .tile { opacity: 0; transform: translateY(10px); }
+.js .tile.is-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.7s var(--ease) calc(var(--i, 0) * 28ms),
+    transform 0.7s var(--ease) calc(var(--i, 0) * 28ms),
+    width 0.5s var(--ease);
+}
+.js .gallery:has(.tile:hover) .tile.is-in:not(:hover) { transition: opacity 0.25s var(--ease); }

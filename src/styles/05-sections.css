@@ -1,0 +1,41 @@
+/* Homepage sections share one shell so the rhythm stays identical. */
+.band { padding: var(--block) var(--pad); border-top: 1px solid var(--rule); scroll-margin-top: var(--bar); }
+.band-recent { border-top: 0; padding-top: 0; }
+.band-head { margin-bottom: var(--pad); }
+.band-head-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.band-title { font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; }
+.band-intro { max-width: var(--measure); color: var(--ink-soft); margin: 0.35rem 0 0; }
+.band-more { color: var(--ink-faint); white-space: nowrap; }
+.band-more:hover { color: var(--ink); }
+
+/* ------------------------------------------------------------ index grid */
+
+.index-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: var(--pad);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+}
+.index-card a { display: block; }
+.index-card img { width: 100%; height: auto; }
+.index-meta { display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline; padding-top: 0.35rem; }
+.index-title { font-size: 11px; line-height: 1.25; }
+.index-year { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.index-card a:hover .index-title { text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---------------------------------------------------------- colour chart */
+
+.chart { display: grid; gap: var(--pad); }
+@media (min-width: 900px) { .chart { grid-template-columns: 1.1fr 1fr; align-items: start; } }
+.chart-plates { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+.chart-text { max-width: none; }
+@media (min-width: 900px) { .chart-text { font-size: 12.5px; } }
+
+/* ------------------------------------------------------------- inquiries */
+
+.inquiries-line { max-width: var(--measure); color: var(--ink-soft); }
+.inquiries-list { list-style: none; margin: var(--pad) 0 0; padding: 0; display: grid; gap: 0.5rem; max-width: 36rem; }
+.inquiries-list li { display: grid; grid-template-columns: 9rem 1fr; gap: 0.75rem; align-items: baseline;
+  border-top: 1px solid var(--rule); padding-top: 0.45rem; font-size: 12px; }
+.inquiries-list .label { color: var(--ink-faint); }
+.inquiries-list a { border-bottom: 1px solid var(--rule); }
+.inquiries-list a:hover { border-color: currentColor; }

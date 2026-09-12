@@ -16,7 +16,7 @@
 export type ColumnSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 /** One rendered size of an image, produced by the build-time image pipeline. */
-export interface ImageVariant {
+interface ImageVariant {
   readonly width: number;
   readonly url: string;
 }
@@ -64,11 +64,11 @@ export interface ProjectMetadata {
 }
 
 /**
- * `work`      — a single painting (WordPress `portfolio` post type)
- * `project`   — a collaboration / commission (WordPress page under /projects/)
- * `editorial` — a long-form page (About, Colour Chart, Exhibitions)
+ * `work`    — a single painting (WordPress `portfolio` post type)
+ * `project` — a collaboration / commission (WordPress page under /projects/)
+ * `page`    — a long-form page (About, Colour Chart, Exhibitions)
  */
-export type ProjectKind = 'work' | 'project' | 'editorial';
+export type ProjectKind = 'work' | 'project' | 'page';
 
 export interface Project {
   readonly slug: string;
@@ -92,8 +92,3 @@ export interface Dataset {
   readonly sourceSite: string;
   readonly projects: readonly Project[];
 }
-
-/** Narrowing helpers — used by the templates so they never test on strings inline. */
-export const isWork = (p: Project): boolean => p.kind === 'work';
-export const isProject = (p: Project): boolean => p.kind === 'project';
-export const isEditorial = (p: Project): boolean => p.kind === 'editorial';

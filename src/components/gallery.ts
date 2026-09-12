@@ -5,7 +5,7 @@ import type { Dictionary, Locale } from '../content/i18n.ts';
 import { localePath } from '../content/i18n.ts';
 import type { Project } from '../content/types.ts';
 
-export interface GalleryProps {
+interface GalleryProps {
   readonly items: readonly Project[];
   /** Base path for item links, e.g. `/works` (locale prefix applied here). */
   readonly basePath: string;
@@ -32,13 +32,13 @@ export interface GalleryProps {
  *
  * Derived from a ~1400×800 viewport with ~15% lost to gaps: visible ≈ 950_000 / unit²
  */
-export const ZOOM_LEVELS = [
+const ZOOM_LEVELS = [
   { unit: 200, visible: 24 },
   { unit: 126, visible: 60 },
   { unit: 78, visible: 154 },
 ] as const;
 
-export const DEFAULT_ZOOM = 1;
+const DEFAULT_ZOOM = 1;
 
 /**
  * Metadata is mirrored onto the tile as data attributes so the lightbox can build

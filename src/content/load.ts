@@ -69,17 +69,16 @@ export const collaborations: readonly Project[] = [...by('project')].sort(
   (a, b) => (b.metadata.year ?? 0) - (a.metadata.year ?? 0),
 );
 
-export const editorialPages: readonly Project[] = by('editorial');
+const pages: readonly Project[] = by('page');
 
-export const findEditorial = (slug: string): Project | undefined =>
-  editorialPages.find((p) => p.slug === slug);
+/** A long-form page by its source slug: `about`, `colour-chart`, `whats-color-exhibitions`. */
+export const findPage = (slug: string): Project | undefined => pages.find((p) => p.slug === slug);
 
 /** Distinct years present in the work, newest first — drives the gallery filter. */
 export const workYears: readonly number[] = [
   ...new Set(works.map((w) => w.metadata.year).filter((y): y is number => typeof y === 'number')),
 ].sort((a, b) => b - a);
 
-export const availableWorks: readonly Project[] = works.filter((w) => w.metadata.available);
 
 export const extractedAt = dataset.extractedAt;
 export const sourceSite = dataset.sourceSite;

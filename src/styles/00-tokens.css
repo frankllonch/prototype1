@@ -1,0 +1,68 @@
+/*
+ * Claudia Valsells — stylesheet
+ *
+ * The work is the colour, so the interface has none: a warm paper ground, ink
+ * type, Inter throughout. Compact and utilitarian — the chrome is a thin rule at
+ * the top and a caption in the cursor; everything else is artwork.
+ *
+ * Files under src/styles/ are concatenated in name order at build time.
+ *
+ * Inter is self-hosted and subset to Latin-1 + Latin Extended-A + typographic
+ * punctuation, which covers English, Catalan and Spanish (l·l, ç, à/è/í/ò/ú/ü):
+ *
+ *   pyftsubset inter-<style>.woff2 --flavor=woff2 --no-hinting --desubroutinize \
+ *     --layout-features='kern,liga,clig,calt,tnum' \
+ *     --unicodes='U+0020-007E,U+00A0-00FF,U+0100-017F,U+00B7,U+00D7,U+2013-2014,U+2018-201A,U+201C-201E,U+2026'
+ */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-normal.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-italic.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/*
+ * Registered so the browser treats them as typed values: `--unit` becomes an
+ * interpolatable <length>, and `width: calc(--k * --unit)` reliably recomputes
+ * when it changes (with an unregistered property it does not).
+ */
+@property --unit { syntax: '<length>'; inherits: true; initial-value: 126px; }
+@property --k { syntax: '<number>'; inherits: false; initial-value: 1; }
+
+:root {
+  color-scheme: light;
+
+  --paper: #f3f0ea;
+  --paper-deep: #eae6de;
+  --ink: #16150f;       /* 16.1:1 on paper */
+  --ink-soft: #524c42;  /*  7.5:1 — secondary prose */
+  --ink-faint: #736b5e; /*  4.6:1 — metadata; the floor for anything readable */
+  --rule: #d5cec1;      /* hairlines only, never text */
+
+  --sans: 'Inter', ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+
+  --bar: 40px;                          /* fixed header height */
+  --pad: clamp(0.75rem, 1.6vw, 1.5rem); /* page gutter */
+  --gap: clamp(5px, 0.6vw, 9px);        /* contact-sheet gap */
+  --block: clamp(1.75rem, 3.5vw, 3rem); /* space between sections */
+  --measure: 36rem;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /*
+   * One blur for every overlay, kept light. Legibility comes from the veil's
+   * opacity, not the blur — raising the blur to compensate is what made it read
+   * as a filter rather than a plane.
+   */
+  --veil-blur: 8px;
+  --veil: color-mix(in srgb, var(--paper) 84%, transparent);
+}

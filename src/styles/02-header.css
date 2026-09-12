@@ -1,0 +1,51 @@
+/*
+ * One fixed rule across the top, after nr.world. No background, no blur: white
+ * text in `difference` blend mode inverts against whatever is behind it — near
+ * black over the paper ground, white over a dark photograph — so the bar never
+ * needs a plate of its own and never hides a millimetre of artwork.
+ */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 2rem);
+  height: var(--bar);
+  padding: 0 var(--pad);
+  color: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+.site-header > * { pointer-events: auto; }
+
+.wordmark { font-weight: 500; letter-spacing: 0.02em; white-space: nowrap; text-transform: none; font-size: 11px; }
+
+.site-nav { display: flex; gap: clamp(0.7rem, 1.6vw, 1.6rem); margin-inline: auto 0; }
+.site-nav a { opacity: 0.62; transition: opacity 0.2s var(--ease); white-space: nowrap; }
+.site-nav a:hover, .site-nav a[aria-current] { opacity: 1; }
+
+.header-end { display: flex; gap: clamp(0.7rem, 1.6vw, 1.4rem); }
+.header-link { opacity: 0.62; transition: opacity 0.2s var(--ease); white-space: nowrap; }
+.header-link:hover { opacity: 1; }
+.lang-switch::before { content: '+ '; }
+
+.nav-toggle {
+  display: none; background: none; border: 0; padding: 0; cursor: pointer;
+  color: inherit; font: inherit; letter-spacing: 0.07em; text-transform: uppercase;
+  margin-inline: auto 0;
+}
+
+/*
+ * Below 900px the sections cannot share the bar. The nav drops into a panel —
+ * but only once `nav-js` is set, so a scriptless browser keeps every link on
+ * screen instead of behind a button that cannot open.
+ */
+@media (max-width: 899px) {
+  .site-header { flex-wrap: wrap; height: auto; min-height: var(--bar); padding-block: 0.5rem; row-gap: 0.5rem; }
+  .site-nav { flex-basis: 100%; flex-wrap: wrap; margin: 0; gap: 0.75rem; }
+  .header-end { margin-inline: auto 0; }
+  .nav-js .nav-toggle { display: block; }
+  .nav-js .site-nav { display: none; }
+  .nav-js .site-nav.is-open { display: flex; }
+}

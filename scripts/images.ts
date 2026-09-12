@@ -24,7 +24,7 @@ const MAP_FILE = path.join(ROOT, 'content', 'images.json');
 const WIDTHS = [400, 800, 1600] as const;
 const CONCURRENCY = 4;
 
-export interface ImageManifestEntry {
+interface ImageManifestEntry {
   avif: { width: number; url: string }[];
   webp: { width: number; url: string }[];
   fallback: string;

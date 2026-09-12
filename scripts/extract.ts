@@ -117,7 +117,7 @@ function imageFrom(holder: HTMLElement): ProjectImage | null {
   };
 }
 
-/** Strips theme chrome from a text column, keeping only editorial markup. */
+/** Strips theme chrome from a text column, keeping only the writing's own markup. */
 function textHtml(container: HTMLElement): string {
   const clone = parse(container.innerHTML);
   for (const el of clone.querySelectorAll('.krown-image-holder, script, style, noscript')) el.remove();
@@ -276,8 +276,9 @@ async function extractOne(url: string, kind: ProjectKind): Promise<Project | nul
 
 // ---------------------------------------------------------------- main
 
-const EDITORIAL = new Set(['about', 'colour-chart', 'whats-color-exhibitions']);
-/** Pages that are theme plumbing or commerce, not editorial content. */
+/** Long-form pages, as opposed to the collaboration pages under /projects/. */
+const LONGFORM = new Set(['about', 'colour-chart', 'whats-color-exhibitions']);
+/** Pages that are theme plumbing or commerce, not content. */
 const SKIP = new Set(['index', 'carrito', 'finalizar-compra', 'contacto', 'artwork', 'projects', '4824-2', 'available-works', 'claudiavalsells.com']);
 
 async function main() {
@@ -294,7 +295,7 @@ async function main() {
       .filter((url) => !SKIP.has(slugFrom(url)))
       .map((url) => ({
         url,
-        kind: (EDITORIAL.has(slugFrom(url)) ? 'editorial' : 'project') as ProjectKind,
+        kind: (LONGFORM.has(slugFrom(url)) ? 'page' : 'project') as ProjectKind,
       })),
   ];
 

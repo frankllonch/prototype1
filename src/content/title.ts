@@ -1,5 +1,7 @@
 import { dict, type Locale } from './i18n.ts';
 
+import type { ProjectKind } from './types.ts';
+
 /**
  * Presentation titles.
  *
@@ -33,7 +35,7 @@ const isShouting = (value: string): boolean => value === value.toUpperCase() && 
 
 export function displayTitle(
   rawTitle: string,
-  kind: 'work' | 'project' | 'editorial',
+  kind: ProjectKind,
   locale: Locale = 'en',
 ): string {
   let title = rawTitle.replace(/[‘’'"“”]{2}/g, '').trim();
@@ -43,7 +45,7 @@ export function displayTitle(
     title = title.replace(/[,\s]*\d+(?:[.,]\d+)?\s*[x×]\s*\d+(?:[.,]\d+)?\s*(?:cm|mm|m)?\.?$/i, '');
   }
 
-  if (kind !== 'editorial') {
+  if (kind !== 'page') {
     // A lone trailing year is shown in its own column everywhere it matters.
     // A range ("2019-2020", "2023-on going") is part of the title and stays.
     title = title.replace(/[,\s]+(?:19|20)\d{2}$/, '');
