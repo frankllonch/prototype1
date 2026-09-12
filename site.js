@@ -70,6 +70,21 @@ function initCursor() {
     });
 }
 /* ---------------------------------------------------------------- reveals */
+/**
+ * Whether an element is *provably* below the fold.
+ *
+ * Deliberately one-sided: it answers "can I prove this is off-screen?", not "is
+ * this on-screen?". A tab that has not painted yet reports every rect as zero, and
+ * the naive test (`bottom > 0`) reads that as "off-screen" and hides the entire
+ * page. A zero-height box means layout is unknown, so the honest answer is no —
+ * show it. Content is only ever withheld from a reveal we are sure they cannot see.
+ */
+function isOffscreen(el) {
+    const box = el.getBoundingClientRect();
+    if (box.height === 0)
+        return false;
+    return box.top >= window.innerHeight || box.bottom <= 0;
+}
 function initReveals() {
     const targets = document.querySelectorAll('.reveal, .tile');
     if (!targets.length)
@@ -96,12 +111,11 @@ function initReveals() {
      * empty page. Everything below the fold still animates in on scroll.
      */
     for (const el of targets) {
-        const box = el.getBoundingClientRect();
-        if (box.top < window.innerHeight && box.bottom > 0) {
-            el.classList.add('is-in');
-            observer.unobserve(el);
-            revealed++;
-        }
+        if (isOffscreen(el))
+            continue;
+        el.classList.add('is-in');
+        observer.unobserve(el);
+        revealed++;
     }
     /*
      * Safety net. The entry animation is decoration, but it hides its own content
@@ -117,8 +131,7 @@ function initReveals() {
             return;
         }
         for (const el of targets) {
-            const box = el.getBoundingClientRect();
-            if (box.top < window.innerHeight && box.bottom > 0)
+            if (!isOffscreen(el))
                 el.classList.add('is-in');
         }
     }, 2500);
