@@ -1,21 +1,424 @@
 /**
- * The site's only client-side code: a title cursor, scroll reveals, a sticky
- * header state and the gallery filter. No framework, no dependencies, ~150 lines.
+ * The site's only client-side code. No framework, no dependencies.
  *
- * Everything here is an enhancement. The pages are complete and navigable with
- * this file blocked; nothing renders or links through JavaScript.
+ * Everything here is an enhancement: the pages are complete and navigable with
+ * this file blocked. Section links are real anchors, artwork tiles are real links,
+ * and exhibition panels are real elements reachable by their own `#` fragment.
  */
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-/* ----------------------------------------------------------------- cursor */
+/* --------------------------------------------------------------- scramble */
 /**
- * A label that follows the pointer and names whatever is under it.
+ * Proximity scramble on titles: characters near the pointer show `*` and snap
+ * back, the nearer ones holding longer, so a word resolves as a ripple.
  *
- * The title is read from `data-cursor-title`, which mirrors text already present
- * in the tile's caption — so the cursor is decoration, never the only way to
- * learn what a work is. Keyboard users get the caption revealed on focus, and
- * coarse pointers get it permanently.
+ * Characters are armed **only when the pointer moves**, never from inside the
+ * animation loop. Re-arming each frame is what made the earlier version jitter:
+ * the loop kept extending its own deadlines, so nothing ever settled and the text
+ * shimmered for as long as the cursor rested anywhere near it. The loop now only
+ * *resolves* deadlines and stops the moment none are left.
+ *
+ * A character shows a steady `*` rather than a random glyph each frame — one
+ * substitution, held, then gone. That is what keeps it calm instead of flickering.
  */
+function initScramble() {
+    const roots = document.querySelectorAll('[data-scramble]');
+    if (!roots.length || reduceMotion.matches || !finePointer.matches)
+        return;
+    const RADIUS = 80;
+    const HOLD = 260; // ms held by a character directly under the pointer
+    const chars = [];
+    for (const root of roots) {
+        const text = root.textContent ?? '';
+        root.textContent = '';
+        for (const character of text) {
+            const span = document.createElement('span');
+            span.className = 'sc';
+            span.textContent = character;
+            if (character.trim()) {
+                span.dataset.ch = character;
+                chars.push(span);
+            }
+            root.append(span);
+        }
+    }
+    if (!chars.length)
+        return;
+    const deadline = new Map();
+    let frame = 0;
+    const resolve = () => {
+        const now = performance.now();
+        for (const [span, at] of deadline) {
+            if (now >= at) {
+                span.textContent = span.dataset.ch;
+                deadline.delete(span);
+            }
+        }
+        frame = deadline.size ? requestAnimationFrame(resolve) : 0;
+    };
+    let lastArm = 0;
+    const arm = (pointerX, pointerY) => {
+        const now = performance.now();
+        // Clear anything already due here as well, so a frozen animation frame can
+        // never leave a character stuck showing an asterisk.
+        for (const [span, at] of deadline) {
+            if (now >= at) {
+                span.textContent = span.dataset.ch;
+                deadline.delete(span);
+            }
+        }
+        for (const span of chars) {
+            const box = span.getBoundingClientRect();
+            // Skip anything scrolled out of view rather than measuring all of them.
+            if (box.bottom < 0 || box.top > window.innerHeight)
+                continue;
+            const dx = pointerX - (box.left + box.width / 2);
+            const dy = pointerY - (box.top + box.height / 2);
+            const distance = Math.hypot(dx, dy);
+            if (distance >= RADIUS)
+                continue;
+            const until = now + HOLD * (1 - distance / RADIUS);
+            // Only ever extend a deadline, so a character cannot be yanked back early.
+            if ((deadline.get(span) ?? 0) < until) {
+                deadline.set(span, until);
+                span.textContent = '*';
+            }
+        }
+        if (deadline.size && !frame)
+            frame = requestAnimationFrame(resolve);
+    };
+    document.addEventListener('pointermove', (event) => {
+        if (event.pointerType !== 'mouse')
+            return;
+        // Throttled on the clock rather than on an animation frame: arming is cheap
+        // and must not depend on a frame callback that a background tab withholds.
+        const now = performance.now();
+        if (now - lastArm < 16)
+            return;
+        lastArm = now;
+        arm(event.clientX, event.clientY);
+    }, { passive: true });
+}
+/* ------------------------------------------------------------ section nav */
+/**
+ * Smooth scrolling between homepage sections, and the same links working as
+ * ordinary navigation from the artwork page. Uses the platform's own smooth
+ * scroll; there is no animation code here to go wrong.
+ */
+function initSectionNav() {
+    const links = document.querySelectorAll('[data-section]');
+    const sections = [...document.querySelectorAll('.band[id]')];
+    for (const link of links) {
+        link.addEventListener('click', (event) => {
+            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)
+                return;
+            const id = link.dataset.section;
+            const target = document.getElementById(id);
+            if (!target)
+                return; // another page: let the link navigate home
+            event.preventDefault();
+            target.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+            history.replaceState(null, '', `#${id}`);
+        });
+    }
+    // Mark the section currently in view, so the bar always says where you are.
+    if (!sections.length || !('IntersectionObserver' in window))
+        return;
+    const byId = new Map([...links].map((l) => [l.dataset.section, l]));
+    const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+            if (!entry.isIntersecting)
+                continue;
+            for (const l of links)
+                l.removeAttribute('aria-current');
+            byId.get(entry.target.id)?.setAttribute('aria-current', 'true');
+        }
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach((s) => observer.observe(s));
+}
+/* ------------------------------------------------------------- year float */
+/**
+ * The year readout, after the iOS photo library: nothing interrupts the grid;
+ * the year of whatever is at the top of the viewport floats over it while you
+ * scroll, and fades once you stop.
+ */
+function initYearFloat() {
+    const float = document.querySelector('[data-year-float]');
+    const galleryEl = document.querySelector('[data-track-years]');
+    const out = float?.querySelector('span');
+    if (!float || !galleryEl || !out)
+        return;
+    const tiles = [...galleryEl.querySelectorAll('.tile')];
+    if (!tiles.length)
+        return;
+    let frame = 0;
+    let idle = 0;
+    let shown = '';
+    const update = () => {
+        frame = 0;
+        const probe = window.innerHeight * 0.18;
+        let year = '';
+        for (const tile of tiles) {
+            if (tile.getBoundingClientRect().bottom >= probe) {
+                year = tile.dataset.year ?? '';
+                break;
+            }
+        }
+        if (year && year !== shown) {
+            shown = year;
+            out.textContent = year;
+        }
+        float.classList.toggle('is-visible', Boolean(year));
+    };
+    window.addEventListener('scroll', () => {
+        if (!frame)
+            frame = requestAnimationFrame(update);
+        float.classList.add('is-scrolling');
+        window.clearTimeout(idle);
+        idle = window.setTimeout(() => float.classList.remove('is-scrolling'), 900);
+    }, { passive: true });
+    update();
+}
+/* ------------------------------------------------------------------- zoom */
+/** Density control: one custom property resizes all 154 tiles. */
+function initZoom() {
+    const steps = document.querySelectorAll('.zoom-step');
+    const galleryEl = document.querySelector('[data-gallery]');
+    if (!steps.length || !galleryEl)
+        return;
+    const KEY = 'cv:zoom';
+    const apply = (unit, persist) => {
+        galleryEl.style.setProperty('--unit', `${unit}px`);
+        for (const step of steps) {
+            const active = step.dataset.unit === unit;
+            step.classList.toggle('is-active', active);
+            step.setAttribute('aria-pressed', String(active));
+        }
+        if (persist) {
+            try {
+                localStorage.setItem(KEY, unit);
+            }
+            catch { /* private mode */ }
+        }
+    };
+    for (const step of steps)
+        step.addEventListener('click', () => apply(step.dataset.unit ?? '126', true));
+    try {
+        const saved = localStorage.getItem(KEY);
+        if (saved && [...steps].some((s) => s.dataset.unit === saved))
+            apply(saved, false);
+    }
+    catch { /* keep the default */ }
+}
+/* --------------------------------------------------------------- lightbox */
+/**
+ * A painting opens over the contact sheet: the grid stays put, blurred, and you
+ * move between works without a page load.
+ *
+ * One transition per action, and only one in flight. Every navigation takes a
+ * ticket; when the fade-out finishes, the swap happens only if that ticket is
+ * still the current one. A second click simply issues a new ticket, so the older
+ * one lapses instead of racing it — which is what previously made the plate jump
+ * back and forth or animate in the wrong direction.
+ *
+ * History: opening pushes one entry, moving between works replaces it. Back
+ * therefore leaves the lightbox in a single press rather than walking back
+ * through every painting you looked at.
+ */
+function initLightbox() {
+    const box = document.querySelector('[data-lightbox]');
+    const galleryEl = document.querySelector('[data-lightbox-source]');
+    if (!box || !galleryEl)
+        return;
+    const plate = box.querySelector('[data-lightbox-plate]');
+    const titleEl = box.querySelector('[data-lightbox-title]');
+    const countEl = box.querySelector('[data-lightbox-count]');
+    const metaEl = box.querySelector('[data-lightbox-meta]');
+    const prevBtn = box.querySelector('[data-lightbox-prev]');
+    const nextBtn = box.querySelector('[data-lightbox-next]');
+    const tiles = () => [...galleryEl.querySelectorAll('.tile')].filter((t) => !t.hidden);
+    const FADE = 200;
+    let current = -1;
+    let ticket = 0;
+    let pending = 0;
+    let openedAt = '';
+    const fill = (tile, index, total) => {
+        const picture = tile.querySelector('picture');
+        if (picture) {
+            const clone = picture.cloneNode(true);
+            clone.classList.remove('tile-image');
+            // `sizes` is a width, so it must be expressed as one; the height cap is CSS.
+            for (const source of clone.querySelectorAll('source'))
+                source.setAttribute('sizes', '(max-width: 900px) 92vw, 46vw');
+            const img = clone.querySelector('img');
+            if (img) {
+                img.setAttribute('sizes', '(max-width: 900px) 92vw, 46vw');
+                img.loading = 'eager';
+                img.removeAttribute('fetchpriority');
+            }
+            plate.replaceChildren(clone);
+        }
+        const d = tile.dataset;
+        titleEl.textContent = d.title ?? '';
+        countEl.textContent = (countEl.dataset.template ?? '{n} / {total}')
+            .replace('{n}', String(index + 1))
+            .replace('{total}', String(total));
+        const facts = [d.dimensions, d.materials, d.year];
+        if (d.available === 'true')
+            facts.push(box.dataset.availableLabel ?? '');
+        metaEl.replaceChildren(...facts.filter(Boolean).map((fact) => {
+            const li = document.createElement('span');
+            li.textContent = fact;
+            return li;
+        }));
+    };
+    const show = (index, animate) => {
+        const list = tiles();
+        if (!list.length)
+            return;
+        const wrapped = (index + list.length) % list.length;
+        if (wrapped === current && animate)
+            return;
+        const tile = list[wrapped];
+        current = wrapped;
+        const href = tile.getAttribute('href');
+        if (href)
+            history.replaceState({ lightbox: true }, '', href);
+        const mine = ++ticket;
+        if (!animate || reduceMotion.matches) {
+            fill(tile, wrapped, list.length);
+            box.classList.remove('is-changing');
+            return;
+        }
+        box.classList.add('is-changing');
+        window.clearTimeout(pending);
+        pending = window.setTimeout(() => {
+            if (mine !== ticket)
+                return; // a newer navigation won; drop this one
+            fill(tile, wrapped, list.length);
+            box.classList.remove('is-changing');
+        }, FADE);
+    };
+    const open = (tile) => {
+        openedAt = location.pathname + location.search;
+        box.hidden = false;
+        document.body.classList.add('is-locked');
+        const list = tiles();
+        current = -1;
+        show(list.indexOf(tile), false);
+        requestAnimationFrame(() => box.classList.add('is-open'));
+        history.pushState({ lightbox: true }, '', tile.getAttribute('href') ?? location.href);
+        nextBtn.focus({ preventScroll: true });
+    };
+    const close = (restore) => {
+        if (box.hidden)
+            return;
+        ticket++;
+        window.clearTimeout(pending);
+        box.classList.remove('is-open', 'is-changing');
+        document.body.classList.remove('is-locked');
+        window.setTimeout(() => { box.hidden = true; plate.replaceChildren(); }, 260);
+        if (restore && openedAt)
+            history.replaceState({}, '', openedAt);
+        tiles()[current]?.focus({ preventScroll: true });
+    };
+    galleryEl.addEventListener('click', (event) => {
+        const tile = event.target.closest('.tile');
+        if (!tile || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)
+            return;
+        event.preventDefault();
+        open(tile);
+    });
+    prevBtn.addEventListener('click', () => show(current - 1, true));
+    nextBtn.addEventListener('click', () => show(current + 1, true));
+    box.querySelector('[data-lightbox-close]')?.addEventListener('click', () => close(true));
+    box.querySelector('[data-lightbox-veil]')?.addEventListener('click', () => close(true));
+    document.addEventListener('keydown', (event) => {
+        if (box.hidden)
+            return;
+        if (event.key === 'Escape')
+            close(true);
+        else if (event.key === 'ArrowLeft')
+            show(current - 1, true);
+        else if (event.key === 'ArrowRight')
+            show(current + 1, true);
+    });
+    let startX = 0;
+    let startY = 0;
+    box.addEventListener('touchstart', (e) => {
+        startX = e.changedTouches[0].clientX;
+        startY = e.changedTouches[0].clientY;
+    }, { passive: true });
+    box.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - startX;
+        const dy = e.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy))
+            show(current + (dx < 0 ? 1 : -1), true);
+    }, { passive: true });
+    window.addEventListener('popstate', () => { if (!box.hidden)
+        close(false); });
+}
+/* ------------------------------------------------------- exhibition panel */
+/**
+ * An exhibition opens above the homepage, which stays visible and softly blurred
+ * behind it. The panels are already in the page — this only raises one — so there
+ * is no fetch, no page load and nothing to wait for.
+ */
+function initPanels() {
+    const panels = [...document.querySelectorAll('[data-panel]')];
+    const veil = document.querySelector('[data-panel-veil]');
+    if (!panels.length || !veil)
+        return;
+    let open = null;
+    const close = (restore) => {
+        if (!open)
+            return;
+        open.classList.remove('is-open');
+        open = null;
+        veil.hidden = true;
+        document.body.classList.remove('is-locked', 'is-behind-panel');
+        if (restore)
+            history.replaceState(null, '', location.pathname + location.search);
+    };
+    const show = (slug) => {
+        const panel = document.getElementById(`exhibition-${slug}`);
+        if (!panel)
+            return;
+        if (open && open !== panel)
+            open.classList.remove('is-open');
+        open = panel;
+        veil.hidden = false;
+        panel.classList.add('is-open');
+        panel.scrollTop = 0;
+        document.body.classList.add('is-locked', 'is-behind-panel');
+        panel.querySelector('[data-panel-close]')?.focus({ preventScroll: true });
+    };
+    for (const trigger of document.querySelectorAll('[data-exhibition]')) {
+        trigger.addEventListener('click', (event) => {
+            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)
+                return;
+            event.preventDefault();
+            history.replaceState(null, '', `#exhibition-${trigger.dataset.exhibition}`);
+            show(trigger.dataset.exhibition);
+        });
+    }
+    for (const panel of panels) {
+        panel.querySelector('[data-panel-close]')?.addEventListener('click', (event) => {
+            event.preventDefault();
+            close(true);
+        });
+    }
+    veil.addEventListener('click', () => close(true));
+    document.addEventListener('keydown', (event) => {
+        if (open && event.key === 'Escape')
+            close(true);
+    });
+    // Arriving on a shared #exhibition-… link opens that one straight away.
+    const hash = /^#exhibition-(.+)$/.exec(location.hash);
+    if (hash)
+        show(hash[1]);
+}
+/* ----------------------------------------------------------------- cursor */
 function initCursor() {
     const cursor = document.querySelector('.cursor');
     const label = cursor?.querySelector('.cursor-label');
@@ -26,7 +429,6 @@ function initCursor() {
     let frame = 0;
     let placed = false;
     const tick = () => {
-        // Lerp toward the pointer; the lag is what makes it feel weighted.
         const ease = reduceMotion.matches ? 1 : 0.18;
         x += (targetX - x) * ease;
         y += (targetY - y) * ease;
@@ -35,14 +437,11 @@ function initCursor() {
             ? requestAnimationFrame(tick)
             : 0;
     };
-    const schedule = () => { if (!frame)
-        frame = requestAnimationFrame(tick); };
     document.addEventListener('pointermove', (event) => {
         if (event.pointerType !== 'mouse')
             return;
         targetX = event.clientX;
         targetY = event.clientY;
-        // Start where the pointer already is, or the label swoops in from 0,0.
         if (!placed) {
             placed = true;
             x = targetX;
@@ -62,7 +461,8 @@ function initCursor() {
             active = false;
             cursor.classList.remove('is-visible');
         }
-        schedule();
+        if (!frame)
+            frame = requestAnimationFrame(tick);
     }, { passive: true });
     document.addEventListener('pointerleave', () => {
         active = false;
@@ -70,15 +470,8 @@ function initCursor() {
     });
 }
 /* ---------------------------------------------------------------- reveals */
-/**
- * Whether an element is *provably* below the fold.
- *
- * Deliberately one-sided: it answers "can I prove this is off-screen?", not "is
- * this on-screen?". A tab that has not painted yet reports every rect as zero, and
- * the naive test (`bottom > 0`) reads that as "off-screen" and hides the entire
- * page. A zero-height box means layout is unknown, so the honest answer is no —
- * show it. Content is only ever withheld from a reveal we are sure they cannot see.
- */
+/** Whether an element is *provably* below the fold. A zero-height box means
+ *  layout is unknown, so the honest answer is no — show it. */
 function isOffscreen(el) {
     const box = el.getBoundingClientRect();
     if (box.height === 0)
@@ -104,12 +497,8 @@ function initReveals() {
         }
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
     targets.forEach((el) => observer.observe(el));
-    /*
-     * Reveal what is already on screen, synchronously, right now. The first screen
-     * must not wait on an observer callback or a timer — both are throttled or
-     * suspended in a backgrounded tab, and a reader arriving there would find an
-     * empty page. Everything below the fold still animates in on scroll.
-     */
+    // The first screen must not wait on an observer callback, which is throttled in
+    // a backgrounded tab; a reader landing there would find an empty page.
     for (const el of targets) {
         if (isOffscreen(el))
             continue;
@@ -117,247 +506,18 @@ function initReveals() {
         observer.unobserve(el);
         revealed++;
     }
-    /*
-     * Safety net. The entry animation is decoration, but it hides its own content
-     * until it runs — so if the observer never fires (a throttled background tab
-     * that is later restored, an engine quirk, a mis-set root margin) the gallery
-     * would stay blank. After a beat, reveal anything on screen; if nothing at all
-     * has been revealed, assume the observer is not working and reveal everything.
-     */
     window.setTimeout(() => {
         if (revealed === 0) {
             targets.forEach((el) => el.classList.add('is-in'));
             observer.disconnect();
             return;
         }
-        for (const el of targets) {
+        for (const el of targets)
             if (!isOffscreen(el))
                 el.classList.add('is-in');
-        }
     }, 2500);
 }
-/* ----------------------------------------------------------------- header */
-function initHeader() {
-    const header = document.querySelector('.site-header');
-    if (!header)
-        return;
-    const sentinel = document.createElement('div');
-    sentinel.setAttribute('aria-hidden', 'true');
-    document.body.prepend(sentinel);
-    new IntersectionObserver(([entry]) => header.classList.toggle('is-stuck', !entry?.isIntersecting), { threshold: 1 }).observe(sentinel);
-}
-/* ---------------------------------------------------------------- filters */
-/**
- * Narrows the gallery in place. Tiles carry `data-year` / `data-available`, so
- * filtering is a class toggle: rows keep justifying themselves because each
- * tile's flex-grow is unchanged, and a row whose tiles are all hidden is hidden
- * along with the year marker above it.
- */
-function initFilters() {
-    const filters = document.querySelectorAll('.filter');
-    const galleryEl = document.querySelector('[data-gallery]');
-    if (!filters.length || !galleryEl)
-        return;
-    const rows = [...galleryEl.querySelectorAll('.gallery-row')];
-    const markers = [...galleryEl.querySelectorAll('.year-marker')];
-    const matches = (tile, value) => {
-        if (value === 'all')
-            return true;
-        if (value === 'available')
-            return tile.dataset.available === 'true';
-        return tile.dataset.year === value;
-    };
-    const apply = (value) => {
-        for (const row of rows) {
-            let visible = 0;
-            for (const tile of row.querySelectorAll('.tile')) {
-                const show = matches(tile, value);
-                tile.hidden = !show;
-                if (show)
-                    visible++;
-            }
-            row.hidden = visible === 0;
-        }
-        // A year marker only makes sense while more than one year is on screen.
-        for (const marker of markers) {
-            marker.hidden = value !== 'all' && marker.dataset.year !== value;
-        }
-        for (const button of filters) {
-            const isActive = button.dataset.filter === value;
-            button.classList.toggle('is-active', isActive);
-            button.setAttribute('aria-pressed', String(isActive));
-        }
-    };
-    for (const button of filters) {
-        button.addEventListener('click', () => apply(button.dataset.filter ?? 'all'));
-    }
-}
-/* --------------------------------------------------------------- scramble */
-/**
- * Proximity scramble. Characters near the pointer flicker to `*` and settle back,
- * the nearer ones taking longer to resolve, so the word ripples rather than
- * flipping all at once.
- *
- * Text is split into spans once, and the original character is kept on the span so
- * a scramble can always be undone — the DOM never loses the real word, which
- * matters for selection, search and screen readers (the element keeps its
- * accessible name because the characters are still there in order).
- */
-function initScramble() {
-    const roots = document.querySelectorAll('[data-scramble]');
-    if (!roots.length || reduceMotion.matches || !finePointer.matches)
-        return;
-    const RADIUS = 90;
-    const SETTLE = 520; // ms for a character right under the pointer
-    const chars = [];
-    for (const root of roots) {
-        const text = root.textContent ?? '';
-        root.textContent = '';
-        for (const character of text) {
-            const span = document.createElement('span');
-            span.className = 'sc';
-            span.textContent = character;
-            if (character.trim()) {
-                span.dataset.ch = character;
-                chars.push(span);
-            }
-            root.append(span);
-        }
-    }
-    if (!chars.length)
-        return;
-    const until = new WeakMap();
-    let pointer = null;
-    let frame = 0;
-    const tick = () => {
-        frame = 0;
-        const now = performance.now();
-        let active = false;
-        for (const span of chars) {
-            const done = until.get(span) ?? 0;
-            if (now < done) {
-                active = true;
-                // Flicker between the asterisk and the real glyph as it resolves.
-                span.textContent = Math.random() < 0.55 ? '*' : span.dataset.ch;
-            }
-            else if (span.textContent !== span.dataset.ch) {
-                span.textContent = span.dataset.ch;
-            }
-        }
-        if (pointer) {
-            for (const span of chars) {
-                const box = span.getBoundingClientRect();
-                const dx = pointer.x - (box.left + box.width / 2);
-                const dy = pointer.y - (box.top + box.height / 2);
-                const distance = Math.hypot(dx, dy);
-                if (distance < RADIUS) {
-                    const strength = 1 - distance / RADIUS;
-                    until.set(span, Math.max(until.get(span) ?? 0, now + SETTLE * strength));
-                    active = true;
-                }
-            }
-        }
-        if (active)
-            frame = requestAnimationFrame(tick);
-    };
-    document.addEventListener('pointermove', (event) => {
-        if (event.pointerType !== 'mouse')
-            return;
-        pointer = { x: event.clientX, y: event.clientY };
-        if (!frame)
-            frame = requestAnimationFrame(tick);
-    }, { passive: true });
-}
-/* ------------------------------------------------------------- year float */
-/**
- * The year readout, after the iOS photo library: the grid is never interrupted by
- * headings; instead the year of whatever is currently at the top of the viewport
- * floats over it while you scroll, and fades out once you stop.
- */
-function initYearFloat() {
-    const float = document.querySelector('[data-year-float]');
-    const galleryEl = document.querySelector('[data-track-years]');
-    const out = float?.querySelector('span');
-    if (!float || !galleryEl || !out)
-        return;
-    const tiles = [...galleryEl.querySelectorAll('.tile')];
-    if (!tiles.length)
-        return;
-    let frame = 0;
-    let idle = 0;
-    let shown = '';
-    const update = () => {
-        frame = 0;
-        // The first tile whose bottom is still below the top of the viewport wins.
-        const probe = window.innerHeight * 0.18;
-        let year = '';
-        for (const tile of tiles) {
-            const box = tile.getBoundingClientRect();
-            if (box.bottom >= probe) {
-                year = tile.dataset.year ?? '';
-                break;
-            }
-        }
-        if (year && year !== shown) {
-            shown = year;
-            out.textContent = year;
-        }
-        float.classList.toggle('is-visible', Boolean(year));
-    };
-    window.addEventListener('scroll', () => {
-        if (!frame)
-            frame = requestAnimationFrame(update);
-        float.classList.add('is-scrolling');
-        window.clearTimeout(idle);
-        idle = window.setTimeout(() => float.classList.remove('is-scrolling'), 900);
-    }, { passive: true });
-    update();
-}
-/* ------------------------------------------------------------------- zoom */
-/**
- * Density control for the contact sheet.
- *
- * Every tile's width is `calc(var(--k) * var(--unit))`, so changing one custom
- * property on the container re-sizes all 154 at once and CSS transitions the
- * change. No layout maths here, and no DOM is touched.
- */
-function initZoom() {
-    const steps = document.querySelectorAll('.zoom-step');
-    const galleryEl = document.querySelector('[data-gallery]');
-    if (!steps.length || !galleryEl)
-        return;
-    const STORAGE_KEY = 'cv:zoom';
-    const apply = (unit, persist) => {
-        galleryEl.style.setProperty('--unit', `${unit}px`);
-        for (const step of steps) {
-            const active = step.dataset.unit === unit;
-            step.classList.toggle('is-active', active);
-            step.setAttribute('aria-pressed', String(active));
-        }
-        if (persist) {
-            try {
-                localStorage.setItem(STORAGE_KEY, unit);
-            }
-            catch { /* private mode */ }
-        }
-    };
-    for (const step of steps) {
-        step.addEventListener('click', () => apply(step.dataset.unit ?? '126', true));
-    }
-    // Remember the reader's preferred density between visits.
-    try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved && [...steps].some((s) => s.dataset.unit === saved))
-            apply(saved, false);
-    }
-    catch { /* private mode: keep the default */ }
-}
-/* ------------------------------------------------------------------ nav */
-/**
- * Collapses the nav on narrow screens. The `nav-js` class is what switches the
- * stylesheet from "always visible" to "collapsible", so this only ever runs when
- * there is something able to open it again.
- */
+/* -------------------------------------------------------------------- nav */
 function initNav() {
     const toggle = document.querySelector('.nav-toggle');
     const panel = document.querySelector('.site-nav');
@@ -368,10 +528,7 @@ function initNav() {
         toggle.setAttribute('aria-expanded', String(open));
         panel.classList.toggle('is-open', open);
     };
-    toggle.addEventListener('click', () => {
-        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
-    });
-    // Escape closes; so does following a link.
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
             setOpen(false);
@@ -383,251 +540,13 @@ function initNav() {
             setOpen(false);
     });
 }
-/* ------------------------------------------------------------- lightbox */
-/**
- * Opens a work over the contact sheet instead of navigating away: the grid stays
- * where it was, blurred behind a veil, and you slide between works without a page
- * load. Arrow keys, swipe and the on-screen arrows all move; Escape closes.
- *
- * Every tile is still a real link to a real page. This intercepts the click and
- * pushes the same URL, so sharing, the back button, middle-click and
- * cmd-click all behave exactly as they would without it — and with scripting off
- * the links simply work.
- */
-function initLightbox() {
-    const box = document.querySelector('[data-lightbox]');
-    const galleryEl = document.querySelector('[data-lightbox-source]');
-    if (!box || !galleryEl)
-        return;
-    const stage = box.querySelector('[data-lightbox-stage]');
-    const titleEl = box.querySelector('[data-lightbox-title]');
-    const countEl = box.querySelector('[data-lightbox-count]');
-    const metaEl = box.querySelector('[data-lightbox-meta]');
-    const prevBtn = box.querySelector('[data-lightbox-prev]');
-    const nextBtn = box.querySelector('[data-lightbox-next]');
-    const tiles = () => [...galleryEl.querySelectorAll('.tile')].filter((t) => !t.hidden);
-    let current = -1;
-    let openedAt = '';
-    /** Rebuilds the plate from the tile's own <picture>, asking for a large size. */
-    const paint = (tile, direction) => {
-        const picture = tile.querySelector('picture');
-        if (!picture)
-            return;
-        const clone = picture.cloneNode(true);
-        clone.classList.remove('tile-image');
-        clone.classList.add('lightbox-image');
-        // `sizes` describes a *width*, so it has to be expressed as one — the height
-        // cap lives in CSS. Asking for ~50vw makes the browser pick the 1600px source
-        // on a desktop screen instead of the 400px thumbnail the tile was using.
-        for (const source of clone.querySelectorAll('source')) {
-            source.setAttribute('sizes', '(max-width: 900px) 92vw, 50vw');
-        }
-        const img = clone.querySelector('img');
-        if (img) {
-            img.setAttribute('sizes', '(max-width: 900px) 92vw, 50vw');
-            img.loading = 'eager';
-            img.removeAttribute('fetchpriority');
-        }
-        const previous = stage.firstElementChild;
-        clone.classList.add(direction >= 0 ? 'enter-from-right' : 'enter-from-left');
-        stage.append(clone);
-        requestAnimationFrame(() => clone.classList.remove('enter-from-right', 'enter-from-left'));
-        if (previous) {
-            previous.classList.add(direction >= 0 ? 'leave-to-left' : 'leave-to-right');
-            window.setTimeout(() => previous.remove(), 420);
-        }
-        const d = tile.dataset;
-        titleEl.textContent = d.title ?? '';
-        const facts = [d.dimensions, d.materials, d.year].filter(Boolean);
-        if (d.available === 'true')
-            facts.push(box.dataset.availableLabel ?? '');
-        metaEl.textContent = facts.filter(Boolean).join(' · ');
-    };
-    const show = (index, direction, push) => {
-        const list = tiles();
-        if (!list.length)
-            return;
-        const wrapped = (index + list.length) % list.length;
-        const tile = list[wrapped];
-        current = wrapped;
-        paint(tile, direction);
-        countEl.textContent = countEl.dataset.template
-            ? countEl.dataset.template.replace('{n}', String(wrapped + 1)).replace('{total}', String(list.length))
-            : `${wrapped + 1} / ${list.length}`;
-        prevBtn.hidden = list.length < 2;
-        nextBtn.hidden = list.length < 2;
-        const href = tile.getAttribute('href');
-        if (push && href)
-            history.pushState({ lightbox: true }, '', href);
-    };
-    const open = (tile) => {
-        openedAt = location.pathname + location.search;
-        box.hidden = false;
-        document.body.classList.add('is-locked');
-        requestAnimationFrame(() => box.classList.add('is-open'));
-        show(tiles().indexOf(tile), 1, true);
-        nextBtn.focus({ preventScroll: true });
-    };
-    const close = (restore) => {
-        if (box.hidden)
-            return;
-        box.classList.remove('is-open');
-        document.body.classList.remove('is-locked');
-        window.setTimeout(() => {
-            box.hidden = true;
-            stage.replaceChildren();
-        }, 320);
-        if (restore && openedAt)
-            history.pushState({}, '', openedAt);
-        const tile = tiles()[current];
-        tile?.focus({ preventScroll: true });
-    };
-    galleryEl.addEventListener('click', (event) => {
-        const tile = event.target.closest('.tile');
-        // Leave modified clicks alone — they mean "open this somewhere else".
-        if (!tile || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)
-            return;
-        event.preventDefault();
-        open(tile);
-    });
-    prevBtn.addEventListener('click', () => show(current - 1, -1, true));
-    nextBtn.addEventListener('click', () => show(current + 1, 1, true));
-    box.querySelector('[data-lightbox-close]')?.addEventListener('click', () => close(true));
-    box.querySelector('[data-lightbox-veil]')?.addEventListener('click', () => close(true));
-    document.addEventListener('keydown', (event) => {
-        if (box.hidden)
-            return;
-        if (event.key === 'Escape')
-            close(true);
-        else if (event.key === 'ArrowLeft')
-            show(current - 1, -1, true);
-        else if (event.key === 'ArrowRight')
-            show(current + 1, 1, true);
-    });
-    // Swipe, for touch.
-    let startX = 0;
-    let startY = 0;
-    box.addEventListener('touchstart', (e) => {
-        startX = e.changedTouches[0].clientX;
-        startY = e.changedTouches[0].clientY;
-    }, { passive: true });
-    box.addEventListener('touchend', (e) => {
-        const dx = e.changedTouches[0].clientX - startX;
-        const dy = e.changedTouches[0].clientY - startY;
-        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy))
-            show(current + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1, true);
-    }, { passive: true });
-    // The back button should step out of the lightbox, not off the page.
-    window.addEventListener('popstate', () => {
-        if (!box.hidden)
-            close(false);
-    });
-}
-/* ---------------------------------------------------------------- about */
-/**
- * About opens over whatever you are reading, blurring it, rather than taking you
- * to a separate page. The text is fetched from /about/ the first time it is
- * needed — so it costs nothing on any page until someone asks for it — and cached
- * for the rest of the visit.
- */
-function initAbout() {
-    const overlay = document.querySelector('[data-about]');
-    const body = overlay?.querySelector('[data-about-body]');
-    const triggers = document.querySelectorAll('[data-overlay="about"]');
-    if (!overlay || !body || !triggers.length)
-        return;
-    let loaded = false;
-    let returnTo = null;
-    const load = async (href) => {
-        if (loaded)
-            return;
-        try {
-            const markup = await fetch(href, { headers: { accept: 'text/html' } }).then((r) => r.text());
-            const doc = new DOMParser().parseFromString(markup, 'text/html');
-            const source = doc.querySelector('.longform');
-            const heading = doc.querySelector('.page-head h1');
-            if (!source)
-                return;
-            body.replaceChildren();
-            if (heading) {
-                const h = document.createElement('h2');
-                h.className = 'about-title';
-                h.textContent = heading.textContent ?? '';
-                body.append(h);
-            }
-            /*
-             * Set it like a newspaper. The source page stacks its pictures in one row
-             * and its text in another, which in a column layout drops every photograph
-             * at the top of column one. Pull the paragraphs and the figures apart, then
-             * deal the figures back out at even intervals so they sit inside the prose
-             * and the text runs around them.
-             */
-            const blocks = [...source.querySelectorAll('.prose > *')];
-            const figures = [...source.querySelectorAll('.figure')];
-            for (const figure of figures) {
-                figure.classList.remove('reveal');
-                figure.classList.add('about-figure', 'is-in');
-            }
-            const every = figures.length ? Math.max(2, Math.floor(blocks.length / (figures.length + 1))) : 0;
-            let next = 0;
-            blocks.forEach((block, i) => {
-                block.classList.add('about-block');
-                body.append(block);
-                if (every && next < figures.length && i > 0 && i % every === 0) {
-                    body.append(figures[next]);
-                    next++;
-                }
-            });
-            // Anything that did not find a slot goes at the end rather than being lost.
-            for (; next < figures.length; next++)
-                body.append(figures[next]);
-            loaded = true;
-        }
-        catch {
-            // Leave the link to behave as a link.
-        }
-    };
-    const open = async (href, trigger) => {
-        returnTo = trigger;
-        await load(href);
-        if (!loaded) {
-            location.href = href;
-            return;
-        }
-        overlay.hidden = false;
-        document.body.classList.add('is-locked');
-        requestAnimationFrame(() => overlay.classList.add('is-open'));
-        overlay.querySelector('[data-about-close]')?.focus({ preventScroll: true });
-    };
-    const close = () => {
-        overlay.classList.remove('is-open');
-        document.body.classList.remove('is-locked');
-        window.setTimeout(() => { overlay.hidden = true; }, 320);
-        returnTo?.focus({ preventScroll: true });
-    };
-    for (const trigger of triggers) {
-        trigger.addEventListener('click', (event) => {
-            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)
-                return;
-            event.preventDefault();
-            void open(trigger.href, trigger);
-        });
-    }
-    overlay.querySelector('[data-about-close]')?.addEventListener('click', close);
-    overlay.querySelector('[data-about-veil]')?.addEventListener('click', close);
-    document.addEventListener('keydown', (event) => {
-        if (!overlay.hidden && event.key === 'Escape')
-            close();
-    });
-}
 /* -------------------------------------------------------------------- boot */
 initNav();
 initScramble();
+initSectionNav();
 initYearFloat();
 initZoom();
 initLightbox();
-initAbout();
+initPanels();
 initCursor();
 initReveals();
-initHeader();
-initFilters();
