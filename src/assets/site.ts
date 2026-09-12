@@ -71,7 +71,7 @@ function initCursor(): void {
 /* ---------------------------------------------------------------- reveals */
 
 function initReveals(): void {
-  const targets = document.querySelectorAll<HTMLElement>('.reveal');
+  const targets = document.querySelectorAll<HTMLElement>('.reveal, .tile');
   if (!targets.length) return;
 
   if (reduceMotion.matches || !('IntersectionObserver' in window)) {
@@ -154,6 +154,45 @@ function initFilters(): void {
   }
 }
 
+/* ------------------------------------------------------------------- zoom */
+
+/**
+ * Density control for the contact sheet.
+ *
+ * Every tile's width is `calc(var(--k) * var(--unit))`, so changing one custom
+ * property on the container re-sizes all 154 at once and CSS transitions the
+ * change. No layout maths here, and no DOM is touched.
+ */
+function initZoom(): void {
+  const steps = document.querySelectorAll<HTMLButtonElement>('.zoom-step');
+  const galleryEl = document.querySelector<HTMLElement>('[data-gallery]');
+  if (!steps.length || !galleryEl) return;
+
+  const STORAGE_KEY = 'cv:zoom';
+
+  const apply = (unit: string, persist: boolean) => {
+    galleryEl.style.setProperty('--unit', `${unit}px`);
+    for (const step of steps) {
+      const active = step.dataset.unit === unit;
+      step.classList.toggle('is-active', active);
+      step.setAttribute('aria-pressed', String(active));
+    }
+    if (persist) {
+      try { localStorage.setItem(STORAGE_KEY, unit); } catch { /* private mode */ }
+    }
+  };
+
+  for (const step of steps) {
+    step.addEventListener('click', () => apply(step.dataset.unit ?? '126', true));
+  }
+
+  // Remember the reader's preferred density between visits.
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved && [...steps].some((s) => s.dataset.unit === saved)) apply(saved, false);
+  } catch { /* private mode: keep the default */ }
+}
+
 /* ------------------------------------------------------------------ nav */
 
 /**
@@ -163,7 +202,7 @@ function initFilters(): void {
  */
 function initNav(): void {
   const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
-  const panel = document.querySelector<HTMLElement>('.site-nav-panel');
+  const panel = document.querySelector<HTMLElement>('.site-nav');
   if (!toggle || !panel) return;
 
   document.documentElement.classList.add('nav-js');
@@ -192,6 +231,7 @@ function initNav(): void {
 /* -------------------------------------------------------------------- boot */
 
 initNav();
+initZoom();
 initCursor();
 initReveals();
 initHeader();

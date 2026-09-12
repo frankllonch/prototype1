@@ -1,3 +1,4 @@
+import { dict, type Locale } from './i18n.ts';
 import { displayTitle } from './title.ts';
 import type { Project } from './types.ts';
 
@@ -9,14 +10,13 @@ import type { Project } from './types.ts';
  * already has. Nothing here is invented: every part is a field the source page
  * supplied. Where a real alt attribute does exist it always wins.
  */
-export function describeImage(project: Project, sourceAlt: string): string {
+export function describeImage(project: Project, sourceAlt: string, locale: Locale = 'en'): string {
   if (sourceAlt.trim()) return sourceAlt;
 
   const { year, dimensions, materials } = project.metadata;
-  const name = displayTitle(project.title, project.kind);
+  const name = displayTitle(project.title, project.kind, locale);
   const facts = [materials, dimensions, year ? String(year) : undefined].filter(Boolean);
 
-  return facts.length
-    ? `${name} — ${facts.join(', ')}. Painting by Claudia Valsells.`
-    : `${name}. Work by Claudia Valsells.`;
+  const by = dict(locale).htmlLang === 'ca' ? 'Pintura de Claudia Valsells.' : 'Painting by Claudia Valsells.';
+  return facts.length ? `${name} — ${facts.join(', ')}. ${by}` : `${name}. ${by}`;
 }

@@ -1,6 +1,8 @@
 import { html, join, raw, type Html } from './html.ts';
 import { responsiveImage } from './image.ts';
 import { displayTitle } from '../content/title.ts';
+import type { Locale } from '../content/i18n.ts';
+import { localePath } from '../content/i18n.ts';
 import type { Column, Project, Row } from '../content/types.ts';
 
 /**
@@ -45,16 +47,16 @@ export function editorialBody(rows: readonly Row[], { eagerRows = 1 } = {}): Htm
  * One project as a spread in a publication: an oversized title, the metadata in
  * the margin, then the project's own composition.
  */
-export function editorialSpread(project: Project, index: number): Html {
+export function editorialSpread(project: Project, index: number, locale: Locale): Html {
   const { year, location, client, materials } = project.metadata;
   const facts = [year, location, client, materials].filter(Boolean);
-  const name = displayTitle(project.title, project.kind);
+  const name = displayTitle(project.title, project.kind, locale);
 
   return html`<article class="spread" id="${project.slug}">
     <header class="spread-head">
       <p class="spread-index">${String(index + 1).padStart(2, '0')}</p>
       <h2 class="spread-title reveal">
-        <a href="/projects/${project.slug}/" data-cursor-title="Open ${name}">${name}</a>
+        <a href="${localePath(locale, `/projects/${project.slug}/`)}" data-cursor-title="${name}">${name}</a>
       </h2>
       ${facts.length ? html`<p class="spread-facts">${join(facts.map((f) => html`<span>${f}</span>`), '')}</p>` : ''}
     </header>

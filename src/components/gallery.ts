@@ -1,86 +1,62 @@
 import { html, join, type Html } from './html.ts';
 import { aspectOf, responsiveImage } from './image.ts';
 import { displayTitle } from '../content/title.ts';
+import type { Dictionary, Locale } from '../content/i18n.ts';
+import { localePath } from '../content/i18n.ts';
 import type { Project } from '../content/types.ts';
 
 export interface GalleryProps {
   readonly items: readonly Project[];
-  /** Base path for item links, e.g. `/works`. */
+  /** Base path for item links, e.g. `/works` (locale prefix applied here). */
   readonly basePath: string;
-  /** Insert a sticky year marker whenever the year changes. */
+  readonly locale: Locale;
+  readonly t: Dictionary;
   readonly groupByYear?: boolean;
-  /** How many leading images to load eagerly. */
   readonly eagerCount?: number;
 }
 
-interface PackedRow {
-  readonly items: readonly Project[];
-  /** Sum of the row's aspect ratios — determines how tall the row renders. */
-  readonly aspectSum: number;
-}
-
 /**
- * A repeating rhythm of target aspect-sums. A smaller sum means fewer, larger
- * images on that line. Cycling through these is what stops 154 paintings from
- * reading as a spreadsheet: the scale changes every line, but predictably, and
- * the same input always produces the same layout.
+ * Zoom levels for the contact sheet.
  *
- * Tuned to the actual archive: 127 of the 154 covers are 2:3 gallery photographs
- * (aspect 0.667), so these targets land on 3, 4, 5, 3, 4 and a 2-up every sixth
- * row — the wide beat that gives the page a pulse. Targets sit just under each
- * multiple of 0.667 because packing is greedy and stops once the sum is reached.
- */
-const RHYTHM = [1.9, 2.6, 3.2, 1.9, 2.6, 1.3] as const;
-
-/**
- * Greedy justified-row packing.
+ * `unit` is the side of the square each work occupies, in px. Because every tile
+ * is sized to the same *area* rather than the same height, the number of works
+ * on a screen is a function of that unit alone — so each level can be labelled
+ * with how many of Claudia's 154 pieces are visible at once, which is what the
+ * control is actually for.
  *
- * Rows are packed here, at build time, from known intrinsic dimensions — so the
- * browser never measures anything and the layout cannot shift. The rendered row
- * stays fluid because each tile takes `flex-grow` proportional to its aspect
- * ratio, which re-justifies at any container width and re-wraps on narrow screens.
+ * Derived from a ~1400×800 viewport with ~15% lost to gaps:
+ *   visible ≈ 950_000 / unit²
  */
-export function packRows(items: readonly Project[], rhythm: readonly number[] = RHYTHM): PackedRow[] {
-  const rows: PackedRow[] = [];
-  let current: Project[] = [];
-  let sum = 0;
+export const ZOOM_LEVELS = [
+  { unit: 200, visible: 24 },
+  { unit: 126, visible: 60 },
+  { unit: 78, visible: 154 },
+] as const;
 
-  for (const item of items) {
-    current.push(item);
-    sum += item.cover ? aspectOf(item.cover) : 0.75;
-    const target = rhythm[rows.length % rhythm.length]!;
-    if (sum >= target) {
-      rows.push({ items: current, aspectSum: sum });
-      current = [];
-      sum = 0;
-    }
-  }
-  if (current.length) rows.push({ items: current, aspectSum: Math.max(sum, 1.2) });
-  return rows;
-}
+export const DEFAULT_ZOOM = 1;
 
-function tile(project: Project, basePath: string, priority: boolean): Html {
+function tile(project: Project, basePath: string, locale: Locale, index: number, priority: boolean): Html {
   const image = project.cover;
   if (!image) return html``;
-  const name = displayTitle(project.title, project.kind);
 
+  const name = displayTitle(project.title, project.kind, locale);
   const { year, dimensions, materials, available } = project.metadata;
+  const aspect = aspectOf(image);
 
   return html`<a
     class="tile"
     href="${basePath}/${project.slug}/"
-    style="--aspect:${aspectOf(image).toFixed(4)}"
+    style="--k:${Math.sqrt(aspect).toFixed(4)};--i:${index % 14}"
     data-cursor-title="${name}"
     data-year="${year ?? ''}"
     data-available="${available ? 'true' : 'false'}"
   >
     ${responsiveImage({
       image,
-      sizes: '(max-width: 640px) 92vw, (max-width: 1100px) 46vw, 30vw',
+      sizes: '(max-width: 599px) 45vw, 170px',
       priority,
       className: 'tile-image',
     })}
-    ${available ? html`<span class="tile-flag">Available</span>` : ''}
     <span class="tile-caption">
       <span class="tile-title">${name}</span>
       <span class="tile-meta">
@@ -91,21 +67,51 @@ function tile(project: Project, basePath: string, priority: boolean): Html {
   </a>`;
 }
 
-export function gallery({ items, basePath, groupByYear = false, eagerCount = 6 }: GalleryProps): Html {
-  const rows = packRows(items);
-  let rendered = 0;
+/**
+ * A contact sheet, not a grid.
+ *
+ * Every tile is sized so all works occupy the same *area* — a wide canvas is
+ * broader and shorter, a tall one narrower and taller, but each carries equal
+ * visual weight. Width is `√aspect × unit`, so area is `unit²` regardless of
+ * shape. The square root is taken at build time because CSS `sqrt()` is still
+ * too new to rely on; everything else is a single custom property the zoom
+ * control changes, which is why zooming animates 154 tiles without touching the
+ * DOM.
+ */
+export function gallery({
+  items, basePath, locale, t, groupByYear = false, eagerCount = 18,
+}: GalleryProps): Html {
   let lastYear: number | undefined;
+  const body: Html[] = [];
 
-  const body = rows.map((row) => {
-    const marker =
-      groupByYear && row.items[0]?.metadata.year !== undefined && row.items[0].metadata.year !== lastYear
-        ? ((lastYear = row.items[0].metadata.year), html`<h2 class="year-marker" id="y${lastYear}" data-year="${lastYear}"><span>${lastYear}</span></h2>`)
-        : '';
-
-    const tiles = row.items.map((item) => tile(item, basePath, rendered++ < eagerCount));
-    return html`${marker}
-      <div class="gallery-row" style="--sum:${row.aspectSum.toFixed(4)}">${join(tiles)}</div>`;
+  items.forEach((item, index) => {
+    if (groupByYear && item.metadata.year !== undefined && item.metadata.year !== lastYear) {
+      lastYear = item.metadata.year;
+      body.push(html`<h2 class="year-marker" id="y${lastYear}" data-year="${lastYear}"><span>${lastYear}</span></h2>`);
+    }
+    body.push(tile(item, localePath(locale, basePath), locale, index, index < eagerCount));
   });
 
-  return html`<div class="gallery" data-gallery>${join(body)}</div>`;
+  return html`<div
+    class="gallery"
+    data-gallery
+    style="--unit:${ZOOM_LEVELS[DEFAULT_ZOOM]!.unit}px"
+  >${join(body)}</div>`;
+}
+
+/** The zoom control: three densities, labelled by works visible at each. */
+export function zoomControl(t: Dictionary): Html {
+  return html`<div class="zoom" role="group" aria-label="${t.gallery.density}">
+    <span class="zoom-label">${t.gallery.density}</span>
+    ${join(
+      ZOOM_LEVELS.map(
+        (level, i) => html`<button
+          type="button"
+          class="zoom-step${i === DEFAULT_ZOOM ? ' is-active' : ''}"
+          data-unit="${level.unit}"
+          aria-pressed="${i === DEFAULT_ZOOM ? 'true' : 'false'}"
+        >${level.visible}</button>`,
+      ),
+    )}
+  </div>`;
 }

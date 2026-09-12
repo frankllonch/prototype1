@@ -1,17 +1,16 @@
 /**
- * Renders the whole site to dist/ as static HTML.
+ * Renders the whole site to dist/, once per locale.
  *
- * Every route is a pure function of the dataset, so the build is deterministic:
- * same content in, byte-identical pages out.
+ * Every route is a pure function of (dataset, locale), so the build is
+ * deterministic: same content in, byte-identical pages out.
  */
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import ts from 'typescript';
-import { html, join, type Html } from './components/html.ts';
-import {
-  availableWorks, collaborations, editorialPages, findEditorial, works, workYears,
-} from './content/load.ts';
+import type { Html } from './components/html.ts';
+import { collaborations, findEditorial, works, workYears } from './content/load.ts';
+import { DEFAULT_LOCALE, LOCALES, dict, localePath, type Locale } from './content/i18n.ts';
 import { detailPage, editorialPage, galleryPage, homePage, longformPage } from './pages/index.ts';
 import type { Project } from './content/types.ts';
 
@@ -20,6 +19,7 @@ const DIST = path.join(ROOT, 'dist');
 
 let pagesWritten = 0;
 
+/** `route` is locale-prefixed already; '' is that locale's home page. */
 async function writePage(route: string, page: Html) {
   const dir = path.join(DIST, route);
   await mkdir(dir, { recursive: true });
@@ -27,29 +27,13 @@ async function writePage(route: string, page: Html) {
   pagesWritten++;
 }
 
-/**
- * Filters are a progressive enhancement: without JavaScript the gallery still
- * shows every work, grouped under sticky year markers, so nothing is gated
- * behind script. With JavaScript these narrow the view in place.
- */
-function yearFilters(): Html {
-  return html`<div class="filters" role="group" aria-label="Filter works">
-    <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">All</button>
-    <button type="button" class="filter" data-filter="available" aria-pressed="false">
-      Available (${availableWorks.length})
-    </button>
-    ${join(workYears.map((year) =>
-      html`<button type="button" class="filter" data-filter="${year}" aria-pressed="false">${year}</button>`))}
-  </div>`;
-}
-
 async function buildAssets() {
   await mkdir(DIST, { recursive: true });
   await cp(path.join(ROOT, 'src', 'assets', 'site.css'), path.join(DIST, 'site.css'));
   await cp(path.join(ROOT, 'src', 'assets', 'fonts'), path.join(DIST, 'fonts'), { recursive: true });
 
-  // The browser bundle is authored in TypeScript and type-stripped here; it has no
-  // imports, so transpiling the single module is the entire build step it needs.
+  // The browser bundle is authored in TypeScript and type-stripped here; it has
+  // no imports, so transpiling the single module is its entire build step.
   const source = await readFile(path.join(ROOT, 'src', 'assets', 'site.ts'), 'utf8');
   const { outputText } = ts.transpileModule(source, {
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext },
@@ -57,73 +41,83 @@ async function buildAssets() {
   await writeFile(path.join(DIST, 'site.js'), outputText);
 }
 
+const LONGFORM: ReadonlyArray<{ slug: string; route: string; active: string }> = [
+  { slug: 'about', route: '/about/', active: 'about' },
+  { slug: 'colour-chart', route: '/colour-chart/', active: 'colourChart' },
+  { slug: 'whats-color-exhibitions', route: '/exhibitions/', active: 'exhibitions' },
+];
+
+async function buildLocale(locale: Locale) {
+  const t = dict(locale);
+  /** dist-relative directory for a site path, e.g. '/works/' -> 'ca/works'. */
+  const route = (p: string) => localePath(locale, p).replace(/^\/|\/$/g, '');
+
+  await writePage(route('/'), homePage({ works, collaborations, about: findEditorial('about'), locale }));
+
+  await writePage(route('/works/'), galleryPage({
+    title: t.pages.works,
+    active: 'works',
+    intro: t.pages.worksIntro(works.length, workYears[workYears.length - 1]!, workYears[0]!),
+    items: works,
+    basePath: '/works',
+    path: '/works/',
+    locale,
+    groupByYear: true,
+    withZoom: true,
+  }));
+
+  await writePage(route('/projects/'), galleryPage({
+    title: t.pages.projects,
+    active: 'projects',
+    intro: t.pages.projectsIntro,
+    items: collaborations,
+    basePath: '/projects',
+    path: '/projects/',
+    locale,
+  }));
+
+  await writePage(route('/editorial/'), editorialPage(collaborations, locale));
+
+  for (const { slug, route: r, active } of LONGFORM) {
+    const page = findEditorial(slug);
+    if (page) await writePage(route(r), longformPage(page, active, r, locale));
+  }
+
+  const sets: ReadonlyArray<{ items: readonly Project[]; basePath: string; active: string }> = [
+    { items: works, basePath: '/works', active: 'works' },
+    { items: collaborations, basePath: '/projects', active: 'projects' },
+  ];
+
+  for (const { items, basePath, active } of sets) {
+    for (const [i, project] of items.entries()) {
+      await writePage(route(`${basePath}/${project.slug}/`), detailPage({
+        project,
+        ...(items[i - 1] ? { previous: items[i - 1] } : {}),
+        ...(items[i + 1] ? { next: items[i + 1] } : {}),
+        basePath,
+        active,
+        locale,
+      }));
+    }
+  }
+}
+
 async function main() {
   // Keep dist/media: re-rendering 370 images on every build would be absurd.
-  for (const entry of ['site.css', 'site.js', 'fonts', 'index.html', 'works', 'projects', 'editorial', 'about', 'colour-chart', 'exhibitions']) {
+  const generated = ['site.css', 'site.js', 'fonts', 'index.html', 'works', 'projects',
+    'editorial', 'about', 'colour-chart', 'exhibitions', ...LOCALES.filter((l) => l !== DEFAULT_LOCALE)];
+  for (const entry of generated) {
     const target = path.join(DIST, entry);
     if (existsSync(target)) await rm(target, { recursive: true, force: true });
   }
 
   await buildAssets();
-
-  const about = findEditorial('about');
-
-  await writePage('', homePage({ works, collaborations, about, workCount: works.length }));
-
-  await writePage('works', galleryPage({
-    title: 'Works',
-    active: 'works',
-    intro: `${works.length} paintings, ${workYears[workYears.length - 1]}–${workYears[0]}. Colour as material, language and subject.`,
-    items: works,
-    basePath: '/works',
-    groupByYear: true,
-    filters: yearFilters(),
-  }));
-
-  await writePage('projects', galleryPage({
-    title: 'Projects',
-    active: 'projects',
-    intro: 'Collaborations, commissions and colour work made with architects, designers and studios.',
-    items: collaborations,
-    basePath: '/projects',
-  }));
-
-  await writePage('editorial', editorialPage(collaborations));
-
-  const longform: Array<[string, string, string]> = [
-    ['about', 'about', 'about'],
-    ['colour-chart', 'colour-chart', 'colour-chart'],
-    ['whats-color-exhibitions', 'exhibitions', 'exhibitions'],
-  ];
-  for (const [slug, route, active] of longform) {
-    const page = findEditorial(slug);
-    if (page) await writePage(route, longformPage(page, active));
-  }
-
-  const details: Array<{ items: readonly Project[]; basePath: string; backLabel: string; active: string }> = [
-    { items: works, basePath: '/works', backLabel: 'All works', active: 'works' },
-    { items: collaborations, basePath: '/projects', backLabel: 'All projects', active: 'projects' },
-  ];
-
-  let detailCount = 0;
-  for (const { items, basePath, backLabel, active } of details) {
-    for (const [i, project] of items.entries()) {
-      await writePage(`${basePath.slice(1)}/${project.slug}`, detailPage({
-        project,
-        ...(items[i - 1] ? { previous: items[i - 1] } : {}),
-        ...(items[i + 1] ? { next: items[i + 1] } : {}),
-        basePath,
-        backLabel,
-        backHref: `${basePath}/`,
-        active,
-      }));
-      detailCount++;
-    }
-  }
+  for (const locale of LOCALES) await buildLocale(locale);
 
   console.log(
-    `Built ${pagesWritten} pages: ${works.length} works, ${collaborations.length} projects, ` +
-    `${longform.length} long-form, plus home, two gallery indexes and the editorial flow.`,
+    `Built ${pagesWritten} pages across ${LOCALES.length} locales (${LOCALES.join(', ')}): ` +
+    `${works.length} works, ${collaborations.length} projects, ${LONGFORM.length} long-form, ` +
+    `plus home, two gallery indexes and the editorial flow — each in ${LOCALES.length} languages.`,
   );
 }
 

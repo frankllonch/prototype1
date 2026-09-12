@@ -1,14 +1,15 @@
 import { html, join, type Html } from '../components/html.ts';
 import { layout } from '../components/layout.ts';
-import { gallery } from '../components/gallery.ts';
+import { gallery, zoomControl } from '../components/gallery.ts';
 import { responsiveImage } from '../components/image.ts';
 import { editorialBody, editorialSpread } from '../components/editorial.ts';
 import { detail } from '../components/detail.ts';
 import { displayTitle } from '../content/title.ts';
+import { dict, localePath, type Locale } from '../content/i18n.ts';
 import type { Project } from '../content/types.ts';
 
 /** First sentence or two of a project's text, used as a standfirst. */
-const standfirst = (project: Project | undefined, max = 280): string => {
+const standfirst = (project: Project | undefined, max = 220): string => {
   const text = project?.description ?? '';
   if (text.length <= max) return text;
   const cut = text.slice(0, max);
@@ -19,54 +20,58 @@ export interface HomeProps {
   readonly works: readonly Project[];
   readonly collaborations: readonly Project[];
   readonly about?: Project;
-  readonly workCount: number;
+  readonly locale: Locale;
 }
 
-export function homePage({ works, collaborations, about, workCount }: HomeProps): Html {
+export function homePage({ works, collaborations, about, locale }: HomeProps): Html {
+  const t = dict(locale);
   const hero = works[0]?.cover;
-  const recent = works.slice(0, 12);
+  const recent = works.slice(0, 18);
   const featured = collaborations.slice(0, 3);
 
   return layout({
     title: 'Claudia Valsells',
-    description: standfirst(about, 160),
+    locale,
+    path: '/',
+    description: t.home.tagline,
     children: html`
       <section class="hero">
-        <h1 class="hero-name"><span>Claudia</span><span>Valsells</span></h1>
+        <h1 class="hero-name">Claudia Valsells</h1>
+        <p class="hero-line">
+          ${t.home.tagline}
+          <a href="${localePath(locale, '/works/')}">${t.home.worksLink(works.length)}</a>
+        </p>
         ${hero
           ? html`<div class="hero-plate">
-              ${responsiveImage({ image: hero, sizes: '(max-width: 900px) 92vw, 48vw', priority: true })}
+              ${responsiveImage({ image: hero, sizes: '(max-width: 900px) 92vw, 40vw', priority: true })}
             </div>`
           : ''}
-        <p class="hero-line">
-          An artist working with colour as material, language and subject.
-          <a href="/works/">${workCount} works</a>, 1996 to now.
-        </p>
       </section>
 
       <section class="strip">
         <div class="strip-head">
-          <h2>Recent work</h2>
-          <a class="more" href="/works/">All works →</a>
+          <h2>${t.home.recentWork}</h2>
+          <a class="more" href="${localePath(locale, '/works/')}">${t.home.allWorks} →</a>
         </div>
-        ${gallery({ items: recent, basePath: '/works', eagerCount: 3 })}
+        ${gallery({ items: recent, basePath: '/works', locale, t, eagerCount: 18 })}
       </section>
 
       <section class="strip">
         <div class="strip-head">
-          <h2>Projects</h2>
-          <a class="more" href="/editorial/">Read as editorial →</a>
+          <h2>${t.home.projects}</h2>
+          <a class="more" href="${localePath(locale, '/editorial/')}">${t.home.readEditorial} →</a>
         </div>
         <ul class="teasers">
           ${join(
             featured.map(
               (project) => html`<li class="teaser">
-                <a href="/projects/${project.slug}/" data-cursor-title="${displayTitle(project.title, project.kind)}">
+                <a href="${localePath(locale, `/projects/${project.slug}/`)}"
+                   data-cursor-title="${displayTitle(project.title, project.kind, locale)}">
                   ${project.cover
                     ? responsiveImage({ image: project.cover, sizes: '(max-width: 900px) 92vw, 30vw' })
                     : ''}
-                  <h3>${displayTitle(project.title, project.kind)}</h3>
-                  <p>${standfirst(project, 150)}</p>
+                  <h3>${displayTitle(project.title, project.kind, locale)}</h3>
+                  <p>${standfirst(project, 130)}</p>
                 </a>
               </li>`,
             ),
@@ -83,48 +88,49 @@ export interface GalleryPageProps {
   readonly intro: string;
   readonly items: readonly Project[];
   readonly basePath: string;
+  readonly path: string;
+  readonly locale: Locale;
   readonly groupByYear?: boolean;
-  readonly filters?: Html;
+  readonly withZoom?: boolean;
 }
 
 export function galleryPage({
-  title, active, intro, items, basePath, groupByYear = false, filters,
+  title, active, intro, items, basePath, path, locale, groupByYear = false, withZoom = false,
 }: GalleryPageProps): Html {
+  const t = dict(locale);
   return layout({
-    title,
-    description: intro,
-    active,
+    title, locale, path, description: intro, active,
     children: html`
       <section class="page-head">
         <h1>${title}</h1>
         <p class="page-intro">${intro}</p>
-        ${filters ?? ''}
+        ${withZoom ? zoomControl(t) : ''}
       </section>
-      ${gallery({ items, basePath, groupByYear })}
+      ${gallery({ items, basePath, locale, t, groupByYear })}
     `,
   });
 }
 
 /** The flowing section: every collaboration read end to end, as a publication. */
-export function editorialPage(projects: readonly Project[]): Html {
+export function editorialPage(projects: readonly Project[], locale: Locale): Html {
+  const t = dict(locale);
   return layout({
-    title: 'Editorial',
+    title: t.pages.editorial,
+    locale,
+    path: '/editorial/',
     active: 'editorial',
-    description: 'Claudia Valsells’ projects and collaborations, read as a single publication.',
+    description: t.pages.editorialIntro(projects.length),
     children: html`
-      <section class="page-head page-head-editorial">
-        <h1>Editorial</h1>
-        <p class="page-intro">
-          Every project, read end to end. ${projects.length} chapters — colour charts, residencies,
-          collaborations and editions — in the order they were made.
-        </p>
+      <section class="page-head">
+        <h1>${t.pages.editorial}</h1>
+        <p class="page-intro">${t.pages.editorialIntro(projects.length)}</p>
         <ol class="contents">
           ${join(
             projects.map(
               (p, i) => html`<li>
                 <a href="#${p.slug}">
                   <span class="contents-num">${String(i + 1).padStart(2, '0')}</span>
-                  <span class="contents-title">${displayTitle(p.title, p.kind)}</span>
+                  <span class="contents-title">${displayTitle(p.title, p.kind, locale)}</span>
                   <span class="contents-year">${p.metadata.year ?? ''}</span>
                 </a>
               </li>`,
@@ -133,21 +139,25 @@ export function editorialPage(projects: readonly Project[]): Html {
         </ol>
       </section>
       <div class="publication">
-        ${join(projects.map((p, i) => editorialSpread(p, i)))}
+        ${join(projects.map((p, i) => editorialSpread(p, i, locale)))}
       </div>
     `,
   });
 }
 
 /** About / Colour Chart / Exhibitions — long-form pages from the source site. */
-export function longformPage(project: Project, active: string): Html {
+export function longformPage(project: Project, active: string, path: string, locale: Locale): Html {
+  const t = dict(locale);
   return layout({
     title: project.title,
+    locale,
+    path,
     active,
     description: project.description ?? '',
     children: html`
       <section class="page-head">
         <h1>${project.title}</h1>
+        ${t.untranslated ? html`<p class="untranslated">${t.untranslated}</p>` : ''}
       </section>
       <div class="longform">${editorialBody(project.rows, { eagerRows: 1 })}</div>
     `,
@@ -159,16 +169,25 @@ export interface DetailPageProps {
   readonly previous?: Project;
   readonly next?: Project;
   readonly basePath: string;
-  readonly backLabel: string;
-  readonly backHref: string;
   readonly active: string;
+  readonly locale: Locale;
 }
 
 export function detailPage(props: DetailPageProps): Html {
+  const { project, basePath, locale, active } = props;
+  const t = dict(locale);
   return layout({
-    title: displayTitle(props.project.title, props.project.kind),
-    active: props.active,
-    description: props.project.description ?? '',
-    children: detail(props),
+    title: displayTitle(project.title, project.kind, locale),
+    locale,
+    path: `${basePath}/${project.slug}/`,
+    active,
+    description: project.description ?? '',
+    children: detail({
+      ...props,
+      t,
+      backLabel: project.kind === 'work' ? t.detail.allWorks : t.detail.allProjects,
+      backHref: localePath(locale, `${basePath}/`),
+      linkBase: localePath(locale, basePath),
+    }),
   });
 }

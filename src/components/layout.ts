@@ -1,92 +1,113 @@
-import { html, raw, type Html } from './html.ts';
+import { html, join, raw, type Html } from './html.ts';
+import { DEFAULT_LOCALE, LOCALES, dict, localePath, type Dictionary, type Locale } from '../content/i18n.ts';
 
 export interface LayoutProps {
   readonly title: string;
+  readonly locale: Locale;
+  /** Route without the locale prefix, e.g. `/works/`. Drives the language switcher. */
+  readonly path: string;
   readonly description?: string;
-  /** Slug of the active nav item, for `aria-current`. */
   readonly active?: string;
   readonly children: Html;
-  /** Detail pages drop the site header so the artwork opens the page. */
-  readonly bare?: boolean;
 }
 
-interface NavItem { readonly href: string; readonly label: string; readonly key: string }
+interface NavItem { readonly href: string; readonly key: keyof Dictionary['nav'] }
 
-export const NAV: readonly NavItem[] = [
-  { href: '/works/', label: 'Works', key: 'works' },
-  { href: '/editorial/', label: 'Editorial', key: 'editorial' },
-  { href: '/projects/', label: 'Projects', key: 'projects' },
-  { href: '/exhibitions/', label: 'Exhibitions', key: 'exhibitions' },
-  { href: '/colour-chart/', label: 'Colour Chart', key: 'colour-chart' },
-  { href: '/about/', label: 'About', key: 'about' },
+const NAV: readonly NavItem[] = [
+  { href: '/works/', key: 'works' },
+  { href: '/editorial/', key: 'editorial' },
+  { href: '/projects/', key: 'projects' },
+  { href: '/exhibitions/', key: 'exhibitions' },
+  { href: '/colour-chart/', key: 'colourChart' },
+  { href: '/about/', key: 'about' },
 ];
 
 /**
- * The nav panel is visible by default and only collapses on narrow screens once
- * scripting has confirmed it can be reopened — so with JavaScript off the links
- * are all still there, stacked, rather than sealed behind a dead button.
+ * A single fixed rule across the top, in the manner of nr.world: no background,
+ * no blur, no drop shadow. `mix-blend-mode: difference` with white text means the
+ * bar inverts against whatever scrolls under it — near-black over the paper
+ * ground, white over a dark photograph — so it never needs a plate of its own and
+ * never hides a millimetre of artwork.
  */
-function header(active?: string): Html {
+function header(locale: Locale, t: Dictionary, path: string, active?: string): Html {
+  const other = LOCALES.filter((l) => l !== locale);
   return html`<header class="site-header">
-    <a class="site-title" href="/">Claudia Valsells</a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-      <span class="nav-toggle-label">Menu</span>
-    </button>
-    <div class="site-nav-panel" id="site-nav">
-      <nav class="site-nav" aria-label="Primary">
-        <ul>
-          ${NAV.map(
-            (item) => html`<li>
-              <a href="${item.href}" ${item.key === active ? raw('aria-current="page"') : ''}>${item.label}</a>
-            </li>`,
-          )}
-        </ul>
-      </nav>
-      <a class="site-inquire" href="mailto:editorial@alzuetagallery.com">Inquiries</a>
+    <a class="wordmark" href="${localePath(locale, '/')}">Claudia Valsells</a>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      ${join(
+        NAV.map(
+          (item) => html`<a
+            href="${localePath(locale, item.href)}"
+            ${item.key === active ? raw('aria-current="page"') : ''}
+          >${t.nav[item.key]}</a>`,
+        ),
+      )}
+    </nav>
+
+    <div class="header-end">
+      <a class="header-link" href="mailto:editorial@alzuetagallery.com">${t.nav.inquiries}</a>
+      ${join(
+        other.map(
+          (l) => html`<a class="header-link lang-switch" href="${localePath(l, path)}" lang="${dict(l).htmlLang}"
+            >${dict(l).localeName}</a>`,
+        ),
+      )}
     </div>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      ${t.nav.menu}
+    </button>
   </header>`;
 }
 
-function footer(): Html {
+function footer(t: Dictionary): Html {
   return html`<footer class="site-footer">
     <div class="footer-col">
-      <span class="label">Inquiries</span>
-      <a href="mailto:editorial@alzuetagallery.com">Art — Alzueta Gallery</a>
-      <a href="mailto:editorial@alzuetagallery.com">Other enquiries</a>
+      <span class="label">${t.footer.inquiries}</span>
+      <a href="mailto:editorial@alzuetagallery.com">${t.footer.art}</a>
+      <a href="mailto:editorial@alzuetagallery.com">${t.footer.other}</a>
     </div>
     <div class="footer-col">
-      <span class="label">Elsewhere</span>
+      <span class="label">${t.footer.elsewhere}</span>
       <a href="https://instagram.com/claudiavalsells" rel="noopener">Instagram</a>
       <a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a>
     </div>
     <div class="footer-col">
-      <span class="label">Studio</span>
-      <span>Barcelona</span>
+      <span class="label">${t.footer.studio}</span>
+      <span>${t.footer.city}</span>
     </div>
-    <p class="footer-note">
-      Prototype built from the content of claudiavalsells.com. Design and code in progress.
-    </p>
+    <p class="footer-note">${t.footer.note}</p>
   </footer>`;
 }
 
-export function layout({ title, description, active, children, bare = false }: LayoutProps): Html {
+export function layout({ title, locale, path, description, active, children }: LayoutProps): Html {
+  const t = dict(locale);
   const fullTitle = title === 'Claudia Valsells' ? title : `${title} — Claudia Valsells`;
+
+  // Tell crawlers and browsers about the other language of this exact page.
+  const alternates = LOCALES.map(
+    (l) => `<link rel="alternate" hreflang="${dict(l).htmlLang}" href="${localePath(l, path)}" />`,
+  ).join('\n')
+    + `\n<link rel="alternate" hreflang="x-default" href="${localePath(DEFAULT_LOCALE, path)}" />`;
+
   return raw(`<!doctype html>
-<html lang="en">
+<html lang="${t.htmlLang}">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>${fullTitle}</title>
 ${description ? `<meta name="description" content="${description.replace(/"/g, '&quot;').slice(0, 300)}" />` : ''}
-<link rel="preload" href="/fonts/newsreader-normal.woff2" as="font" type="font/woff2" crossorigin />
+${alternates}
+<link rel="preload" href="/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="/site.css" />
 <script>document.documentElement.classList.add('js')</script>
 </head>
-<body${bare ? ' class="is-bare"' : ''}>
-<a class="skip-link" href="#main">Skip to content</a>
-${bare ? '' : header(active).__html}
+<body>
+<a class="skip-link" href="#main">${t.nav.skip}</a>
+${header(locale, t, path, active).__html}
 <main id="main">${children.__html}</main>
-${footer().__html}
+${footer(t).__html}
 <div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
 <script type="module" src="/site.js"></script>
 </body>

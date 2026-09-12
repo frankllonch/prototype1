@@ -113,3 +113,23 @@ should quietly resolve.
    restructuring anything.
 6. **Redirects.** 154 painting URLs and 26 page URLs will change shape. A
    redirect map is needed at launch or the existing search ranking is lost.
+
+## 6. Catalan
+
+Claudia asked for Catalan "optional, depending on price". The prototype ships the
+machinery and the whole interface; the content is the remaining cost.
+
+**Done** — every interface string (`src/content/i18n.ts`): navigation, labels,
+filters, museum-label field names, pagination, page introductions, footer. Catalan
+lives at `/ca/`, English at the root, with `hreflang` on every page and a switcher
+in the bar. Inter is subset to include `l·l`, `ç` and the accented vowels.
+
+**Not done, deliberately** — Claudia's own writing. The About text (8,914
+characters), the Exhibitions page (24,480) and the Colour Chart essay (4,703) are
+her voice. Machine-translating an artist's statement and publishing it under her
+name would be a fabrication, so those pages fall back to English and say so.
+
+**What it costs to finish:** ~38,000 characters of literary Catalan translation.
+That is a translator's invoice, not development time — the code already has the
+slot. Worth pricing separately in the proposal, because it is the entire remaining
+cost of the Catalan version.

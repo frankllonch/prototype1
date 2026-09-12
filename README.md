@@ -4,7 +4,8 @@ A working redesign of [claudiavalsells.com](https://www.claudiavalsells.com), bu
 from the real content of the current site: **154 paintings, 15 collaborations,
 3 long-form pages, 370 images** — everything that is on the site today, nothing invented.
 
-WordPress stays the CMS. Claudia keeps publishing exactly as she does now.
+Served in **English and Catalan** (352 pages). WordPress stays the CMS, and
+Claudia keeps publishing exactly as she does now.
 
 ## Quick start
 
@@ -41,30 +42,39 @@ npm run extract    # crawl WordPress → content/projects.json   (~30 s; HTML is
 
 ## What it looks like
 
+Every route exists twice: English at the root, Catalan under `/ca/`.
+
 | Route | What it is |
 |---|---|
-| `/` | Editorial opening — oversized wordmark, a recent plate, recent work, project teasers |
-| `/works/` | All 154 paintings. Build-time justified rows, sticky year markers, filters |
+| `/` | Compact masthead, then straight into recent work |
+| `/works/` | All 154 paintings as one contact sheet, with a density control |
 | `/editorial/` | The flowing section: every project read end to end as one publication |
-| `/projects/` | Collaborations as a gallery |
+| `/projects/` | Collaborations as a contact sheet |
 | `/works/<slug>/`, `/projects/<slug>/` | Detail pages with prev/next |
 | `/about/`, `/colour-chart/`, `/exhibitions/` | Long-form pages |
 
-### The gallery
+### The contact sheet
 
-Rows are packed **at build time** from known intrinsic image dimensions, then
-rendered so each tile takes `flex-grow` proportional to its aspect ratio. Within a
-row every image resolves to the same height, so the row justifies exactly — with no
-cropping, no JavaScript, and no measuring in the browser, which means no layout shift.
+The works page is a contact sheet, not a grid. Every tile is sized so each work
+occupies the same **area**: width is `√aspect × unit`, height is `unit / √aspect`,
+so the product is always `unit²`. A wide canvas comes out broad and short, a tall
+one narrow and tall, and both carry equal visual weight — which is what lets 154
+paintings of eleven different proportions sit together without any one dominating.
 
-The rhythm (`RHYTHM` in `src/components/gallery.ts`) cycles the target row height so
-lines land on 3, 4, 5, 3, 4 and a two-up every sixth row. It is tuned to this
-archive: 127 of the 154 covers are 2:3 gallery photographs, so without a deliberate
-rhythm the page marches. Changing the design of the whole gallery means editing one
-array of six numbers.
+The square root is taken at build time (`--k` per tile); `--unit` is the only thing
+the density control touches, so changing it re-sizes all 154 tiles by writing a
+single custom property. Both are registered with `@property`, which is what makes
+`width: calc(--k * --unit)` recompute reliably and lets the change animate.
 
-Below 900px the same markup re-wraps into two or four per line and re-justifies
-each line, rather than switching to a different layout.
+**Density control** — three levels, labelled with how many of the 154 pieces are
+visible at once (24 / 60 / 154), derived from `unit²` against a typical viewport.
+The choice is remembered in `localStorage`.
+
+**Entry animation** — tiles fade and lift as they scroll into view, each a beat
+after the last (`--i` cycles 0–13), so a dense sheet resolves in a wave. The
+transition is on `width`, never on the custom property: animating `--unit` itself
+would make the final size depend on the animation completing, and a transition that
+never runs would strand every tile at the old size.
 
 ### The cursor
 
@@ -115,6 +125,7 @@ scripts/
 src/
   content/
     types.ts      The content model. Start here.
+    i18n.ts       Locales and interface strings
     load.ts       Reads the dataset, merges image variants, derives collections
     title.ts      Presentation titles (the source bakes metadata into them)
     describe.ts   Factual alt text from metadata
@@ -122,13 +133,13 @@ src/
     html.ts       40-line escaping template tag — the whole "framework"
     layout.ts     Document shell, nav, footer
     image.ts      Responsive <picture>
-    gallery.ts    Justified-row packing + tiles
+    gallery.ts    Equal-area contact sheet + density control
     editorial.ts  Rows/columns, preserving the source composition
     detail.ts     Detail pages
   pages/index.ts  Page composition
   assets/
     site.css      One stylesheet
-    site.ts       ~190 lines: cursor, reveals, nav, filters
+    site.ts       ~220 lines: cursor, staggered reveals, nav, density control
   build.ts        Renders every route
 ```
 
@@ -139,13 +150,30 @@ unoptimised JPEG on one page.
 
 ### Design
 
-The work is the colour, so the interface has none: a warm paper ground, ink-black
-type, one typeface (Newsreader, self-hosted and subset for English/Catalan/Spanish).
-Every text tone meets WCAG AA on the paper ground — 16.1:1, 7.5:1 and 4.6:1 — and
-the lightest tone is still the floor for anything carrying information.
+The work is the colour, so the interface has none: a warm paper ground, ink type,
+one typeface (**Inter**, self-hosted and subset for English/Catalan/Spanish — 54 KB).
+Compact and utilitarian: 13px body, 10px labels, a 40px bar and tight gutters, so
+the artwork starts within the first screen on every page.
 
-The design commits to one look rather than following the system theme, the way
-the reference sites do.
+The header is a single fixed rule with no background, no blur and no plate. White
+text in `mix-blend-mode: difference` inverts against whatever scrolls under it —
+near-black over the paper ground, white over a dark photograph.
+
+Every text tone meets WCAG AA on the paper ground — 16.1:1, 7.5:1 and 4.6:1 — and
+the lightest tone is the floor for anything carrying information. The design
+commits to one look rather than following the system theme.
+
+### Languages
+
+English lives at the root, Catalan under `/ca/`, with `hreflang` on every page and a
+switcher in the bar that lands on the same page in the other language.
+
+`src/content/i18n.ts` holds the interface strings. **Claudia's own writing is not
+machine-translated** — the artist statement, the exhibition texts and the Colour
+Chart essay run to ~38,000 characters, and presenting an invented Catalan version of
+an artist's words as if they were hers would be a fabrication. Those pages fall back
+to the English source and say so in the page. A translator's text drops in without
+any code change.
 
 ## Results
 
@@ -153,25 +181,26 @@ the reference sites do.
 
 | | Current site | This prototype |
 |---|---|---|
-| Initial page weight | 14.8 MB | **361 KB** |
-| Requests | 190 | **9** |
-| Images fetched on load | 154 of 154 | **6** of 154 |
+| Initial page weight | 14.8 MB | **~330 KB** |
+| Requests | 190 | 28 |
+| Images fetched on load | 154 of 154 | 18 of 154 |
 | Image format | JPEG | AVIF (WebP + JPEG fallbacks) |
 | Layout shift | — | none (every image has intrinsic dimensions) |
-| Scripts | 39 | 1, 7 KB |
+| Scripts | 39 | 1, 9 KB |
+| Webfont | — | 54 KB, self-hosted, preloaded |
 
 A 400px AVIF thumbnail averages **7 KB**, against 100 KB+ for the equivalent today.
 
-Verified across all 176 built pages: 2,289 internal links with none broken, no
-missing media, exactly one `h1` per page, no link without an accessible name.
+Verified across all 352 built pages (176 × 2 languages): 5,998 internal links with
+none broken, no missing media, exactly one `h1` per page, no link without an
+accessible name.
 
 ## Known limitations
 
 - The IA still shows collaborations as one section; splitting *personal* from
   *commissioned* needs Claudia's classification (see `DISCOVERY.md` §5).
-- Catalan is not implemented. The fonts are already subset for it and the content
-  model is per-record, so the work is a locale field plus translated content —
-  but the translation itself is the real cost.
+- Catalan ships with the interface translated; Claudia's long-form texts still
+  need a human translator (see "Languages" above).
 - `location`, `client` and `credits` render when present; the source site has
   none of them as structured data.
 - The WooCommerce question is unresolved and deliberately untouched.

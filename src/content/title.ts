@@ -1,3 +1,5 @@
+import { dict, type Locale } from './i18n.ts';
+
 /**
  * Presentation titles.
  *
@@ -9,7 +11,7 @@
  * This only re-cases and trims what is already there; the untouched original
  * stays on `project.title` for provenance and is what the extractor writes.
  *
- *   UNTITLED 2026, 162X130CM      -> Untitled
+ *   UNTITLED 2026, 162X130CM      -> Untitled / Sense títol
  *   COLOR DIALGOGUES IV, 2021     -> Color Dialgogues IV   (sic — see DISCOVERY.md)
  *   ‘’Terra Rossa’’ 2024          -> Terra Rossa
  *   Mira’m, no deixis de mirar-me -> Mira’m, no deixis de mirar-me
@@ -29,7 +31,11 @@ const titleCaseWord = (word: string, index: number): string => {
 /** True when a string carries no lowercase letters, i.e. it was typed in caps. */
 const isShouting = (value: string): boolean => value === value.toUpperCase() && /\p{Lu}/u.test(value);
 
-export function displayTitle(rawTitle: string, kind: 'work' | 'project' | 'editorial'): string {
+export function displayTitle(
+  rawTitle: string,
+  kind: 'work' | 'project' | 'editorial',
+  locale: Locale = 'en',
+): string {
   let title = rawTitle.replace(/[‘’'"“”]{2}/g, '').trim();
 
   if (kind === 'work') {
@@ -49,5 +55,5 @@ export function displayTitle(rawTitle: string, kind: 'work' | 'project' | 'edito
     title = title.split(/\s+/).map(titleCaseWord).join(' ');
   }
 
-  return title || 'Untitled';
+  return title || dict(locale).gallery.untitled;
 }

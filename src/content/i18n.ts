@@ -1,0 +1,174 @@
+/**
+ * Locales.
+ *
+ * English is the default and lives at the root; Catalan is served from /ca/.
+ *
+ * Only the interface is translated here. Claudia's own writing — the artist
+ * statement, the exhibition texts, the Colour Chart essay, ~38,000 characters of
+ * it — is not machine-translated: presenting an invented Catalan version of an
+ * artist's words as if they were hers would be a fabrication, not a feature.
+ * Those slots fall back to the English source and are marked in the page, and
+ * `content/translations/ca.json` is where a translator drops the real text.
+ */
+
+export const LOCALES = ['en', 'ca'] as const;
+export type Locale = (typeof LOCALES)[number];
+export const DEFAULT_LOCALE: Locale = 'en';
+
+export interface Dictionary {
+  readonly htmlLang: string;
+  readonly localeName: string;
+  readonly nav: {
+    readonly works: string;
+    readonly editorial: string;
+    readonly projects: string;
+    readonly exhibitions: string;
+    readonly colourChart: string;
+    readonly about: string;
+    readonly inquiries: string;
+    readonly menu: string;
+    readonly close: string;
+    readonly skip: string;
+  };
+  readonly gallery: {
+    readonly all: string;
+    readonly available: string;
+    readonly density: string;
+    readonly untitled: string;
+  };
+  readonly facts: {
+    readonly year: string;
+    readonly dimensions: string;
+    readonly medium: string;
+    readonly location: string;
+    readonly client: string;
+    readonly credits: string;
+    readonly reference: string;
+    readonly status: string;
+    readonly availableValue: string;
+  };
+  readonly detail: {
+    readonly previous: string;
+    readonly next: string;
+    readonly allWorks: string;
+    readonly allProjects: string;
+  };
+  readonly home: {
+    readonly tagline: string;
+    readonly worksLink: (n: number) => string;
+    readonly recentWork: string;
+    readonly allWorks: string;
+    readonly projects: string;
+    readonly readEditorial: string;
+  };
+  readonly pages: {
+    readonly works: string;
+    readonly worksIntro: (n: number, from: number, to: number) => string;
+    readonly projects: string;
+    readonly projectsIntro: string;
+    readonly editorial: string;
+    readonly editorialIntro: (n: number) => string;
+    readonly contents: string;
+  };
+  readonly footer: {
+    readonly inquiries: string;
+    readonly art: string;
+    readonly other: string;
+    readonly elsewhere: string;
+    readonly studio: string;
+    readonly city: string;
+    readonly note: string;
+  };
+  /** Shown where Claudia's text has not been translated yet. */
+  readonly untranslated: string;
+}
+
+const en: Dictionary = {
+  htmlLang: 'en',
+  localeName: 'English',
+  nav: {
+    works: 'Works', editorial: 'Editorial', projects: 'Projects',
+    exhibitions: 'Exhibitions', colourChart: 'Colour Chart', about: 'About',
+    inquiries: 'Inquiries', menu: 'Menu', close: 'Close', skip: 'Skip to content',
+  },
+  gallery: { all: 'All', available: 'Available', density: 'Shown', untitled: 'Untitled' },
+  facts: {
+    year: 'Year', dimensions: 'Dimensions', medium: 'Medium', location: 'Location',
+    client: 'Client', credits: 'Credits', reference: 'Reference', status: 'Status',
+    availableValue: 'Available',
+  },
+  detail: { previous: 'Previous', next: 'Next', allWorks: 'All works', allProjects: 'All projects' },
+  home: {
+    tagline: 'An artist working with colour as material, language and subject.',
+    worksLink: (n) => `${n} works`,
+    recentWork: 'Recent work', allWorks: 'All works',
+    projects: 'Projects', readEditorial: 'Read as editorial',
+  },
+  pages: {
+    works: 'Works',
+    worksIntro: (n, from, to) => `${n} paintings, ${from}–${to}. Colour as material, language and subject.`,
+    projects: 'Projects',
+    projectsIntro: 'Collaborations, commissions and colour work made with architects, designers and studios.',
+    editorial: 'Editorial',
+    editorialIntro: (n) => `Every project, read end to end. ${n} chapters, in the order they were made.`,
+    contents: 'Contents',
+  },
+  footer: {
+    inquiries: 'Inquiries', art: 'Art — Alzueta Gallery', other: 'Other enquiries',
+    elsewhere: 'Elsewhere', studio: 'Studio', city: 'Barcelona',
+    note: 'Prototype built from the content of claudiavalsells.com.',
+  },
+  untranslated: '',
+};
+
+const ca: Dictionary = {
+  htmlLang: 'ca',
+  localeName: 'Català',
+  nav: {
+    works: 'Obra', editorial: 'Editorial', projects: 'Projectes',
+    exhibitions: 'Exposicions', colourChart: 'Carta de Colors', about: 'Perfil',
+    inquiries: 'Consultes', menu: 'Menú', close: 'Tanca', skip: 'Vés al contingut',
+  },
+  gallery: { all: 'Tot', available: 'Disponible', density: 'Mostrant', untitled: 'Sense títol' },
+  facts: {
+    year: 'Any', dimensions: 'Dimensions', medium: 'Tècnica', location: 'Lloc',
+    client: 'Client', credits: 'Crèdits', reference: 'Referència', status: 'Estat',
+    availableValue: 'Disponible',
+  },
+  detail: {
+    previous: 'Anterior', next: 'Següent',
+    allWorks: 'Tota l’obra', allProjects: 'Tots els projectes',
+  },
+  home: {
+    tagline: 'Artista que treballa el color com a matèria, llenguatge i tema.',
+    worksLink: (n) => `${n} obres`,
+    recentWork: 'Obra recent', allWorks: 'Tota l’obra',
+    projects: 'Projectes', readEditorial: 'Llegeix en format editorial',
+  },
+  pages: {
+    works: 'Obra',
+    worksIntro: (n, from, to) => `${n} pintures, ${from}–${to}. El color com a matèria, llenguatge i tema.`,
+    projects: 'Projectes',
+    projectsIntro: 'Col·laboracions, encàrrecs i treball de color amb arquitectes, dissenyadors i estudis.',
+    editorial: 'Editorial',
+    editorialIntro: (n) => `Tots els projectes, de principi a fi. ${n} capítols, en l’ordre en què es van fer.`,
+    contents: 'Índex',
+  },
+  footer: {
+    inquiries: 'Consultes', art: 'Art — Alzueta Gallery', other: 'Altres consultes',
+    elsewhere: 'Altres', studio: 'Estudi', city: 'Barcelona',
+    note: 'Prototip construït amb el contingut de claudiavalsells.com.',
+  },
+  untranslated: 'Text original en anglès — pendent de traducció.',
+};
+
+const DICTIONARIES: Record<Locale, Dictionary> = { en, ca };
+
+export const dict = (locale: Locale): Dictionary => DICTIONARIES[locale];
+
+/** Prefixes a root-relative path with the locale segment. English stays at root. */
+export const localePath = (locale: Locale, path: string): string =>
+  locale === DEFAULT_LOCALE ? path : `/${locale}${path}`;
+
+/** The same page in another locale, for the language switcher. */
+export const alternatePath = (locale: Locale, path: string): string => localePath(locale, path);
