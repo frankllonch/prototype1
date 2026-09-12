@@ -1,6 +1,6 @@
 import { html, join, type Html } from '../components/html.ts';
 import { layout } from '../components/layout.ts';
-import { gallery, zoomControl } from '../components/gallery.ts';
+import { gallery, yearIndicator, zoomControl } from '../components/gallery.ts';
 import { responsiveImage } from '../components/image.ts';
 import { editorialBody, editorialSpread } from '../components/editorial.ts';
 import { detail } from '../components/detail.ts';
@@ -25,7 +25,6 @@ export interface HomeProps {
 
 export function homePage({ works, collaborations, about, locale }: HomeProps): Html {
   const t = dict(locale);
-  const hero = works[0]?.cover;
   const recent = works.slice(0, 18);
   const featured = collaborations.slice(0, 3);
 
@@ -36,16 +35,7 @@ export function homePage({ works, collaborations, about, locale }: HomeProps): H
     description: t.home.tagline,
     children: html`
       <section class="hero">
-        <h1 class="hero-name">Claudia Valsells</h1>
-        <p class="hero-line">
-          ${t.home.tagline}
-          <a href="${localePath(locale, '/works/')}">${t.home.worksLink(works.length)}</a>
-        </p>
-        ${hero
-          ? html`<div class="hero-plate">
-              ${responsiveImage({ image: hero, sizes: '(max-width: 900px) 92vw, 40vw', priority: true })}
-            </div>`
-          : ''}
+        <h1 class="hero-name" data-scramble>Claudia Valsells</h1>
       </section>
 
       <section class="strip">
@@ -90,23 +80,26 @@ export interface GalleryPageProps {
   readonly basePath: string;
   readonly path: string;
   readonly locale: Locale;
-  readonly groupByYear?: boolean;
+  readonly trackYears?: boolean;
+  readonly lightbox?: boolean;
   readonly withZoom?: boolean;
 }
 
 export function galleryPage({
-  title, active, intro, items, basePath, path, locale, groupByYear = false, withZoom = false,
+  title, active, intro, items, basePath, path, locale,
+  trackYears = false, lightbox = false, withZoom = false,
 }: GalleryPageProps): Html {
   const t = dict(locale);
   return layout({
     title, locale, path, description: intro, active,
     children: html`
       <section class="page-head">
-        <h1>${title}</h1>
+        <h1 data-scramble>${title}</h1>
         <p class="page-intro">${intro}</p>
         ${withZoom ? zoomControl(t) : ''}
       </section>
-      ${gallery({ items, basePath, locale, t, groupByYear })}
+      ${gallery({ items, basePath, locale, t, trackYears, lightbox })}
+      ${trackYears ? yearIndicator() : ''}
     `,
   });
 }

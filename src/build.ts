@@ -65,7 +65,8 @@ async function buildLocale(locale: Locale) {
     basePath: '/works',
     path: '/works/',
     locale,
-    groupByYear: true,
+    trackYears: true,
+    lightbox: true,
     withZoom: true,
   }));
 

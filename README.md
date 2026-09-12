@@ -46,8 +46,8 @@ Every route exists twice: English at the root, Catalan under `/ca/`.
 
 | Route | What it is |
 |---|---|
-| `/` | Compact masthead, then straight into recent work |
-| `/works/` | All 154 paintings as one contact sheet, with a density control |
+| `/` | The name, then straight into recent work |
+| `/works/` | All 154 paintings as one uninterrupted contact sheet |
 | `/editorial/` | The flowing section: every project read end to end as one publication |
 | `/projects/` | Collaborations as a contact sheet |
 | `/works/<slug>/`, `/projects/<slug>/` | Detail pages with prev/next |
@@ -75,6 +75,49 @@ after the last (`--i` cycles 0–13), so a dense sheet resolves in a wave. The
 transition is on `width`, never on the custom property: animating `--unit` itself
 would make the final size depend on the animation completing, and a transition that
 never runs would strand every tile at the old size.
+
+**Years never cut the grid.** Nothing interrupts the sheet. The year of whatever
+is at the top of the viewport floats over it while you scroll and fades once you
+stop, the way the iOS photo library does it — so ten years read as one continuous
+surface instead of eleven separate blocks.
+
+### The lightbox
+
+Clicking a painting opens it over the sheet rather than navigating away: the grid
+stays exactly where it was, blurred behind a translucent veil, with the title and
+counter floating above and the caption below. Arrow keys, swipe and the on-screen
+arrows move between works; Escape closes.
+
+Nothing is duplicated to make this work. The plate is built from the clicked tile's
+own `<picture>`, re-asking for a larger source, and the caption is read from data
+attributes already on the tile — so there is no JSON copy of the 154 records
+shipped alongside the markup that already contains them.
+
+Every tile is still a real link to a real page. The click is intercepted and the
+same URL pushed, so sharing, the back button, middle-click and ⌘-click all behave
+as they would without it; with scripting off the links simply work. Collaborations
+are deliberately excluded — their pages are mostly text and images a lightbox
+cannot show, so those tiles stay ordinary links.
+
+### About
+
+About is not a destination. It opens over whatever you are reading, blurring it,
+and closes back to the same scroll position. The text is fetched from `/about/` the
+first time it is asked for — costing nothing on any page until then — and set like
+a newspaper: justified columns (one, two or three by width) with the photographs
+dealt out at intervals through the prose at two thirds of a column, floated so the
+text runs around them.
+
+`/about/` still exists and still answers, for direct links, search engines and
+readers without scripting.
+
+### The wordmark
+
+Characters near the pointer flicker to `*` and settle back, the nearer ones taking
+longer, so the name ripples rather than flipping at once. The real characters stay
+in the DOM throughout — the effect swaps their content, never removes them — so
+selection, search and the accessible name are untouched. Pointer-only, and off
+entirely under `prefers-reduced-motion`.
 
 ### The cursor
 
@@ -139,7 +182,8 @@ src/
   pages/index.ts  Page composition
   assets/
     site.css      One stylesheet
-    site.ts       ~220 lines: cursor, staggered reveals, nav, density control
+    site.ts       cursor, scramble, staggered reveals, year float,
+                  lightbox, about overlay, nav, density control
   build.ts        Renders every route
 ```
 
@@ -186,7 +230,7 @@ any code change.
 | Images fetched on load | 154 of 154 | 18 of 154 |
 | Image format | JPEG | AVIF (WebP + JPEG fallbacks) |
 | Layout shift | — | none (every image has intrinsic dimensions) |
-| Scripts | 39 | 1, 9 KB |
+| Scripts | 39 | 1, 25 KB |
 | Webfont | — | 54 KB, self-hosted, preloaded |
 
 A 400px AVIF thumbnail averages **7 KB**, against 100 KB+ for the equivalent today.

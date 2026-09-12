@@ -54,6 +54,8 @@ export interface Dictionary {
     readonly next: string;
     readonly allWorks: string;
     readonly allProjects: string;
+    /** Template for the lightbox counter, e.g. "{n} of {total}". */
+    readonly counter: string;
   };
   readonly home: {
     readonly tagline: string;
@@ -99,7 +101,10 @@ const en: Dictionary = {
     client: 'Client', credits: 'Credits', reference: 'Reference', status: 'Status',
     availableValue: 'Available',
   },
-  detail: { previous: 'Previous', next: 'Next', allWorks: 'All works', allProjects: 'All projects' },
+  detail: {
+    previous: 'Previous', next: 'Next', allWorks: 'All works', allProjects: 'All projects',
+    counter: '{n} of {total}',
+  },
   home: {
     tagline: 'An artist working with colour as material, language and subject.',
     worksLink: (n) => `${n} works`,
@@ -140,6 +145,7 @@ const ca: Dictionary = {
   detail: {
     previous: 'Anterior', next: 'Següent',
     allWorks: 'Tota l’obra', allProjects: 'Tots els projectes',
+    counter: '{n} de {total}',
   },
   home: {
     tagline: 'Artista que treballa el color com a matèria, llenguatge i tema.',

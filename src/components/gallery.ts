@@ -11,7 +11,14 @@ export interface GalleryProps {
   readonly basePath: string;
   readonly locale: Locale;
   readonly t: Dictionary;
-  readonly groupByYear?: boolean;
+  /** Expose each tile's year so the floating scroll indicator can read it. */
+  readonly trackYears?: boolean;
+  /**
+   * Open works in the lightbox instead of navigating. Only for single artworks:
+   * a collaboration's page is mostly text and images the lightbox cannot show, so
+   * those tiles stay ordinary links.
+   */
+  readonly lightbox?: boolean;
   readonly eagerCount?: number;
 }
 
@@ -21,11 +28,9 @@ export interface GalleryProps {
  * `unit` is the side of the square each work occupies, in px. Because every tile
  * is sized to the same *area* rather than the same height, the number of works
  * on a screen is a function of that unit alone — so each level can be labelled
- * with how many of Claudia's 154 pieces are visible at once, which is what the
- * control is actually for.
+ * with how many of Claudia's 154 pieces are visible at once.
  *
- * Derived from a ~1400×800 viewport with ~15% lost to gaps:
- *   visible ≈ 950_000 / unit²
+ * Derived from a ~1400×800 viewport with ~15% lost to gaps: visible ≈ 950_000 / unit²
  */
 export const ZOOM_LEVELS = [
   { unit: 200, visible: 24 },
@@ -35,12 +40,18 @@ export const ZOOM_LEVELS = [
 
 export const DEFAULT_ZOOM = 1;
 
+/**
+ * Metadata is mirrored onto the tile as data attributes so the lightbox can build
+ * its caption straight from the DOM. The alternative — shipping a JSON copy of all
+ * 154 records alongside the markup that already contains them — would cost ~100 KB
+ * to say the same thing twice.
+ */
 function tile(project: Project, basePath: string, locale: Locale, index: number, priority: boolean): Html {
   const image = project.cover;
   if (!image) return html``;
 
   const name = displayTitle(project.title, project.kind, locale);
-  const { year, dimensions, materials, available } = project.metadata;
+  const { year, dimensions, materials, reference, available } = project.metadata;
   const aspect = aspectOf(image);
 
   return html`<a
@@ -48,8 +59,13 @@ function tile(project: Project, basePath: string, locale: Locale, index: number,
     href="${basePath}/${project.slug}/"
     style="--k:${Math.sqrt(aspect).toFixed(4)};--i:${index % 14}"
     data-cursor-title="${name}"
+    data-title="${name}"
     data-year="${year ?? ''}"
+    data-dimensions="${dimensions ?? ''}"
+    data-materials="${materials ?? ''}"
+    data-reference="${reference ?? ''}"
     data-available="${available ? 'true' : 'false'}"
+    data-index="${index}"
   >
     ${responsiveImage({
       image,
@@ -70,33 +86,34 @@ function tile(project: Project, basePath: string, locale: Locale, index: number,
 /**
  * A contact sheet, not a grid.
  *
- * Every tile is sized so all works occupy the same *area* — a wide canvas is
- * broader and shorter, a tall one narrower and taller, but each carries equal
- * visual weight. Width is `√aspect × unit`, so area is `unit²` regardless of
- * shape. The square root is taken at build time because CSS `sqrt()` is still
- * too new to rely on; everything else is a single custom property the zoom
- * control changes, which is why zooming animates 154 tiles without touching the
- * DOM.
+ * Every tile is sized so all works occupy the same *area*: width is
+ * `√aspect × unit`, height is `unit / √aspect`, so the product is always `unit²`.
+ * A wide canvas comes out broad and short, a tall one narrow and tall, and both
+ * carry equal visual weight.
+ *
+ * The flow is deliberately unbroken — no year headings interrupt it. The year is
+ * reported instead by a floating indicator that follows the scroll, the way the
+ * iOS photo library does it, so ten years of work read as one continuous sheet.
  */
 export function gallery({
-  items, basePath, locale, t, groupByYear = false, eagerCount = 18,
+  items, basePath, locale, t, trackYears = false, lightbox = false, eagerCount = 18,
 }: GalleryProps): Html {
-  let lastYear: number | undefined;
-  const body: Html[] = [];
-
-  items.forEach((item, index) => {
-    if (groupByYear && item.metadata.year !== undefined && item.metadata.year !== lastYear) {
-      lastYear = item.metadata.year;
-      body.push(html`<h2 class="year-marker" id="y${lastYear}" data-year="${lastYear}"><span>${lastYear}</span></h2>`);
-    }
-    body.push(tile(item, localePath(locale, basePath), locale, index, index < eagerCount));
-  });
+  const tiles = items.map((item, index) =>
+    tile(item, localePath(locale, basePath), locale, index, index < eagerCount),
+  );
 
   return html`<div
     class="gallery"
     data-gallery
+    ${trackYears ? html`data-track-years` : ''}
+    ${lightbox ? html`data-lightbox-source` : ''}
     style="--unit:${ZOOM_LEVELS[DEFAULT_ZOOM]!.unit}px"
-  >${join(body)}</div>`;
+  >${join(tiles)}</div>`;
+}
+
+/** Floating year readout, filled in by the scroll handler. */
+export function yearIndicator(): Html {
+  return html`<div class="year-float" data-year-float aria-hidden="true"><span></span></div>`;
 }
 
 /** The zoom control: three densities, labelled by works visible at each. */

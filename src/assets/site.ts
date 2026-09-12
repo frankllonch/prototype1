@@ -202,6 +202,133 @@ function initFilters(): void {
   }
 }
 
+
+/* --------------------------------------------------------------- scramble */
+
+/**
+ * Proximity scramble. Characters near the pointer flicker to `*` and settle back,
+ * the nearer ones taking longer to resolve, so the word ripples rather than
+ * flipping all at once.
+ *
+ * Text is split into spans once, and the original character is kept on the span so
+ * a scramble can always be undone — the DOM never loses the real word, which
+ * matters for selection, search and screen readers (the element keeps its
+ * accessible name because the characters are still there in order).
+ */
+function initScramble(): void {
+  const roots = document.querySelectorAll<HTMLElement>('[data-scramble]');
+  if (!roots.length || reduceMotion.matches || !finePointer.matches) return;
+
+  const RADIUS = 90;
+  const SETTLE = 520; // ms for a character right under the pointer
+  const chars: HTMLElement[] = [];
+
+  for (const root of roots) {
+    const text = root.textContent ?? '';
+    root.textContent = '';
+    for (const character of text) {
+      const span = document.createElement('span');
+      span.className = 'sc';
+      span.textContent = character;
+      if (character.trim()) {
+        span.dataset.ch = character;
+        chars.push(span);
+      }
+      root.append(span);
+    }
+  }
+  if (!chars.length) return;
+
+  const until = new WeakMap<HTMLElement, number>();
+  let pointer: { x: number; y: number } | null = null;
+  let frame = 0;
+
+  const tick = () => {
+    frame = 0;
+    const now = performance.now();
+    let active = false;
+
+    for (const span of chars) {
+      const done = until.get(span) ?? 0;
+      if (now < done) {
+        active = true;
+        // Flicker between the asterisk and the real glyph as it resolves.
+        span.textContent = Math.random() < 0.55 ? '*' : span.dataset.ch!;
+      } else if (span.textContent !== span.dataset.ch) {
+        span.textContent = span.dataset.ch!;
+      }
+    }
+
+    if (pointer) {
+      for (const span of chars) {
+        const box = span.getBoundingClientRect();
+        const dx = pointer.x - (box.left + box.width / 2);
+        const dy = pointer.y - (box.top + box.height / 2);
+        const distance = Math.hypot(dx, dy);
+        if (distance < RADIUS) {
+          const strength = 1 - distance / RADIUS;
+          until.set(span, Math.max(until.get(span) ?? 0, now + SETTLE * strength));
+          active = true;
+        }
+      }
+    }
+
+    if (active) frame = requestAnimationFrame(tick);
+  };
+
+  document.addEventListener('pointermove', (event) => {
+    if (event.pointerType !== 'mouse') return;
+    pointer = { x: event.clientX, y: event.clientY };
+    if (!frame) frame = requestAnimationFrame(tick);
+  }, { passive: true });
+}
+
+/* ------------------------------------------------------------- year float */
+
+/**
+ * The year readout, after the iOS photo library: the grid is never interrupted by
+ * headings; instead the year of whatever is currently at the top of the viewport
+ * floats over it while you scroll, and fades out once you stop.
+ */
+function initYearFloat(): void {
+  const float = document.querySelector<HTMLElement>('[data-year-float]');
+  const galleryEl = document.querySelector<HTMLElement>('[data-track-years]');
+  const out = float?.querySelector('span');
+  if (!float || !galleryEl || !out) return;
+
+  const tiles = [...galleryEl.querySelectorAll<HTMLElement>('.tile')];
+  if (!tiles.length) return;
+
+  let frame = 0;
+  let idle = 0;
+  let shown = '';
+
+  const update = () => {
+    frame = 0;
+    // The first tile whose bottom is still below the top of the viewport wins.
+    const probe = window.innerHeight * 0.18;
+    let year = '';
+    for (const tile of tiles) {
+      const box = tile.getBoundingClientRect();
+      if (box.bottom >= probe) { year = tile.dataset.year ?? ''; break; }
+    }
+    if (year && year !== shown) {
+      shown = year;
+      out.textContent = year;
+    }
+    float.classList.toggle('is-visible', Boolean(year));
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!frame) frame = requestAnimationFrame(update);
+    float.classList.add('is-scrolling');
+    window.clearTimeout(idle);
+    idle = window.setTimeout(() => float.classList.remove('is-scrolling'), 900);
+  }, { passive: true });
+
+  update();
+}
+
 /* ------------------------------------------------------------------- zoom */
 
 /**
@@ -276,10 +403,259 @@ function initNav(): void {
   });
 }
 
+
+/* ------------------------------------------------------------- lightbox */
+
+/**
+ * Opens a work over the contact sheet instead of navigating away: the grid stays
+ * where it was, blurred behind a veil, and you slide between works without a page
+ * load. Arrow keys, swipe and the on-screen arrows all move; Escape closes.
+ *
+ * Every tile is still a real link to a real page. This intercepts the click and
+ * pushes the same URL, so sharing, the back button, middle-click and
+ * cmd-click all behave exactly as they would without it — and with scripting off
+ * the links simply work.
+ */
+function initLightbox(): void {
+  const box = document.querySelector<HTMLElement>('[data-lightbox]');
+  const galleryEl = document.querySelector<HTMLElement>('[data-lightbox-source]');
+  if (!box || !galleryEl) return;
+
+  const stage = box.querySelector<HTMLElement>('[data-lightbox-stage]')!;
+  const titleEl = box.querySelector<HTMLElement>('[data-lightbox-title]')!;
+  const countEl = box.querySelector<HTMLElement>('[data-lightbox-count]')!;
+  const metaEl = box.querySelector<HTMLElement>('[data-lightbox-meta]')!;
+  const prevBtn = box.querySelector<HTMLButtonElement>('[data-lightbox-prev]')!;
+  const nextBtn = box.querySelector<HTMLButtonElement>('[data-lightbox-next]')!;
+
+  const tiles = () => [...galleryEl.querySelectorAll<HTMLElement>('.tile')].filter((t) => !t.hidden);
+
+  let current = -1;
+  let openedAt = '';
+
+  /** Rebuilds the plate from the tile's own <picture>, asking for a large size. */
+  const paint = (tile: HTMLElement, direction: number) => {
+    const picture = tile.querySelector('picture');
+    if (!picture) return;
+
+    const clone = picture.cloneNode(true) as HTMLElement;
+    clone.classList.remove('tile-image');
+    clone.classList.add('lightbox-image');
+    // `sizes` describes a *width*, so it has to be expressed as one — the height
+    // cap lives in CSS. Asking for ~50vw makes the browser pick the 1600px source
+    // on a desktop screen instead of the 400px thumbnail the tile was using.
+    for (const source of clone.querySelectorAll('source')) {
+      source.setAttribute('sizes', '(max-width: 900px) 92vw, 50vw');
+    }
+    const img = clone.querySelector('img');
+    if (img) {
+      img.setAttribute('sizes', '(max-width: 900px) 92vw, 50vw');
+      img.loading = 'eager';
+      img.removeAttribute('fetchpriority');
+    }
+
+    const previous = stage.firstElementChild;
+    clone.classList.add(direction >= 0 ? 'enter-from-right' : 'enter-from-left');
+    stage.append(clone);
+    requestAnimationFrame(() => clone.classList.remove('enter-from-right', 'enter-from-left'));
+
+    if (previous) {
+      previous.classList.add(direction >= 0 ? 'leave-to-left' : 'leave-to-right');
+      window.setTimeout(() => previous.remove(), 420);
+    }
+
+    const d = tile.dataset;
+    titleEl.textContent = d.title ?? '';
+    const facts = [d.dimensions, d.materials, d.year].filter(Boolean);
+    if (d.available === 'true') facts.push(box.dataset.availableLabel ?? '');
+    metaEl.textContent = facts.filter(Boolean).join(' · ');
+  };
+
+  const show = (index: number, direction: number, push: boolean) => {
+    const list = tiles();
+    if (!list.length) return;
+    const wrapped = (index + list.length) % list.length;
+    const tile = list[wrapped]!;
+    current = wrapped;
+
+    paint(tile, direction);
+    countEl.textContent = countEl.dataset.template
+      ? countEl.dataset.template.replace('{n}', String(wrapped + 1)).replace('{total}', String(list.length))
+      : `${wrapped + 1} / ${list.length}`;
+    prevBtn.hidden = list.length < 2;
+    nextBtn.hidden = list.length < 2;
+
+    const href = tile.getAttribute('href');
+    if (push && href) history.pushState({ lightbox: true }, '', href);
+  };
+
+  const open = (tile: HTMLElement) => {
+    openedAt = location.pathname + location.search;
+    box.hidden = false;
+    document.body.classList.add('is-locked');
+    requestAnimationFrame(() => box.classList.add('is-open'));
+    show(tiles().indexOf(tile), 1, true);
+    nextBtn.focus({ preventScroll: true });
+  };
+
+  const close = (restore: boolean) => {
+    if (box.hidden) return;
+    box.classList.remove('is-open');
+    document.body.classList.remove('is-locked');
+    window.setTimeout(() => {
+      box.hidden = true;
+      stage.replaceChildren();
+    }, 320);
+    if (restore && openedAt) history.pushState({}, '', openedAt);
+    const tile = tiles()[current];
+    tile?.focus({ preventScroll: true });
+  };
+
+  galleryEl.addEventListener('click', (event) => {
+    const tile = (event.target as Element).closest<HTMLElement>('.tile');
+    // Leave modified clicks alone — they mean "open this somewhere else".
+    if (!tile || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    event.preventDefault();
+    open(tile);
+  });
+
+  prevBtn.addEventListener('click', () => show(current - 1, -1, true));
+  nextBtn.addEventListener('click', () => show(current + 1, 1, true));
+  box.querySelector('[data-lightbox-close]')?.addEventListener('click', () => close(true));
+  box.querySelector('[data-lightbox-veil]')?.addEventListener('click', () => close(true));
+
+  document.addEventListener('keydown', (event) => {
+    if (box.hidden) return;
+    if (event.key === 'Escape') close(true);
+    else if (event.key === 'ArrowLeft') show(current - 1, -1, true);
+    else if (event.key === 'ArrowRight') show(current + 1, 1, true);
+  });
+
+  // Swipe, for touch.
+  let startX = 0;
+  let startY = 0;
+  box.addEventListener('touchstart', (e) => {
+    startX = e.changedTouches[0]!.clientX;
+    startY = e.changedTouches[0]!.clientY;
+  }, { passive: true });
+  box.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0]!.clientX - startX;
+    const dy = e.changedTouches[0]!.clientY - startY;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) show(current + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1, true);
+  }, { passive: true });
+
+  // The back button should step out of the lightbox, not off the page.
+  window.addEventListener('popstate', () => {
+    if (!box.hidden) close(false);
+  });
+}
+
+/* ---------------------------------------------------------------- about */
+
+/**
+ * About opens over whatever you are reading, blurring it, rather than taking you
+ * to a separate page. The text is fetched from /about/ the first time it is
+ * needed — so it costs nothing on any page until someone asks for it — and cached
+ * for the rest of the visit.
+ */
+function initAbout(): void {
+  const overlay = document.querySelector<HTMLElement>('[data-about]');
+  const body = overlay?.querySelector<HTMLElement>('[data-about-body]');
+  const triggers = document.querySelectorAll<HTMLAnchorElement>('[data-overlay="about"]');
+  if (!overlay || !body || !triggers.length) return;
+
+  let loaded = false;
+  let returnTo: HTMLElement | null = null;
+
+  const load = async (href: string) => {
+    if (loaded) return;
+    try {
+      const markup = await fetch(href, { headers: { accept: 'text/html' } }).then((r) => r.text());
+      const doc = new DOMParser().parseFromString(markup, 'text/html');
+      const source = doc.querySelector('.longform');
+      const heading = doc.querySelector('.page-head h1');
+      if (!source) return;
+      body.replaceChildren();
+      if (heading) {
+        const h = document.createElement('h2');
+        h.className = 'about-title';
+        h.textContent = heading.textContent ?? '';
+        body.append(h);
+      }
+      /*
+       * Set it like a newspaper. The source page stacks its pictures in one row
+       * and its text in another, which in a column layout drops every photograph
+       * at the top of column one. Pull the paragraphs and the figures apart, then
+       * deal the figures back out at even intervals so they sit inside the prose
+       * and the text runs around them.
+       */
+      const blocks = [...source.querySelectorAll('.prose > *')];
+      const figures = [...source.querySelectorAll('.figure')];
+
+      for (const figure of figures) {
+        figure.classList.remove('reveal');
+        figure.classList.add('about-figure', 'is-in');
+      }
+
+      const every = figures.length ? Math.max(2, Math.floor(blocks.length / (figures.length + 1))) : 0;
+      let next = 0;
+
+      blocks.forEach((block, i) => {
+        block.classList.add('about-block');
+        body.append(block);
+        if (every && next < figures.length && i > 0 && i % every === 0) {
+          body.append(figures[next]!);
+          next++;
+        }
+      });
+      // Anything that did not find a slot goes at the end rather than being lost.
+      for (; next < figures.length; next++) body.append(figures[next]!);
+
+      loaded = true;
+    } catch {
+      // Leave the link to behave as a link.
+    }
+  };
+
+  const open = async (href: string, trigger: HTMLElement) => {
+    returnTo = trigger;
+    await load(href);
+    if (!loaded) { location.href = href; return; }
+    overlay.hidden = false;
+    document.body.classList.add('is-locked');
+    requestAnimationFrame(() => overlay.classList.add('is-open'));
+    overlay.querySelector<HTMLButtonElement>('[data-about-close]')?.focus({ preventScroll: true });
+  };
+
+  const close = () => {
+    overlay.classList.remove('is-open');
+    document.body.classList.remove('is-locked');
+    window.setTimeout(() => { overlay.hidden = true; }, 320);
+    returnTo?.focus({ preventScroll: true });
+  };
+
+  for (const trigger of triggers) {
+    trigger.addEventListener('click', (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      event.preventDefault();
+      void open(trigger.href, trigger);
+    });
+  }
+  overlay.querySelector('[data-about-close]')?.addEventListener('click', close);
+  overlay.querySelector('[data-about-veil]')?.addEventListener('click', close);
+  document.addEventListener('keydown', (event) => {
+    if (!overlay.hidden && event.key === 'Escape') close();
+  });
+}
+
 /* -------------------------------------------------------------------- boot */
 
 initNav();
+initScramble();
+initYearFloat();
 initZoom();
+initLightbox();
+initAbout();
 initCursor();
 initReveals();
 initHeader();
