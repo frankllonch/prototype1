@@ -10,7 +10,8 @@ import path from 'node:path';
 import ts from 'typescript';
 import type { Html } from './components/html.ts';
 import { collaborations, findEditorial, works, workYears } from './content/load.ts';
-import { DEFAULT_LOCALE, LOCALES, dict, localePath, type Locale } from './content/i18n.ts';
+import { DEFAULT_LOCALE, LOCALES, dict, localeDir, type Locale } from './content/i18n.ts';
+import { BASE } from './content/paths.ts';
 import { detailPage, editorialPage, galleryPage, homePage, longformPage } from './pages/index.ts';
 import type { Project } from './content/types.ts';
 
@@ -29,7 +30,9 @@ async function writePage(route: string, page: Html) {
 
 async function buildAssets() {
   await mkdir(DIST, { recursive: true });
-  await cp(path.join(ROOT, 'src', 'assets', 'site.css'), path.join(DIST, 'site.css'));
+  // The stylesheet references /fonts/ directly, so it needs the same prefix.
+  const css = await readFile(path.join(ROOT, 'src', 'assets', 'site.css'), 'utf8');
+  await writeFile(path.join(DIST, 'site.css'), BASE ? css.replaceAll("url('/fonts/", `url('${BASE}/fonts/`) : css);
   await cp(path.join(ROOT, 'src', 'assets', 'fonts'), path.join(DIST, 'fonts'), { recursive: true });
 
   // The browser bundle is authored in TypeScript and type-stripped here; it has
@@ -50,7 +53,7 @@ const LONGFORM: ReadonlyArray<{ slug: string; route: string; active: string }> =
 async function buildLocale(locale: Locale) {
   const t = dict(locale);
   /** dist-relative directory for a site path, e.g. '/works/' -> 'ca/works'. */
-  const route = (p: string) => localePath(locale, p).replace(/^\/|\/$/g, '');
+  const route = (p: string) => localeDir(locale, p).replace(/^\/|\/$/g, '');
 
   await writePage(route('/'), homePage({ works, collaborations, about: findEditorial('about'), locale }));
 
@@ -117,7 +120,8 @@ async function main() {
   console.log(
     `Built ${pagesWritten} pages across ${LOCALES.length} locales (${LOCALES.join(', ')}): ` +
     `${works.length} works, ${collaborations.length} projects, ${LONGFORM.length} long-form, ` +
-    `plus home, two gallery indexes and the editorial flow — each in ${LOCALES.length} languages.`,
+    `plus home, two gallery indexes and the editorial flow — each in ${LOCALES.length} languages.` +
+    (BASE ? `\nBase path: ${BASE}` : ''),
   );
 }
 

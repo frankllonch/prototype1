@@ -1,5 +1,6 @@
 import { html, join, raw, type Html } from './html.ts';
 import { DEFAULT_LOCALE, LOCALES, dict, localePath, type Dictionary, type Locale } from '../content/i18n.ts';
+import { withBase } from '../content/paths.ts';
 
 export interface LayoutProps {
   readonly title: string;
@@ -99,8 +100,8 @@ export function layout({ title, locale, path, description, active, children }: L
 <title>${fullTitle}</title>
 ${description ? `<meta name="description" content="${description.replace(/"/g, '&quot;').slice(0, 300)}" />` : ''}
 ${alternates}
-<link rel="preload" href="/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="stylesheet" href="/site.css" />
+<link rel="preload" href="${withBase('/fonts/inter-normal.woff2')}" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="${withBase('/site.css')}" />
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -109,7 +110,7 @@ ${header(locale, t, path, active).__html}
 <main id="main">${children.__html}</main>
 ${footer(t).__html}
 <div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
-<script type="module" src="/site.js"></script>
+<script type="module" src="${withBase('/site.js')}"></script>
 </body>
 </html>`);
 }

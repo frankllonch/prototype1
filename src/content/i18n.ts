@@ -11,6 +11,8 @@
  * `content/translations/ca.json` is where a translator drops the real text.
  */
 
+import { withBase } from './paths.ts';
+
 export const LOCALES = ['en', 'ca'] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = 'en';
@@ -166,9 +168,13 @@ const DICTIONARIES: Record<Locale, Dictionary> = { en, ca };
 
 export const dict = (locale: Locale): Dictionary => DICTIONARIES[locale];
 
-/** Prefixes a root-relative path with the locale segment. English stays at root. */
-export const localePath = (locale: Locale, path: string): string =>
+/**
+ * Where a page lives on disk: the locale segment, no base path. English is at the
+ * root, so `/works/` for English and `/ca/works/` for Catalan.
+ */
+export const localeDir = (locale: Locale, path: string): string =>
   locale === DEFAULT_LOCALE ? path : `/${locale}${path}`;
 
-/** The same page in another locale, for the language switcher. */
-export const alternatePath = (locale: Locale, path: string): string => localePath(locale, path);
+/** The URL to emit for a page — the same thing, plus any deployment base path. */
+export const localePath = (locale: Locale, path: string): string =>
+  withBase(localeDir(locale, path));

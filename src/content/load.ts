@@ -7,6 +7,7 @@
  */
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { withBase } from './paths.ts';
 import type { Dataset, Project, ProjectImage, Row } from './types.ts';
 
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
@@ -30,7 +31,11 @@ function withVariants(image: ProjectImage, manifest: Record<string, ManifestEntr
     // wrong on a few pages where the attributes were hand-edited.
     width: entry.width,
     height: entry.height,
-    variants: { avif: entry.avif, webp: entry.webp, fallback: entry.fallback },
+    variants: {
+      avif: entry.avif.map((v) => ({ ...v, url: withBase(v.url) })),
+      webp: entry.webp.map((v) => ({ ...v, url: withBase(v.url) })),
+      fallback: withBase(entry.fallback),
+    },
   };
 }
 
