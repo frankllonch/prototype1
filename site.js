@@ -78,15 +78,36 @@ function initReveals() {
         targets.forEach((el) => el.classList.add('is-in'));
         return;
     }
+    let revealed = 0;
     const observer = new IntersectionObserver((entries) => {
         for (const entry of entries) {
             if (!entry.isIntersecting)
                 continue;
             entry.target.classList.add('is-in');
             observer.unobserve(entry.target);
+            revealed++;
         }
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
     targets.forEach((el) => observer.observe(el));
+    /*
+     * Safety net. The entry animation is decoration, but it hides its own content
+     * until it runs — so if the observer never fires (a throttled background tab
+     * that is later restored, an engine quirk, a mis-set root margin) the gallery
+     * would stay blank. After a beat, reveal anything on screen; if nothing at all
+     * has been revealed, assume the observer is not working and reveal everything.
+     */
+    window.setTimeout(() => {
+        if (revealed === 0) {
+            targets.forEach((el) => el.classList.add('is-in'));
+            observer.disconnect();
+            return;
+        }
+        for (const el of targets) {
+            const box = el.getBoundingClientRect();
+            if (box.top < window.innerHeight && box.bottom > 0)
+                el.classList.add('is-in');
+        }
+    }, 2500);
 }
 /* ----------------------------------------------------------------- header */
 function initHeader() {
