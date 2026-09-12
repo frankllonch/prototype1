@@ -1,4 +1,7 @@
 import { html, join, raw, type Html } from './html.ts';
+import { aboutPanel } from './sections.ts';
+import { findEditorial } from '../content/load.ts';
+import { splitAbout } from '../content/sections.ts';
 import { DEFAULT_LOCALE, LOCALES, dict, localePath, type Dictionary, type Locale } from '../content/i18n.ts';
 import { withBase } from '../content/paths.ts';
 
@@ -16,6 +19,8 @@ interface NavItem {
   readonly key: keyof Dictionary['nav'];
   /** A homepage section id — the link scrolls there instead of loading a page. */
   readonly section?: string;
+  /** A panel id — the link raises it over the current page. */
+  readonly panel?: string;
   /** A real route. Only artwork has one. */
   readonly href?: string;
 }
@@ -27,7 +32,8 @@ interface NavItem {
  */
 const NAV: readonly NavItem[] = [
   { key: 'artwork', href: '/artwork/' },
-  { key: 'about', section: 'about' },
+  // About opens over the page you are on, wherever that is.
+  { key: 'about', panel: 'about' },
   { key: 'editorial', section: 'editorial' },
   { key: 'exhibitions', section: 'exhibitions' },
   { key: 'collaborations', section: 'collaborations' },
@@ -54,10 +60,11 @@ function header(locale: Locale, t: Dictionary, path: string, active?: string): H
           // from anywhere else, so it works from the artwork page too.
           const href = item.href
             ? localePath(locale, item.href)
-            : `${localePath(locale, '/')}#${item.section}`;
+            : `${localePath(locale, '/')}#${item.section ?? item.panel}`;
           return html`<a
             href="${href}"
             ${item.section ? raw(`data-section="${item.section}"`) : ''}
+            ${item.panel ? raw(`data-panel-open="${item.panel}"`) : ''}
             ${item.key === active ? raw('aria-current="page"') : ''}
           >${t.nav[item.key]}</a>`;
         }),
@@ -146,8 +153,9 @@ ${footer(t).__html}
   <button type="button" class="lightbox-nav lightbox-next" data-lightbox-next aria-label="${t.detail.next}"></button>
 </div>
 
-<!-- Exhibition detail veil. The panels themselves live inside the page. -->
+<!-- Panel veil, shared by About and the exhibitions. -->
 <div class="panel-veil" data-panel-veil hidden></div>
+${aboutPanel(splitAbout(findEditorial('about')), t).__html}
 <script type="module" src="${withBase('/site.js')}"></script>
 </body>
 </html>`);

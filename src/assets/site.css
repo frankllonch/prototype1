@@ -170,8 +170,9 @@ main { padding-top: var(--bar); }
   text-transform: none;
 }
 
-/* Characters split for the proximity scramble. */
-.sc { display: inline-block; white-space: pre; }
+/* Characters split for the proximity scramble. Each is given a fixed width by the
+   script so the substituted glyph cannot change the word's length. */
+.sc { display: inline-block; white-space: pre; text-align: center; }
 
 /* --------------------------------------------------------------- page head */
 
@@ -457,11 +458,12 @@ main { padding-top: var(--bar); }
 /* ------------------------------------------------------------------ about */
 
 /*
- * Newspaper setting. The two studio photographs are placed by the content layer
- * immediately before the sentence naming her gallery, so they land at a real
- * break in the argument rather than in whatever gap the layout left over.
+ * Newspaper setting inside the About panel. The two studio photographs are set
+ * into the column at about two thirds of its width, high in the text, with the
+ * prose running around them — a picture in a news column, not a plate between
+ * paragraphs.
  */
-.about-columns { columns: 1; column-gap: clamp(1.5rem, 3vw, 2.75rem); max-width: 78rem; }
+.about-columns { columns: 1; column-gap: clamp(1.5rem, 3vw, 2.75rem); max-width: 78rem; margin: 0 auto; }
 @media (min-width: 700px) { .about-columns { columns: 2; } }
 @media (min-width: 1200px) { .about-columns { columns: 3; } }
 
@@ -471,9 +473,17 @@ main { padding-top: var(--bar); }
 .about-columns a { border-bottom: 1px solid var(--rule); }
 .about-columns a:hover { border-color: currentColor; }
 
-.about-plates { break-inside: avoid; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin: 0.2rem 0 0.9em; }
-.about-plate { margin: 0; }
+.about-plate {
+  break-inside: avoid;
+  float: left;
+  width: 62%;
+  margin: 0.15rem 0.7rem 0.5rem 0;
+}
+.about-plate:nth-of-type(even) { float: right; margin: 0.15rem 0 0.5rem 0.7rem; }
 .about-plate img { width: 100%; height: auto; }
+@media (max-width: 699px) { .about-plate { float: none; width: 100%; margin: 0.6rem 0; } }
+
+.panel-about .panel-head { max-width: 78rem; }
 
 /* ------------------------------------------------------------ index grids */
 

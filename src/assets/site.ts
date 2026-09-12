@@ -48,6 +48,24 @@ function initScramble(): void {
   }
   if (!chars.length) return;
 
+  /*
+   * Lock every character to the width of the glyph it was born with. An asterisk
+   * is narrower than most letters, so without this the word contracts and
+   * re-expands as characters swap — the "extending" the effect must not do.
+   * Measured after the fonts are in, and again on resize since the sizes are fluid.
+   */
+  const lock = () => {
+    for (const span of chars) span.style.width = '';
+    const widths = chars.map((span) => span.getBoundingClientRect().width);
+    chars.forEach((span, i) => { span.style.width = `${widths[i]!.toFixed(3)}px`; });
+  };
+  void document.fonts.ready.then(lock);
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(lock, 120);
+  }, { passive: true });
+
   const deadline = new Map<HTMLElement, number>();
   let frame = 0;
 
@@ -363,9 +381,9 @@ function initLightbox(): void {
 /* ------------------------------------------------------- exhibition panel */
 
 /**
- * An exhibition opens above the homepage, which stays visible and softly blurred
- * behind it. The panels are already in the page — this only raises one — so there
- * is no fetch, no page load and nothing to wait for.
+ * About and each exhibition open above the page you are on, which stays visible
+ * and softly blurred behind them. The panels are already in the markup — this
+ * only raises one — so there is no fetch, no page load and nothing to wait for.
  */
 function initPanels(): void {
   const panels = [...document.querySelectorAll<HTMLElement>('[data-panel]')];
@@ -383,9 +401,9 @@ function initPanels(): void {
     if (restore) history.replaceState(null, '', location.pathname + location.search);
   };
 
-  const show = (slug: string) => {
-    const panel = document.getElementById(`exhibition-${slug}`);
-    if (!panel) return;
+  const show = (id: string) => {
+    const panel = document.getElementById(id);
+    if (!panel || !panel.hasAttribute('data-panel')) return;
     if (open && open !== panel) open.classList.remove('is-open');
     open = panel;
     veil.hidden = false;
@@ -395,12 +413,15 @@ function initPanels(): void {
     panel.querySelector<HTMLElement>('[data-panel-close]')?.focus({ preventScroll: true });
   };
 
-  for (const trigger of document.querySelectorAll<HTMLAnchorElement>('[data-exhibition]')) {
+  const triggers = document.querySelectorAll<HTMLAnchorElement>('[data-exhibition], [data-panel-open]');
+  for (const trigger of triggers) {
+    const id = trigger.dataset.panelOpen ?? `exhibition-${trigger.dataset.exhibition}`;
     trigger.addEventListener('click', (event) => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      if (!document.getElementById(id)) return; // not on this page: let the link go home
       event.preventDefault();
-      history.replaceState(null, '', `#exhibition-${trigger.dataset.exhibition}`);
-      show(trigger.dataset.exhibition!);
+      history.replaceState(null, '', `#${id}`);
+      show(id);
     });
   }
 
@@ -415,9 +436,8 @@ function initPanels(): void {
     if (open && event.key === 'Escape') close(true);
   });
 
-  // Arriving on a shared #exhibition-… link opens that one straight away.
-  const hash = /^#exhibition-(.+)$/.exec(location.hash);
-  if (hash) show(hash[1]!);
+  // Arriving on a shared #about or #exhibition-… link opens it straight away.
+  if (location.hash.length > 1) show(location.hash.slice(1));
 }
 
 /* ----------------------------------------------------------------- cursor */

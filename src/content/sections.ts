@@ -118,23 +118,29 @@ export function splitExhibitions(page: Project | undefined): readonly Exhibition
 
 /* ----------------------------------------------------------------- about */
 
+export type AboutBlock =
+  | { readonly kind: 'html'; readonly html: string }
+  | { readonly kind: 'image'; readonly image: ProjectImage };
+
 export interface AboutContent {
-  /** Biography paragraphs, up to the gallery-representation sentence. */
-  readonly lead: readonly string[];
-  /** The rest of the prose: representation, collections, CV, credits. */
-  readonly rest: readonly string[];
-  /** The two studio photographs, placed between the two. */
-  readonly images: readonly ProjectImage[];
+  /** Prose blocks with the studio photographs already slotted in. */
+  readonly blocks: readonly AboutBlock[];
   /** The contact line, lifted out for the Inquiries section. */
   readonly inquiries?: string;
 }
 
-/** Where the photographs belong: immediately before this sentence. */
-const REPRESENTATION = /Her work is represented/i;
+/**
+ * Where each photograph sits: after the block at this index. The first one lands
+ * right under the opening paragraph, the second a few paragraphs on — both well
+ * up in the text rather than buried at the point where the biography turns into
+ * a CV. Change these two numbers to move them.
+ */
+const PHOTO_AFTER_BLOCK = [1, 5] as const;
+
 const INQUIRIES = /INQUIRES?\s+PLEASE\s+CONTACT/i;
 
 export function splitAbout(page: Project | undefined): AboutContent {
-  if (!page) return { lead: [], rest: [], images: [] };
+  if (!page) return { blocks: [] };
 
   const html = page.rows
     .flatMap((r) => r.columns)
@@ -142,22 +148,25 @@ export function splitAbout(page: Project | undefined): AboutContent {
     .map((c) => (c.kind === 'text' ? c.html : ''))
     .join('');
 
-  const blocks = [...html.matchAll(/<(p|div)[^>]*>[\s\S]*?<\/\1>/g)].map((m) => m[0]);
+  const prose = [...html.matchAll(/<(p|div)[^>]*>[\s\S]*?<\/\1>/g)].map((m) => m[0]);
   const images = page.rows.flatMap((r) =>
     r.columns.flatMap((c) => (c.kind === 'images' ? [...c.images] : [])),
   );
+  const inquiriesBlock = prose.find((b) => INQUIRIES.test(strip(b)));
 
-  const cut = blocks.findIndex((b) => REPRESENTATION.test(strip(b)));
-  const inquiriesBlock = blocks.find((b) => INQUIRIES.test(strip(b)));
+  const blocks: AboutBlock[] = [];
+  prose.forEach((block, i) => {
+    if (block === inquiriesBlock) return;
+    blocks.push({ kind: 'html', html: block });
+    const slot = PHOTO_AFTER_BLOCK.indexOf(i as 1 | 5);
+    if (slot >= 0 && images[slot]) blocks.push({ kind: 'image', image: images[slot]! });
+  });
+  // A photograph whose slot is beyond the text still gets shown, at the end.
+  images.forEach((image, slot) => {
+    if (PHOTO_AFTER_BLOCK[slot] === undefined || PHOTO_AFTER_BLOCK[slot]! >= prose.length) {
+      blocks.push({ kind: 'image', image });
+    }
+  });
 
-  // If the sentence ever disappears the photographs still land somewhere sensible
-  // rather than all of the text ending up on one side of them.
-  const at = cut >= 0 ? cut : Math.min(8, blocks.length);
-
-  return {
-    lead: blocks.slice(0, at),
-    rest: blocks.slice(at).filter((b) => b !== inquiriesBlock),
-    images,
-    ...(inquiriesBlock ? { inquiries: strip(inquiriesBlock) } : {}),
-  };
+  return { blocks, ...(inquiriesBlock ? { inquiries: strip(inquiriesBlock) } : {}) };
 }

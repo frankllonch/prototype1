@@ -47,7 +47,7 @@ navigation moves between its sections without loading anything.
 
 | Route | What it is |
 |---|---|
-| `/` | The name, then About → Editorial → Exhibitions → Collaborations → Colour Chart → Inquiries |
+| `/` | The name, then Editorial → Exhibitions → Collaborations → Colour Chart → Inquiries |
 | `/artwork/` | All 154 paintings as one uninterrupted contact sheet |
 | `/artwork/<slug>/` | One painting |
 | `/collaborations/<slug>/` | One collaboration: imagery first, text below |
@@ -87,6 +87,13 @@ The plate is rebuilt from the clicked tile's own `<picture>` at a larger size an
 the caption from data attributes already on it — no second copy of the 154 records
 is shipped alongside the markup that already holds them.
 
+### About
+
+About is not a destination. It opens over whatever page you are on — the artwork
+sheet included — blurred behind it, and closes back to the same place. Set as
+justified newspaper columns with the two studio photographs floated into the prose
+near the top; their positions are two numbers in `src/content/sections.ts`.
+
 ### Exhibitions
 
 The Exhibitions section is an index; choosing one raises it above the homepage,
@@ -102,8 +109,10 @@ the plain `#exhibition-…` anchor.
 ### The wordmark
 
 Characters near the pointer show `*` and snap back, the nearer ones holding
-longer, so a title resolves as a ripple. Characters are armed **only when the
-pointer moves**, never from inside the animation loop — re-arming each frame is
+longer, so a title resolves as a ripple. Each character is locked to the width of
+its own glyph, so the substituted asterisk cannot change the word's length.
+Characters are armed **only when the pointer moves**, never from inside the
+animation loop — re-arming each frame is
 what made an earlier version shimmer forever while the cursor rested nearby. The
 loop only resolves deadlines and stops when none are left. The real characters stay
 in the DOM throughout, so selection and the accessible name are untouched.

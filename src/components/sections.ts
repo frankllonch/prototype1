@@ -19,28 +19,28 @@ function section(id: string, title: string, intro: string | undefined, body: Htm
 }
 
 /**
- * About. The two studio photographs sit inside the text, immediately before the
- * sentence naming her gallery — the point where the biography turns from how she
- * works to where the work is shown.
+ * About opens over whatever you are reading, the page blurred behind it, and
+ * closes back to the same place. It is set like a newspaper: justified columns,
+ * with the two studio photographs sitting inside the prose near the top.
  */
-export function aboutSection(about: AboutContent, t: Dictionary): Html {
-  return section('about', t.nav.about, undefined, html`
+export function aboutPanel(about: AboutContent, t: Dictionary): Html {
+  return html`<article class="panel panel-about" id="about" data-panel>
+    <header class="panel-head">
+      <h3 class="panel-title">${t.nav.about}</h3>
+      <a class="panel-close" href="#" data-panel-close>${t.nav.close}</a>
+    </header>
     <div class="about-columns">
-      ${join(about.lead.map((block) => raw(block)))}
-      ${about.images.length
-        ? html`<div class="about-plates">
-            ${join(
-              about.images.map(
-                (image) => html`<figure class="about-plate">
-                  ${responsiveImage({ image, sizes: '(max-width: 700px) 45vw, 220px' })}
-                </figure>`,
-              ),
-            )}
-          </div>`
-        : ''}
-      ${join(about.rest.map((block) => raw(block)))}
+      ${join(
+        about.blocks.map((block) =>
+          block.kind === 'html'
+            ? raw(block.html)
+            : html`<figure class="about-plate">
+                ${responsiveImage({ image: block.image, sizes: '(max-width: 700px) 60vw, 240px' })}
+              </figure>`,
+        ),
+      )}
     </div>
-  `);
+  </article>`;
 }
 
 /** Editorial: projects read as a publication rather than browsed as a grid. */
@@ -76,30 +76,17 @@ export function exhibitionsSection(exhibitions: readonly Exhibition[], t: Dictio
   `);
 }
 
-/** Collaborations: the contact sheet, linking to each project's own page. */
+/**
+ * Collaborations, as the same contact sheet the artwork uses — equal-area tiles,
+ * the same entry, the same cursor. Each tile leads to the project's own page,
+ * since a collaboration is several photographs and a text, which a single-plate
+ * lightbox cannot hold.
+ */
 export function collaborationsSection(
   projects: readonly Project[], locale: Locale, t: Dictionary,
 ): Html {
-  return section('collaborations', t.nav.collaborations, t.pages.collaborationsIntro, html`
-    <ul class="index-grid">
-      ${join(
-        projects.map((project) => {
-          const name = displayTitle(project.title, project.kind, locale);
-          return html`<li class="index-card">
-            <a href="${localePath(locale, `/collaborations/${project.slug}/`)}" data-cursor-title="${name}">
-              ${project.cover
-                ? responsiveImage({ image: project.cover, sizes: '(max-width: 700px) 92vw, 24vw' })
-                : ''}
-              <span class="index-meta">
-                <span class="index-title">${name}</span>
-                <span class="index-year">${project.metadata.year ?? ''}</span>
-              </span>
-            </a>
-          </li>`;
-        }),
-      )}
-    </ul>
-  `);
+  return section('collaborations', t.nav.collaborations, t.pages.collaborationsIntro,
+    gallery({ items: projects, basePath: '/collaborations', locale, t, eagerCount: 15 }));
 }
 
 export function colourChartSection(page: Project | undefined, t: Dictionary): Html {
@@ -159,7 +146,7 @@ export function exhibitionPanels(exhibitions: readonly Exhibition[], t: Dictiona
           <header class="panel-head">
             <h3 class="panel-title">${exhibition.title}</h3>
             ${exhibition.year ? html`<span class="panel-year">${exhibition.year}</span>` : ''}
-            <a class="panel-close" href="#exhibitions" data-panel-close>${t.nav.close}</a>
+            <a class="panel-close" href="#" data-panel-close>${t.nav.close}</a>
           </header>
           <div class="panel-body">
             ${join(

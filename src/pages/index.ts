@@ -3,7 +3,7 @@ import { layout } from '../components/layout.ts';
 import { gallery, zoomControl, yearIndicator } from '../components/gallery.ts';
 import { detail } from '../components/detail.ts';
 import {
-  aboutSection, collaborationsSection, colourChartSection,
+  collaborationsSection, colourChartSection,
   editorialSection, exhibitionPanels, exhibitionsSection, inquiriesSection,
 } from '../components/sections.ts';
 import { displayTitle } from '../content/title.ts';
@@ -50,7 +50,6 @@ export function homePage({
         </p>
       </section>
 
-      ${aboutSection(aboutContent, t)}
       ${editorialSection(collaborations.slice(0, 3), locale, t)}
       ${exhibitionsSection(exhibitions, t)}
       ${collaborationsSection(collaborations, locale, t)}
