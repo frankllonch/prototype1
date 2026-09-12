@@ -94,6 +94,21 @@ function initReveals(): void {
   targets.forEach((el) => observer.observe(el));
 
   /*
+   * Reveal what is already on screen, synchronously, right now. The first screen
+   * must not wait on an observer callback or a timer — both are throttled or
+   * suspended in a backgrounded tab, and a reader arriving there would find an
+   * empty page. Everything below the fold still animates in on scroll.
+   */
+  for (const el of targets) {
+    const box = el.getBoundingClientRect();
+    if (box.top < window.innerHeight && box.bottom > 0) {
+      el.classList.add('is-in');
+      observer.unobserve(el);
+      revealed++;
+    }
+  }
+
+  /*
    * Safety net. The entry animation is decoration, but it hides its own content
    * until it runs — so if the observer never fires (a throttled background tab
    * that is later restored, an engine quirk, a mis-set root margin) the gallery
