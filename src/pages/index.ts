@@ -1,32 +1,38 @@
-import { html, join, type Html } from '../components/html.ts';
+import { html, type Html } from '../components/html.ts';
 import { layout } from '../components/layout.ts';
-import { gallery, yearIndicator, zoomControl } from '../components/gallery.ts';
-import { responsiveImage } from '../components/image.ts';
-import { editorialBody, editorialSpread } from '../components/editorial.ts';
+import { gallery, zoomControl, yearIndicator } from '../components/gallery.ts';
 import { detail } from '../components/detail.ts';
+import {
+  aboutSection, collaborationsSection, colourChartSection,
+  editorialSection, exhibitionPanels, exhibitionsSection, inquiriesSection,
+} from '../components/sections.ts';
 import { displayTitle } from '../content/title.ts';
+import { splitAbout, splitExhibitions } from '../content/sections.ts';
 import { dict, localePath, type Locale } from '../content/i18n.ts';
 import type { Project } from '../content/types.ts';
 
-/** First sentence or two of a project's text, used as a standfirst. */
-const standfirst = (project: Project | undefined, max = 220): string => {
-  const text = project?.description ?? '';
-  if (text.length <= max) return text;
-  const cut = text.slice(0, max);
-  return `${cut.slice(0, cut.lastIndexOf(' '))}…`;
-};
-
 export interface HomeProps {
-  readonly works: readonly Project[];
+  readonly artwork: readonly Project[];
   readonly collaborations: readonly Project[];
   readonly about?: Project;
+  readonly colourChart?: Project;
+  readonly exhibitionsPage?: Project;
   readonly locale: Locale;
 }
 
-export function homePage({ works, collaborations, about, locale }: HomeProps): Html {
+/**
+ * The whole site except the artwork, on one page.
+ *
+ * Six sections in one continuous scroll; the navigation moves between them rather
+ * than loading anything. Artwork is the only thing that gets its own page, because
+ * it is the only thing that needs one.
+ */
+export function homePage({
+  artwork, collaborations, about, colourChart, exhibitionsPage, locale,
+}: HomeProps): Html {
   const t = dict(locale);
-  const recent = works.slice(0, 18);
-  const featured = collaborations.slice(0, 3);
+  const aboutContent = splitAbout(about);
+  const exhibitions = splitExhibitions(exhibitionsPage);
 
   return layout({
     title: 'Claudia Valsells',
@@ -36,123 +42,43 @@ export function homePage({ works, collaborations, about, locale }: HomeProps): H
     children: html`
       <section class="hero">
         <h1 class="hero-name" data-scramble>Claudia Valsells</h1>
+        <p class="hero-line">
+          ${t.home.tagline}
+          <a class="hero-enter" href="${localePath(locale, '/artwork/')}">
+            ${t.home.enterArtwork(artwork.length)} →
+          </a>
+        </p>
       </section>
 
-      <section class="strip">
-        <div class="strip-head">
-          <h2>${t.home.recentWork}</h2>
-          <a class="more" href="${localePath(locale, '/works/')}">${t.home.allWorks} →</a>
-        </div>
-        ${gallery({ items: recent, basePath: '/works', locale, t, eagerCount: 18 })}
-      </section>
-
-      <section class="strip">
-        <div class="strip-head">
-          <h2>${t.home.projects}</h2>
-          <a class="more" href="${localePath(locale, '/editorial/')}">${t.home.readEditorial} →</a>
-        </div>
-        <ul class="teasers">
-          ${join(
-            featured.map(
-              (project) => html`<li class="teaser">
-                <a href="${localePath(locale, `/projects/${project.slug}/`)}"
-                   data-cursor-title="${displayTitle(project.title, project.kind, locale)}">
-                  ${project.cover
-                    ? responsiveImage({ image: project.cover, sizes: '(max-width: 900px) 92vw, 30vw' })
-                    : ''}
-                  <h3>${displayTitle(project.title, project.kind, locale)}</h3>
-                  <p>${standfirst(project, 130)}</p>
-                </a>
-              </li>`,
-            ),
-          )}
-        </ul>
-      </section>
+      ${aboutSection(aboutContent, t)}
+      ${editorialSection(collaborations.slice(0, 3), locale, t)}
+      ${exhibitionsSection(exhibitions, t)}
+      ${collaborationsSection(collaborations, locale, t)}
+      ${colourChartSection(colourChart, t)}
+      ${inquiriesSection(aboutContent, t)}
+      ${exhibitionPanels(exhibitions, t)}
     `,
   });
 }
 
-export interface GalleryPageProps {
-  readonly title: string;
-  readonly active: string;
-  readonly intro: string;
-  readonly items: readonly Project[];
-  readonly basePath: string;
-  readonly path: string;
-  readonly locale: Locale;
-  readonly trackYears?: boolean;
-  readonly lightbox?: boolean;
-  readonly withZoom?: boolean;
-}
-
-export function galleryPage({
-  title, active, intro, items, basePath, path, locale,
-  trackYears = false, lightbox = false, withZoom = false,
-}: GalleryPageProps): Html {
+/** The artwork index — the one separate page. */
+export function artworkPage(items: readonly Project[], years: readonly number[], locale: Locale): Html {
   const t = dict(locale);
+  const intro = t.pages.artworkIntro(items.length, years[years.length - 1]!, years[0]!);
   return layout({
-    title, locale, path, description: intro, active,
+    title: t.pages.artwork,
+    locale,
+    path: '/artwork/',
+    description: intro,
+    active: 'artwork',
     children: html`
       <section class="page-head">
-        <h1 data-scramble>${title}</h1>
+        <h1 data-scramble>${t.pages.artwork}</h1>
         <p class="page-intro">${intro}</p>
-        ${withZoom ? zoomControl(t) : ''}
+        ${zoomControl(t)}
       </section>
-      ${gallery({ items, basePath, locale, t, trackYears, lightbox })}
-      ${trackYears ? yearIndicator() : ''}
-    `,
-  });
-}
-
-/** The flowing section: every collaboration read end to end, as a publication. */
-export function editorialPage(projects: readonly Project[], locale: Locale): Html {
-  const t = dict(locale);
-  return layout({
-    title: t.pages.editorial,
-    locale,
-    path: '/editorial/',
-    active: 'editorial',
-    description: t.pages.editorialIntro(projects.length),
-    children: html`
-      <section class="page-head">
-        <h1>${t.pages.editorial}</h1>
-        <p class="page-intro">${t.pages.editorialIntro(projects.length)}</p>
-        <ol class="contents">
-          ${join(
-            projects.map(
-              (p, i) => html`<li>
-                <a href="#${p.slug}">
-                  <span class="contents-num">${String(i + 1).padStart(2, '0')}</span>
-                  <span class="contents-title">${displayTitle(p.title, p.kind, locale)}</span>
-                  <span class="contents-year">${p.metadata.year ?? ''}</span>
-                </a>
-              </li>`,
-            ),
-          )}
-        </ol>
-      </section>
-      <div class="publication">
-        ${join(projects.map((p, i) => editorialSpread(p, i, locale)))}
-      </div>
-    `,
-  });
-}
-
-/** About / Colour Chart / Exhibitions — long-form pages from the source site. */
-export function longformPage(project: Project, active: string, path: string, locale: Locale): Html {
-  const t = dict(locale);
-  return layout({
-    title: project.title,
-    locale,
-    path,
-    active,
-    description: project.description ?? '',
-    children: html`
-      <section class="page-head">
-        <h1>${project.title}</h1>
-        ${t.untranslated ? html`<p class="untranslated">${t.untranslated}</p>` : ''}
-      </section>
-      <div class="longform">${editorialBody(project.rows, { eagerRows: 1 })}</div>
+      ${gallery({ items, basePath: '/artwork', locale, t, trackYears: true, lightbox: true })}
+      ${yearIndicator()}
     `,
   });
 }
@@ -179,7 +105,7 @@ export function detailPage(props: DetailPageProps): Html {
       ...props,
       t,
       backLabel: project.kind === 'work' ? t.detail.allWorks : t.detail.allProjects,
-      backHref: localePath(locale, `${basePath}/`),
+      backHref: project.kind === 'work' ? localePath(locale, '/artwork/') : localePath(locale, '/#collaborations'),
       linkBase: localePath(locale, basePath),
     }),
   });

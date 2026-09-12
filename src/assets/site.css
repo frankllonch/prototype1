@@ -440,201 +440,253 @@ main { padding-top: var(--bar); }
 
 @view-transition { navigation: auto; }
 
-/* ---------------------------------------------------------------- lightbox */
 
-/*
- * A work opens over the sheet rather than replacing it. The grid stays exactly
- * where it was, blurred behind a translucent veil, so you never lose your place —
- * and the caption floats over the blur instead of sitting in a column beside it.
- */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 80;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  opacity: 0;
-  transition: opacity 0.32s var(--ease);
-}
-.lightbox.is-open { opacity: 1; }
-.lightbox[hidden] { display: none; }
+/* =========================================================================
+   Homepage sections
+   ========================================================================= */
 
-.lightbox-veil {
-  position: absolute;
-  inset: 0;
-  background: color-mix(in srgb, var(--paper) 80%, transparent);
-  backdrop-filter: blur(18px) saturate(115%);
-  -webkit-backdrop-filter: blur(18px) saturate(115%);
-}
-/* Where backdrop-filter is unavailable the veil simply becomes more opaque,
-   which keeps the plate readable instead of leaving the grid showing through. */
-@supports not (backdrop-filter: blur(1px)) {
-  .lightbox-veil { background: color-mix(in srgb, var(--paper) 96%, transparent); }
-}
+.band { padding: var(--block) var(--pad); border-top: 1px solid var(--rule); scroll-margin-top: var(--bar); }
+.band-head { margin-bottom: var(--pad); }
+.band-title { font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; }
+.band-intro { max-width: var(--measure); color: var(--ink-soft); margin: 0.35rem 0 0; }
 
-.lightbox-bar,
-.lightbox-stage,
-.lightbox-meta,
-.lightbox-nav { position: relative; }
-
-.lightbox-bar {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0 var(--pad);
-  height: var(--bar);
-}
-.lightbox-title { font-size: 11px; font-weight: 500; }
-.lightbox-count {
-  font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
-  color: var(--ink-faint); font-variant-numeric: tabular-nums;
-}
-.lightbox-close {
-  margin-inline: auto 0;
-  background: none; border: 0; padding: 0; cursor: pointer; color: var(--ink);
-  font: inherit; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
-}
-
-.lightbox-stage {
-  grid-row: 2;
-  grid-column: 1 / -1;
-  display: grid;
-  place-items: center;
-  padding: 0 clamp(2.5rem, 8vw, 6rem);
-  min-height: 0;
-}
-/* Both plates share one cell so the outgoing and incoming images cross over each
-   other rather than the layout jumping between them. */
-.lightbox-stage > * {
-  grid-area: 1 / 1;
-  max-height: 72vh;
-  max-width: 100%;
-  width: auto;
-  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
-}
-.lightbox-stage img {
-  max-height: 72vh;
-  max-width: 100%;
-  width: auto;
-  height: auto;
-}
-.enter-from-right { opacity: 0; transform: translateX(22px); }
-.enter-from-left  { opacity: 0; transform: translateX(-22px); }
-.leave-to-left    { opacity: 0; transform: translateX(-22px); }
-.leave-to-right   { opacity: 0; transform: translateX(22px); }
-
-.lightbox-nav {
-  grid-row: 2;
-  align-self: center;
-  width: clamp(2.5rem, 8vw, 6rem);
-  height: 100%;
-  background: none; border: 0; cursor: pointer; padding: 0;
-  color: var(--ink-faint);
-  transition: color 0.2s var(--ease);
-}
-.lightbox-nav:hover { color: var(--ink); }
-.lightbox-prev { grid-column: 1; justify-self: start; }
-.lightbox-next { grid-column: 1; justify-self: end; }
-.lightbox-prev::before { content: '←'; font-size: 14px; }
-.lightbox-next::before { content: '→'; font-size: 14px; }
-
-.lightbox-meta {
-  grid-row: 3;
-  margin: 0;
-  padding: 0 var(--pad) var(--pad);
-  text-align: center;
-  color: var(--ink-faint);
-  font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
-}
-
-@media (max-width: 599px) {
-  .lightbox-stage { padding: 0 var(--pad); }
-  .lightbox-nav { display: none; }   /* swipe instead */
-  .lightbox-stage > *, .lightbox-stage img { max-height: 62vh; }
-}
-
-/* Stop the page behind an overlay from scrolling under it. */
-body.is-locked { overflow: hidden; }
+.hero-line { max-width: var(--measure); color: var(--ink-soft); margin: 0.6rem 0 0; font-size: 13px; }
+.hero-enter { border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.hero-enter:hover { border-color: currentColor; color: var(--ink); }
 
 /* ------------------------------------------------------------------ about */
 
 /*
- * About is not a destination. It opens over whatever you were reading, blurring
- * it, and closes back to the same scroll position — one less page, and you never
- * lose the work you were looking at.
+ * Newspaper setting. The two studio photographs are placed by the content layer
+ * immediately before the sentence naming her gallery, so they land at a real
+ * break in the argument rather than in whatever gap the layout left over.
  */
-.about-overlay { position: fixed; inset: 0; z-index: 85; opacity: 0;
-  transition: opacity 0.32s var(--ease); }
-.about-overlay.is-open { opacity: 1; }
-.about-overlay[hidden] { display: none; }
+.about-columns { columns: 1; column-gap: clamp(1.5rem, 3vw, 2.75rem); max-width: 78rem; }
+@media (min-width: 700px) { .about-columns { columns: 2; } }
+@media (min-width: 1200px) { .about-columns { columns: 3; } }
 
-.about-veil {
-  position: absolute; inset: 0;
-  background: color-mix(in srgb, var(--paper) 82%, transparent);
-  backdrop-filter: blur(20px) saturate(115%);
-  -webkit-backdrop-filter: blur(20px) saturate(115%);
+.about-columns > * { margin: 0 0 0.8em; font-size: 12.5px; line-height: 1.6; text-align: justify; hyphens: auto; }
+.about-columns > p:first-child { font-size: 14px; }
+.about-columns strong { font-weight: 600; }
+.about-columns a { border-bottom: 1px solid var(--rule); }
+.about-columns a:hover { border-color: currentColor; }
+
+.about-plates { break-inside: avoid; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin: 0.2rem 0 0.9em; }
+.about-plate { margin: 0; }
+.about-plate img { width: 100%; height: auto; }
+
+/* ------------------------------------------------------------ index grids */
+
+.index-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: var(--pad);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
 }
+.index-card a { display: block; }
+.index-card img { width: 100%; height: auto; }
+.index-meta { display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline; padding-top: 0.35rem; }
+.index-title { font-size: 11px; line-height: 1.25; }
+.index-year { font-size: 10px; letter-spacing: 0.07em; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.index-card a:hover .index-title { text-decoration: underline; text-underline-offset: 2px; }
+
+/* ------------------------------------------------------------ colour chart */
+
+.chart { display: grid; gap: var(--pad); }
+@media (min-width: 900px) { .chart { grid-template-columns: 1.1fr 1fr; align-items: start; } }
+.chart-plates { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+.chart-text { max-width: none; columns: 1; }
+@media (min-width: 900px) { .chart-text { font-size: 12.5px; } }
+
+/* -------------------------------------------------------------- inquiries */
+
+.inquiries-line { max-width: var(--measure); color: var(--ink-soft); }
+.inquiries-list { list-style: none; margin: var(--pad) 0 0; padding: 0; display: grid; gap: 0.5rem; max-width: 36rem; }
+.inquiries-list li { display: grid; grid-template-columns: 9rem 1fr; gap: 0.75rem; align-items: baseline;
+  border-top: 1px solid var(--rule); padding-top: 0.45rem; font-size: 12px; }
+.inquiries-list .label { color: var(--ink-faint); }
+.inquiries-list a { border-bottom: 1px solid var(--rule); }
+.inquiries-list a:hover { border-color: currentColor; }
+
+/* =========================================================================
+   Overlays
+
+   One blur value for the whole site, kept deliberately light: enough to push the
+   page back a plane, not so much that it becomes a frosted sheet. Raising it any
+   further made text behind it unreadable and the effect look like a filter.
+   ========================================================================= */
+
+:root {
+  /* Light blur, slightly opaque veil. Legibility comes from the opacity, not from
+     the blur — raising the blur to compensate is what made it read as a filter. */
+  --veil-blur: 8px;
+  --veil: color-mix(in srgb, var(--paper) 84%, transparent);
+}
+
+body.is-locked { overflow: hidden; }
+
+.lightbox-veil, .panel-veil {
+  position: fixed; inset: 0;
+  background: var(--veil);
+  backdrop-filter: blur(var(--veil-blur)) saturate(108%);
+  -webkit-backdrop-filter: blur(var(--veil-blur)) saturate(108%);
+}
+/* Without backdrop-filter the veil turns opaque instead, so content stays legible. */
 @supports not (backdrop-filter: blur(1px)) {
-  .about-veil { background: color-mix(in srgb, var(--paper) 97%, transparent); }
+  .lightbox-veil, .panel-veil { background: color-mix(in srgb, var(--paper) 96%, transparent); }
 }
 
-.about-panel {
-  position: relative;
-  height: 100%;
-  overflow-y: auto;
-  padding: var(--bar) var(--pad) var(--block);
-  -webkit-overflow-scrolling: touch;
+/* ---------------------------------------------------------------- lightbox */
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 80;
+  display: grid;
+  grid-template-columns: auto 1fr minmax(13rem, 19rem) auto;
+  align-items: center;
+  gap: var(--pad);
+  padding: var(--bar) var(--pad) var(--pad);
+  opacity: 0;
+  transition: opacity 0.28s var(--ease);
 }
-.about-close {
-  position: sticky; top: 0; float: right;
-  background: none; border: 0; padding: 0.4rem 0; cursor: pointer;
-  color: var(--ink); font: inherit;
-  font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
-  z-index: 2;
-}
-.about-title { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 500; margin: 0 0 var(--pad); }
+.lightbox.is-open { opacity: 1; }
+.lightbox[hidden] { display: none; }
 
 /*
- * Newspaper setting: the text runs in columns and the photographs sit inside the
- * flow at a fraction of their old size, floated so the prose wraps around them
- * rather than being pushed aside by full-width plates.
+ * The veil is positioned, so it paints above any static sibling no matter the DOM
+ * order. Everything that belongs in front of it has to be positioned too.
  */
-.about-body {
-  max-width: 78rem;
-  margin: 0 auto;
-  columns: 1;
-  column-gap: clamp(1.5rem, 3vw, 2.75rem);
-}
-@media (min-width: 700px) { .about-body { columns: 2; } }
-@media (min-width: 1200px) { .about-body { columns: 3; } }
+.lightbox-plate,
+.lightbox-caption,
+.lightbox-nav,
+.lightbox-close { position: relative; z-index: 1; }
+.lightbox-close { position: fixed; }
 
-.about-title { column-span: all; }
-.about-body .about-block {
-  margin: 0 0 0.8em;
-  font-size: 12.5px;
-  line-height: 1.6;
-  text-align: justify;
-  hyphens: auto;
-  max-width: none;
+.lightbox-plate {
+  grid-column: 2;
+  display: grid; place-items: center;
+  min-width: 0; min-height: 0;
+  transition: opacity 0.2s var(--ease);
 }
-.about-body .about-block:is(h1, h2, h3, strong) { text-align: left; hyphens: none; }
+/* The only moving part of a navigation: fade out, swap, fade in. */
+.lightbox.is-changing .lightbox-plate,
+.lightbox.is-changing .lightbox-caption { opacity: 0; }
+.lightbox-plate img { max-height: 74vh; max-width: 100%; width: auto; height: auto; }
 
-/* Set into the column at about two thirds of its width, with the prose running
-   around it — a picture in a news column, not a plate between paragraphs. */
-.about-body .about-figure {
-  break-inside: avoid;
-  float: left;
-  width: 66%;
-  margin: 0.15rem 0.7rem 0.5rem 0;
+/*
+ * The caption sits beside the plate, set in black at reading size rather than as
+ * a grey label under it — a painting's dimensions and medium are the substance of
+ * the page, not a footnote.
+ */
+.lightbox-caption {
+  grid-column: 3;
+  align-self: center;
+  transition: opacity 0.2s var(--ease);
 }
-.about-body .about-figure:nth-of-type(even) { float: right; margin: 0.15rem 0 0.5rem 0.7rem; }
-.about-body .about-figure img { width: 100%; height: auto; }
-.about-body .about-figure figcaption { font-size: 9px; margin-top: 0.25rem; text-align: left; }
+.lightbox-title {
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  font-weight: 500; letter-spacing: -0.02em; color: var(--ink);
+  margin: 0 0 0.5rem;
+}
+.lightbox-meta { display: flex; flex-direction: column; gap: 0.18rem; margin: 0 0 0.9rem; }
+.lightbox-meta span { font-size: 14px; line-height: 1.45; color: var(--ink); }
+.lightbox-count {
+  margin: 0; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--ink-faint); font-variant-numeric: tabular-nums;
+}
 
-@media (max-width: 699px) {
-  .about-body .about-figure { float: none; width: 100%; margin: 0.6rem 0; }
+.lightbox-close {
+  top: 0; right: var(--pad); height: var(--bar);
+  background: none; border: 0; padding: 0; cursor: pointer; color: var(--ink);
+  font: inherit; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
 }
+.lightbox-nav {
+  align-self: center; width: clamp(2rem, 4vw, 3.5rem); height: 40vh;
+  background: none; border: 0; cursor: pointer; padding: 0; color: var(--ink-faint);
+  transition: color 0.2s var(--ease);
+}
+.lightbox-nav:hover { color: var(--ink); }
+.lightbox-prev { grid-column: 1; }
+.lightbox-next { grid-column: 4; }
+.lightbox-prev::before { content: '←'; font-size: 15px; }
+.lightbox-next::before { content: '→'; font-size: 15px; }
+
+@media (max-width: 899px) {
+  .lightbox { grid-template-columns: 1fr; grid-template-rows: 1fr auto; align-content: center; }
+  .lightbox-plate { grid-column: 1; grid-row: 1; }
+  .lightbox-caption { grid-column: 1; grid-row: 2; }
+  .lightbox-nav { display: none; }          /* swipe instead */
+  .lightbox-plate img { max-height: 58vh; }
+}
+
+/* ------------------------------------------------------- exhibition panel */
+
+.panel-veil { z-index: 84; }
+.panel-veil[hidden] { display: none; }
+
+.panels { display: contents; }
+.panel {
+  position: fixed;
+  inset: var(--bar) 0 0 0;
+  z-index: 85;
+  overflow-y: auto;
+  padding: var(--block) var(--pad) var(--block);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.28s var(--ease), transform 0.28s var(--ease), visibility 0.28s;
+  -webkit-overflow-scrolling: touch;
+}
+.panel.is-open { opacity: 1; visibility: visible; transform: none; }
+
+.panel-head {
+  display: flex; align-items: baseline; gap: 0.75rem;
+  max-width: 62rem; margin: 0 auto var(--pad);
+}
+.panel-title { font-size: clamp(1.2rem, 2.4vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; }
+.panel-year { font-size: 10px; letter-spacing: 0.07em; color: var(--ink-faint); }
+.panel-close {
+  margin-inline: auto 0; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.panel-close:hover { color: var(--ink); }
+
+.panel-body { max-width: 62rem; margin: 0 auto; display: flex; flex-direction: column; gap: var(--pad); }
+.panel-row { display: grid; gap: var(--pad); }
+.panel-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--gap); }
+.panel-body .prose { max-width: 42rem; }
+
+/*
+ * Without scripting the panels are plain anchor targets, so they must be visible
+ * when linked to directly rather than hidden behind a class the script adds.
+ */
+html:not(.js) .panel { position: static; opacity: 1; visibility: visible; transform: none; inset: auto; }
 
 @media (prefers-reduced-motion: reduce) {
-  .lightbox, .about-overlay, .lightbox-stage > * { transition-duration: 0.001ms !important; }
+  .lightbox, .lightbox-plate, .lightbox-caption, .panel { transition-duration: 0.001ms !important; }
 }
+
+/* --------------------------------------------------- collaboration detail */
+
+/*
+ * Imagery first, text below. These projects are photographed rather than
+ * written, so the pictures carry the page and the text closes it.
+ */
+.collab-gallery { display: flex; flex-direction: column; gap: var(--pad); max-width: 72rem; margin: 0 auto; }
+.collab-figure { margin: 0; }
+.collab-figure img { width: 100%; height: auto; max-height: 86vh; object-fit: contain; }
+.collab-figure figcaption { color: var(--ink-faint); margin-top: 0.35rem; }
+.collab-text {
+  max-width: 42rem; margin: var(--block) auto 0;
+  padding-top: var(--pad); border-top: 1px solid var(--rule);
+}
+.collab-text .prose { font-size: 13px; line-height: 1.6; }
+
+.detail-project .detail-head { max-width: 72rem; margin-inline: auto; }
+.detail-project .detail-back { display: block; max-width: 72rem; margin-inline: auto; }
+.detail-project .pager { max-width: 72rem; margin-inline: auto; }
+
+/* Keep a homepage editorial spread from running away with the page. */
+.band .publication .col-images img { max-height: 62vh; width: auto; }
+.band .publication .col-images { align-items: flex-start; }
+.spread-more { margin: var(--pad) 0 0; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; }
+.spread-more a { color: var(--ink-soft); }
+.spread-more a:hover { color: var(--ink); }

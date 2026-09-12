@@ -12,19 +12,27 @@ export interface LayoutProps {
   readonly children: Html;
 }
 
-interface NavItem { readonly href: string; readonly key: keyof Dictionary['nav'] }
+interface NavItem {
+  readonly key: keyof Dictionary['nav'];
+  /** A homepage section id — the link scrolls there instead of loading a page. */
+  readonly section?: string;
+  /** A real route. Only artwork has one. */
+  readonly href?: string;
+}
 
-interface NavItemEx extends NavItem { readonly overlay?: boolean }
-
-const NAV: readonly NavItemEx[] = [
-  { href: '/works/', key: 'works' },
-  { href: '/editorial/', key: 'editorial' },
-  { href: '/projects/', key: 'projects' },
-  { href: '/exhibitions/', key: 'exhibitions' },
-  { href: '/colour-chart/', key: 'colourChart' },
-  // Opens over whatever you are reading instead of navigating away. The page at
-  // /about/ still exists and still answers, for direct links and no-JS readers.
-  { href: '/about/', key: 'about', overlay: true },
+/*
+ * One page and one section list. Everything except the artwork lives on the
+ * homepage, so these links are anchors: with scripting they scroll, without it
+ * the browser jumps to the same place. Nothing here loads a document.
+ */
+const NAV: readonly NavItem[] = [
+  { key: 'artwork', href: '/artwork/' },
+  { key: 'about', section: 'about' },
+  { key: 'editorial', section: 'editorial' },
+  { key: 'exhibitions', section: 'exhibitions' },
+  { key: 'collaborations', section: 'collaborations' },
+  { key: 'colourChart', section: 'colour-chart' },
+  { key: 'inquiries', section: 'inquiries' },
 ];
 
 /**
@@ -41,13 +49,18 @@ function header(locale: Locale, t: Dictionary, path: string, active?: string): H
 
     <nav class="site-nav" id="site-nav" aria-label="Primary">
       ${join(
-        NAV.map(
-          (item) => html`<a
-            href="${localePath(locale, item.href)}"
-            ${item.overlay ? raw('data-overlay="about"') : ''}
+        NAV.map((item) => {
+          // A section link is an anchor on the homepage and a link back to it
+          // from anywhere else, so it works from the artwork page too.
+          const href = item.href
+            ? localePath(locale, item.href)
+            : `${localePath(locale, '/')}#${item.section}`;
+          return html`<a
+            href="${href}"
+            ${item.section ? raw(`data-section="${item.section}"`) : ''}
             ${item.key === active ? raw('aria-current="page"') : ''}
-          >${t.nav[item.key]}</a>`,
-        ),
+          >${t.nav[item.key]}</a>`;
+        }),
       )}
     </nav>
 
@@ -122,25 +135,19 @@ ${footer(t).__html}
 -->
 <div class="lightbox" data-lightbox data-available-label="${t.facts.availableValue}" hidden>
   <div class="lightbox-veil" data-lightbox-veil></div>
-  <div class="lightbox-bar">
-    <span class="lightbox-title" data-lightbox-title></span>
-    <span class="lightbox-count" data-lightbox-count data-template="${t.detail.counter}"></span>
-    <button type="button" class="lightbox-close" data-lightbox-close>${t.nav.close}</button>
-  </div>
+  <button type="button" class="lightbox-close" data-lightbox-close>${t.nav.close}</button>
   <button type="button" class="lightbox-nav lightbox-prev" data-lightbox-prev aria-label="${t.detail.previous}"></button>
-  <div class="lightbox-stage" data-lightbox-stage></div>
+  <div class="lightbox-plate" data-lightbox-plate></div>
+  <div class="lightbox-caption">
+    <h2 class="lightbox-title" data-lightbox-title></h2>
+    <p class="lightbox-meta" data-lightbox-meta></p>
+    <p class="lightbox-count" data-lightbox-count data-template="${t.detail.counter}"></p>
+  </div>
   <button type="button" class="lightbox-nav lightbox-next" data-lightbox-next aria-label="${t.detail.next}"></button>
-  <p class="lightbox-meta" data-lightbox-meta></p>
 </div>
 
-<!-- About overlay. Content is fetched from /about/ the first time it is opened. -->
-<div class="about-overlay" data-about hidden>
-  <div class="about-veil" data-about-veil></div>
-  <div class="about-panel" role="dialog" aria-modal="true" aria-label="${t.nav.about}">
-    <button type="button" class="about-close" data-about-close>${t.nav.close}</button>
-    <div class="about-body" data-about-body></div>
-  </div>
-</div>
+<!-- Exhibition detail veil. The panels themselves live inside the page. -->
+<div class="panel-veil" data-panel-veil hidden></div>
 <script type="module" src="${withBase('/site.js')}"></script>
 </body>
 </html>`);

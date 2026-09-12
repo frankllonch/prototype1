@@ -1,4 +1,4 @@
-import { html, join, type Html } from './html.ts';
+import { html, join, raw, type Html } from './html.ts';
 import { editorialBody } from './editorial.ts';
 import { responsiveImage } from './image.ts';
 import { describeImage } from '../content/describe.ts';
@@ -63,6 +63,37 @@ function pager(
  * in the margin. A collaboration reuses the shell but leans on the editorial
  * body, which is where its real content lives.
  */
+/**
+ * A collaboration: the imagery first, scrolled through at full width, then the
+ * text underneath — the hierarchy the source site uses and the one the work
+ * deserves, since these projects are photographed rather than written.
+ */
+function collaborationBody(project: Project): Html {
+  const text = project.rows
+    .flatMap((row) => row.columns)
+    .filter((column) => column.kind === 'text');
+
+  return html`<div class="collab">
+    <div class="collab-gallery">
+      ${join(
+        project.images.map(
+          (image, i) => html`<figure class="collab-figure${i === 0 ? '' : ' reveal'}">
+            ${responsiveImage({
+              image,
+              sizes: '(max-width: 900px) 94vw, 70vw',
+              priority: i === 0,
+            })}
+            ${image.caption ? html`<figcaption>${image.caption}</figcaption>` : ''}
+          </figure>`,
+        ),
+      )}
+    </div>
+    <div class="collab-text">
+      ${join(text.map((column) => html`<div class="prose">${raw(column.kind === 'text' ? column.html : '')}</div>`))}
+    </div>
+  </div>`;
+}
+
 export function detail({
   project, previous, next, locale, t, linkBase, backLabel, backHref,
 }: DetailProps): Html {
@@ -84,6 +115,8 @@ export function detail({
       <h1 class="detail-title">${displayTitle(project.title, project.kind, locale)}</h1>
     </header>
 
+    ${!isWork ? collaborationBody(project) : ''}
+
     <div class="detail-main">
       ${plate && isWork
         ? html`<figure class="plate">
@@ -96,7 +129,7 @@ export function detail({
             ${plate.caption ? html`<figcaption>${plate.caption}</figcaption>` : ''}
           </figure>`
         : ''}
-      ${bodyRows.length ? editorialBody(bodyRows, { eagerRows: isWork ? 0 : 1 }) : ''}
+      ${isWork && bodyRows.length ? editorialBody(bodyRows, { eagerRows: 0 }) : ''}
       ${isWork && rest.length
         ? html`<div class="plate-extra">
             ${join(
@@ -111,7 +144,7 @@ export function detail({
         : ''}
     </div>
 
-    <aside class="detail-aside">${factList(project, t)}</aside>
+    ${isWork ? html`<aside class="detail-aside">${factList(project, t)}</aside>` : ''}
 
     ${pager(previous, next, linkBase, locale, t)}
   </article>`;

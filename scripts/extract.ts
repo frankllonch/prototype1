@@ -74,11 +74,18 @@ async function sitemapUrls(name: string): Promise<string[]> {
 const clean = (s: string) =>
   s.replace(/ /g, ' ').replace(/\s+/g, ' ').trim();
 
-/** Decodes the handful of entities WordPress emits; we never render raw entities. */
+/**
+ * Decodes the entities WordPress emits. Numeric references are handled generically
+ * rather than one at a time — the source uses at least &#215; (×) and &#8243; (″),
+ * and listing them individually is how the first two got missed.
+ */
 const decode = (s: string) =>
-  s.replace(/&#8217;|&#8216;/g, '’').replace(/&#8220;/g, '“').replace(/&#8221;/g, '”')
-   .replace(/&#8230;/g, '…').replace(/&#8211;/g, '–').replace(/&#038;|&amp;/g, '&')
-   .replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  s.replace(/&#(\d+);/g, (_, code: string) => String.fromCodePoint(Number(code)))
+   .replace(/&#x([0-9a-f]+);/gi, (_, code: string) => String.fromCodePoint(parseInt(code, 16)))
+   .replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').replace(/&apos;/g, "'")
+   .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+   // Ampersand last, so a decoded &amp;#215; cannot be re-decoded into a character.
+   .replace(/&amp;/g, '&');
 
 function spanOf(el: HTMLElement): ColumnSpan {
   const m = /\bspan(\d{1,2})\b/.exec(el.getAttribute('class') ?? '');
@@ -189,8 +196,15 @@ function metadataFrom(postEl: HTMLElement | null, rows: readonly Row[], title: s
       .replace(/(\d)\s*(cm|mm|m)$/, '$1 $2');
   }
 
-  const materials = /\b((?:acrylic|oil|gouache|watercolou?r|pigment|ink|tempera)\b[^.,;·\n]*)/i.exec(body)?.[1];
-  if (materials) meta.materials = clean(materials).toLowerCase().replace(/^\w/, (c) => c.toUpperCase());
+  // Stop before any digit: the source often runs the medium straight into the
+  // dimensions ("Acrylic on canvas 70x60cm"), which belong in their own field.
+  const materials = /\b((?:acrylic|oil|gouache|watercolou?r|pigment|ink|tempera)\b[^.,;·\n\d]*)/i.exec(body)?.[1];
+  if (materials) {
+    meta.materials = clean(materials)
+      .toLowerCase()
+      .replace(/[\s(\[–-]+$/, '')
+      .replace(/^\w/, (c) => c.toUpperCase());
+  }
 
   return meta as ProjectMetadata;
 }

@@ -42,92 +42,77 @@ npm run extract    # crawl WordPress → content/projects.json   (~30 s; HTML is
 
 ## What it looks like
 
-Every route exists twice: English at the root, Catalan under `/ca/`.
+Two locations. Everything except the artwork lives on one scrolling page; the
+navigation moves between its sections without loading anything.
 
 | Route | What it is |
 |---|---|
-| `/` | The name, then straight into recent work |
-| `/works/` | All 154 paintings as one uninterrupted contact sheet |
-| `/editorial/` | The flowing section: every project read end to end as one publication |
-| `/projects/` | Collaborations as a contact sheet |
-| `/works/<slug>/`, `/projects/<slug>/` | Detail pages with prev/next |
-| `/about/`, `/colour-chart/`, `/exhibitions/` | Long-form pages |
+| `/` | The name, then About → Editorial → Exhibitions → Collaborations → Colour Chart → Inquiries |
+| `/artwork/` | All 154 paintings as one uninterrupted contact sheet |
+| `/artwork/<slug>/` | One painting |
+| `/collaborations/<slug>/` | One collaboration: imagery first, text below |
+
+Catalan mirrors all of it under `/ca/`.
 
 ### The contact sheet
 
-The works page is a contact sheet, not a grid. Every tile is sized so each work
-occupies the same **area**: width is `√aspect × unit`, height is `unit / √aspect`,
-so the product is always `unit²`. A wide canvas comes out broad and short, a tall
-one narrow and tall, and both carry equal visual weight — which is what lets 154
-paintings of eleven different proportions sit together without any one dominating.
+Every tile is sized so each work occupies the same **area**: width is
+`√aspect × unit`, height is `unit / √aspect`, so the product is always `unit²`. A
+wide canvas comes out broad and short, a tall one narrow and tall, and both carry
+equal weight — which is what lets 154 paintings of eleven different proportions sit
+together without any one dominating.
 
-The square root is taken at build time (`--k` per tile); `--unit` is the only thing
-the density control touches, so changing it re-sizes all 154 tiles by writing a
-single custom property. Both are registered with `@property`, which is what makes
-`width: calc(--k * --unit)` recompute reliably and lets the change animate.
+The square root is taken at build time (`--k`); `--unit` is the only thing the
+density control touches, so one custom property resizes all 154. Both are
+registered with `@property`, which is what makes `width: calc(--k * --unit)`
+recompute reliably.
 
-**Density control** — three levels, labelled with how many of the 154 pieces are
-visible at once (24 / 60 / 154), derived from `unit²` against a typical viewport.
-The choice is remembered in `localStorage`.
-
-**Entry animation** — tiles fade and lift as they scroll into view, each a beat
-after the last (`--i` cycles 0–13), so a dense sheet resolves in a wave. The
-transition is on `width`, never on the custom property: animating `--unit` itself
-would make the final size depend on the animation completing, and a transition that
-never runs would strand every tile at the old size.
-
-**Years never cut the grid.** Nothing interrupts the sheet. The year of whatever
-is at the top of the viewport floats over it while you scroll and fades once you
-stop, the way the iOS photo library does it — so ten years read as one continuous
-surface instead of eleven separate blocks.
+**Years never cut the grid.** The sheet runs unbroken; the year of whatever is at
+the top of the viewport floats over it while you scroll and fades when you stop,
+after the iOS photo library.
 
 ### The lightbox
 
-Clicking a painting opens it over the sheet rather than navigating away: the grid
-stays exactly where it was, blurred behind a translucent veil, with the title and
-counter floating above and the caption below. Arrow keys, swipe and the on-screen
-arrows move between works; Escape closes.
+A painting opens over the sheet: the grid stays put behind a light veil, the
+caption sits beside the plate in black at reading size, and arrows, swipe and the
+keyboard move between works.
 
-Nothing is duplicated to make this work. The plate is built from the clicked tile's
-own `<picture>`, re-asking for a larger source, and the caption is read from data
-attributes already on the tile — so there is no JSON copy of the 154 records
-shipped alongside the markup that already contains them.
+**One transition per action, and only one in flight.** Each navigation takes a
+ticket; when the fade finishes the swap happens only if that ticket is still
+current, so a second click lapses the first instead of racing it. Opening pushes
+one history entry and moving replaces it, so Back leaves the lightbox in a single
+press rather than walking through every painting.
 
-Every tile is still a real link to a real page. The click is intercepted and the
-same URL pushed, so sharing, the back button, middle-click and ⌘-click all behave
-as they would without it; with scripting off the links simply work. Collaborations
-are deliberately excluded — their pages are mostly text and images a lightbox
-cannot show, so those tiles stay ordinary links.
+The plate is rebuilt from the clicked tile's own `<picture>` at a larger size and
+the caption from data attributes already on it — no second copy of the 154 records
+is shipped alongside the markup that already holds them.
 
-### About
+### Exhibitions
 
-About is not a destination. It opens over whatever you are reading, blurring it,
-and closes back to the same scroll position. The text is fetched from `/about/` the
-first time it is asked for — costing nothing on any page until then — and set like
-a newspaper: justified columns (one, two or three by width) with the photographs
-dealt out at intervals through the prose at two thirds of a column, floated so the
-text runs around them.
+The Exhibitions section is an index; choosing one raises it above the homepage,
+which stays visible behind a light blur. The six exhibitions are split out of the
+source site's single combined page by `src/content/sections.ts`: a row begins a new
+exhibition when its text opens with a `<strong>` title *and* carries a year — the
+title alone would also catch sub-headings that belong to the exhibition above.
 
-`/about/` still exists and still answers, for direct links, search engines and
-readers without scripting.
+Panels are in the page rather than fetched, so opening one is instant and the text
+is there for search engines and for readers without scripting, who reach it through
+the plain `#exhibition-…` anchor.
 
 ### The wordmark
 
-Characters near the pointer flicker to `*` and settle back, the nearer ones taking
-longer, so the name ripples rather than flipping at once. The real characters stay
-in the DOM throughout — the effect swaps their content, never removes them — so
-selection, search and the accessible name are untouched. Pointer-only, and off
-entirely under `prefers-reduced-motion`.
+Characters near the pointer show `*` and snap back, the nearer ones holding
+longer, so a title resolves as a ripple. Characters are armed **only when the
+pointer moves**, never from inside the animation loop — re-arming each frame is
+what made an earlier version shimmer forever while the cursor rested nearby. The
+loop only resolves deadlines and stops when none are left. The real characters stay
+in the DOM throughout, so selection and the accessible name are untouched.
 
-### The cursor
+### Blur
 
-Hovering a work shows its title in a cursor-following label
-(`initCursor` in `src/assets/site.ts`). It is decoration, never the only route to
-the information:
-
-- the title is also in each tile's caption, permanently visible on touch and coarse pointers;
-- keyboard focus reveals the caption, since there is no cursor to read;
-- `prefers-reduced-motion` drops the easing.
+One value for the whole site — 8px, over a veil that is 84% paper. Legibility comes
+from the opacity, not the blur; raising the blur to compensate is what made it read
+as a filter rather than a plane.
 
 ## Publishing — unchanged
 

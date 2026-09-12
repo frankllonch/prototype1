@@ -21,12 +21,12 @@ export interface Dictionary {
   readonly htmlLang: string;
   readonly localeName: string;
   readonly nav: {
-    readonly works: string;
-    readonly editorial: string;
-    readonly projects: string;
-    readonly exhibitions: string;
-    readonly colourChart: string;
+    readonly artwork: string;
     readonly about: string;
+    readonly editorial: string;
+    readonly exhibitions: string;
+    readonly collaborations: string;
+    readonly colourChart: string;
     readonly inquiries: string;
     readonly menu: string;
     readonly close: string;
@@ -59,20 +59,17 @@ export interface Dictionary {
   };
   readonly home: {
     readonly tagline: string;
-    readonly worksLink: (n: number) => string;
-    readonly recentWork: string;
-    readonly allWorks: string;
-    readonly projects: string;
-    readonly readEditorial: string;
+    readonly enterArtwork: (n: number) => string;
   };
   readonly pages: {
-    readonly works: string;
-    readonly worksIntro: (n: number, from: number, to: number) => string;
-    readonly projects: string;
-    readonly projectsIntro: string;
-    readonly editorial: string;
-    readonly editorialIntro: (n: number) => string;
-    readonly contents: string;
+    readonly artwork: string;
+    readonly artworkIntro: (n: number, from: number, to: number) => string;
+    readonly editorialIntro: string;
+    readonly exhibitionsIntro: string;
+    readonly collaborationsIntro: string;
+    readonly colourChartIntro: string;
+    readonly enter: string;
+    readonly backHome: string;
   };
   readonly footer: {
     readonly inquiries: string;
@@ -91,9 +88,10 @@ const en: Dictionary = {
   htmlLang: 'en',
   localeName: 'English',
   nav: {
-    works: 'Works', editorial: 'Editorial', projects: 'Projects',
-    exhibitions: 'Exhibitions', colourChart: 'Colour Chart', about: 'About',
-    inquiries: 'Inquiries', menu: 'Menu', close: 'Close', skip: 'Skip to content',
+    artwork: 'Artwork', about: 'About', editorial: 'Editorial',
+    exhibitions: 'Exhibitions', collaborations: 'Collaborations',
+    colourChart: 'Colour Chart', inquiries: 'Inquiries',
+    menu: 'Menu', close: 'Close', skip: 'Skip to content',
   },
   gallery: { all: 'All', available: 'Available', density: 'Shown', untitled: 'Untitled' },
   facts: {
@@ -107,18 +105,17 @@ const en: Dictionary = {
   },
   home: {
     tagline: 'An artist working with colour as material, language and subject.',
-    worksLink: (n) => `${n} works`,
-    recentWork: 'Recent work', allWorks: 'All works',
-    projects: 'Projects', readEditorial: 'Read as editorial',
+    enterArtwork: (n) => `${n} paintings`,
   },
   pages: {
-    works: 'Works',
-    worksIntro: (n, from, to) => `${n} paintings, ${from}–${to}. Colour as material, language and subject.`,
-    projects: 'Projects',
-    projectsIntro: 'Collaborations, commissions and colour work made with architects, designers and studios.',
-    editorial: 'Editorial',
-    editorialIntro: (n) => `Every project, read end to end. ${n} chapters, in the order they were made.`,
-    contents: 'Contents',
+    artwork: 'Artwork',
+    artworkIntro: (n, from, to) => `${n} paintings, ${from}–${to}. Colour as material, language and subject.`,
+    editorialIntro: 'Projects read end to end, in the order they were made.',
+    exhibitionsIntro: 'Solo shows and editions. Choose one to read it.',
+    collaborationsIntro: 'Commissions and colour work made with architects, designers and studios.',
+    colourChartIntro: 'An artist colour chart for architects and designers.',
+    enter: 'Read',
+    backHome: 'Back',
   },
   footer: {
     inquiries: 'Inquiries', art: 'Art — Alzueta Gallery', other: 'Other enquiries',
@@ -132,9 +129,10 @@ const ca: Dictionary = {
   htmlLang: 'ca',
   localeName: 'Català',
   nav: {
-    works: 'Obra', editorial: 'Editorial', projects: 'Projectes',
-    exhibitions: 'Exposicions', colourChart: 'Carta de Colors', about: 'Perfil',
-    inquiries: 'Consultes', menu: 'Menú', close: 'Tanca', skip: 'Vés al contingut',
+    artwork: 'Obra', about: 'Perfil', editorial: 'Editorial',
+    exhibitions: 'Exposicions', collaborations: 'Col·laboracions',
+    colourChart: 'Carta de Colors', inquiries: 'Consultes',
+    menu: 'Menú', close: 'Tanca', skip: 'Vés al contingut',
   },
   gallery: { all: 'Tot', available: 'Disponible', density: 'Mostrant', untitled: 'Sense títol' },
   facts: {
@@ -144,23 +142,22 @@ const ca: Dictionary = {
   },
   detail: {
     previous: 'Anterior', next: 'Següent',
-    allWorks: 'Tota l’obra', allProjects: 'Tots els projectes',
+    allWorks: 'Tota l’obra', allProjects: 'Totes les col·laboracions',
     counter: '{n} de {total}',
   },
   home: {
     tagline: 'Artista que treballa el color com a matèria, llenguatge i tema.',
-    worksLink: (n) => `${n} obres`,
-    recentWork: 'Obra recent', allWorks: 'Tota l’obra',
-    projects: 'Projectes', readEditorial: 'Llegeix en format editorial',
+    enterArtwork: (n) => `${n} pintures`,
   },
   pages: {
-    works: 'Obra',
-    worksIntro: (n, from, to) => `${n} pintures, ${from}–${to}. El color com a matèria, llenguatge i tema.`,
-    projects: 'Projectes',
-    projectsIntro: 'Col·laboracions, encàrrecs i treball de color amb arquitectes, dissenyadors i estudis.',
-    editorial: 'Editorial',
-    editorialIntro: (n) => `Tots els projectes, de principi a fi. ${n} capítols, en l’ordre en què es van fer.`,
-    contents: 'Índex',
+    artwork: 'Obra',
+    artworkIntro: (n, from, to) => `${n} pintures, ${from}–${to}. El color com a matèria, llenguatge i tema.`,
+    editorialIntro: 'Projectes llegits de principi a fi, en l’ordre en què es van fer.',
+    exhibitionsIntro: 'Exposicions individuals i edicions. Tria’n una per llegir-la.',
+    collaborationsIntro: 'Encàrrecs i treball de color amb arquitectes, dissenyadors i estudis.',
+    colourChartIntro: 'Una carta de colors d’artista per a arquitectes i dissenyadors.',
+    enter: 'Llegeix',
+    backHome: 'Enrere',
   },
   footer: {
     inquiries: 'Consultes', art: 'Art — Alzueta Gallery', other: 'Altres consultes',

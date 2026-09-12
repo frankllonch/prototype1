@@ -47,19 +47,49 @@ export function editorialBody(rows: readonly Row[], { eagerRows = 1 } = {}): Htm
  * One project as a spread in a publication: an oversized title, the metadata in
  * the margin, then the project's own composition.
  */
-export function editorialSpread(project: Project, index: number, locale: Locale): Html {
+export interface SpreadOptions {
+  /**
+   * Cap on the images shown. The homepage section is a reading, not the archive —
+   * one project carries 44 photographs, which stacked full-width ran to 38,000px
+   * on its own. The whole project is a click away on its own page.
+   */
+  readonly maxImages?: number;
+  readonly readLabel?: string;
+}
+
+export function editorialSpread(
+  project: Project, index: number, locale: Locale, options: SpreadOptions = {},
+): Html {
   const { year, location, client, materials } = project.metadata;
   const facts = [year, location, client, materials].filter(Boolean);
   const name = displayTitle(project.title, project.kind, locale);
+  const href = localePath(locale, `/collaborations/${project.slug}/`);
+
+  // Trim whole image-columns rather than slicing inside one, so a row that was
+  // composed as a triptych is never left showing two of three.
+  let budget = options.maxImages ?? Infinity;
+  const rows: Row[] = [];
+  for (const row of project.rows) {
+    const columns = row.columns.filter((column) => {
+      if (column.kind !== 'images') return true;
+      if (budget <= 0) return false;
+      budget -= column.images.length;
+      return true;
+    });
+    if (columns.length) rows.push({ columns });
+  }
 
   return html`<article class="spread" id="${project.slug}">
     <header class="spread-head">
       <p class="spread-index">${String(index + 1).padStart(2, '0')}</p>
       <h2 class="spread-title reveal">
-        <a href="${localePath(locale, `/projects/${project.slug}/`)}" data-cursor-title="${name}">${name}</a>
+        <a href="${href}" data-cursor-title="${name}">${name}</a>
       </h2>
       ${facts.length ? html`<p class="spread-facts">${join(facts.map((f) => html`<span>${f}</span>`), '')}</p>` : ''}
     </header>
-    ${editorialBody(project.rows, { eagerRows: index === 0 ? 1 : 0 })}
+    ${editorialBody(rows, { eagerRows: index === 0 ? 1 : 0 })}
+    ${options.readLabel
+      ? html`<p class="spread-more"><a href="${href}">${options.readLabel} →</a></p>`
+      : ''}
   </article>`;
 }

@@ -1,5 +1,5 @@
 {
-  "extractedAt": "2026-09-11T20:20:41.977Z",
+  "extractedAt": "2026-09-12T18:21:26.644Z",
   "sourceSite": "https://www.claudiavalsells.com",
   "projects": [
     {
@@ -197,14 +197,14 @@
       "kind": "work",
       "title": "COLOR DIALOGUES V, 2021",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/color-dialogues-v-2021/",
-      "description": "Mixed media on canvas 160&#215;130 cm",
+      "description": "Mixed media on canvas 160×130 cm",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Mixed media on canvas 160&#215;130 cm</p>"
+              "html": "<p>Mixed media on canvas 160×130 cm</p>"
             }
           ]
         },
@@ -248,7 +248,8 @@
         "categories": [
           "pinturas-paintings"
         ],
-        "available": false
+        "available": false,
+        "dimensions": "160 × 130 cm"
       }
     },
     {
@@ -462,14 +463,14 @@
       "kind": "work",
       "title": "Untitled 2022, 76x63cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2022-76x63cm-2/",
-      "description": "M509, mixed media on canvas, 76x63cm, 27,5&#215;23,6».",
+      "description": "M509, mixed media on canvas, 76x63cm, 27,5×23,6».",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>M509, mixed media on canvas, 76x63cm, 27,5&#215;23,6».</p>"
+              "html": "<p>M509, mixed media on canvas, 76x63cm, 27,5×23,6».</p>"
             }
           ]
         },
@@ -863,14 +864,14 @@
       "kind": "work",
       "title": "Untitled 2022, 193x163cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2022-163x193cm/",
-      "description": "L516, mixed media on canvas 163x193cm / 64,17&#8243; x 76&#8243; inches UNTITLED 2022",
+      "description": "L516, mixed media on canvas 163x193cm / 64,17″ x 76″ inches UNTITLED 2022",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>L516, mixed media on canvas</p> <p>163x193cm / 64,17&#8243; x 76&#8243; inches</p> <p>UNTITLED 2022</p>"
+              "html": "<p>L516, mixed media on canvas</p> <p>163x193cm / 64,17″ x 76″ inches</p> <p>UNTITLED 2022</p>"
             }
           ]
         },
@@ -1033,14 +1034,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 70X60cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-70x60cm/",
-      "description": "Acrylic on canvas 70&#215;60 cm / 27,5’’ x 23,6’’ inches / M532, CV2023",
+      "description": "Acrylic on canvas 70×60 cm / 27,5’’ x 23,6’’ inches / M532, CV2023",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p><b>Acrylic on canvas 70&#215;60 cm / 27,5’’ x 23,6’’ inches / M532, CV2023 </b></p>"
+              "html": "<p><b>Acrylic on canvas 70×60 cm / 27,5’’ x 23,6’’ inches / M532, CV2023 </b></p>"
             }
           ]
         },
@@ -1135,7 +1136,7 @@
         "available": false,
         "reference": "M532",
         "dimensions": "70 × 60 cm",
-        "materials": "Acrylic on canvas 70&#215"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -1143,14 +1144,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 190X160cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-190x160cm/",
-      "description": "L543, CV2023, 190X160 cm, mixed media on canvas. From ’Transitions’ solo show at Alzueta Gallery sept 2023.",
+      "description": "L543, CV2023, 190X160 cm, mixed media on canvas. From ‘Transitions’ solo show at Alzueta Gallery sept 2023.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>L543, CV2023, 190X160 cm, mixed media on canvas.</p> <p>From ’Transitions’ solo show at Alzueta Gallery sept 2023.</p>"
+              "html": "<p>L543, CV2023, 190X160 cm, mixed media on canvas.</p> <p>From ‘Transitions’ solo show at Alzueta Gallery sept 2023.</p>"
             }
           ]
         },
@@ -1224,14 +1225,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 100X80cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-100x80cm-4/",
-      "description": "M549, CV2023, Mixed media on canvas. From solo show ’Transitions’ sept.2023 at Alzueta Gallery, Barcelona.",
+      "description": "M549, CV2023, Mixed media on canvas. From solo show ‘Transitions’ sept.2023 at Alzueta Gallery, Barcelona.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>M549, CV2023, Mixed media on canvas.</p> <p>From solo show ’Transitions’ sept.2023 at Alzueta Gallery, Barcelona.</p>"
+              "html": "<p>M549, CV2023, Mixed media on canvas.</p> <p>From solo show ‘Transitions’ sept.2023 at Alzueta Gallery, Barcelona.</p>"
             }
           ]
         },
@@ -1325,14 +1326,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 160X190CM",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-160x190cm/",
-      "description": "L544, CV2023, 160X190cm, mixed media on canvas. ’Transitions’ solo show at Alzueta Gallery , sept 2023.",
+      "description": "L544, CV2023, 160X190cm, mixed media on canvas. ‘Transitions’ solo show at Alzueta Gallery , sept 2023.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>L544, CV2023, 160X190cm, mixed media on canvas.</p> <p>’Transitions’ solo show at <a href=\"http://www.alzuetagallery.com\">Alzueta Gallery</a>, sept 2023.</p>"
+              "html": "<p>L544, CV2023, 160X190cm, mixed media on canvas.</p> <p>‘Transitions’ solo show at <a href=\"http://www.alzuetagallery.com\">Alzueta Gallery</a>, sept 2023.</p>"
             }
           ]
         },
@@ -1426,14 +1427,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 100X80cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-100x80cm-3/",
-      "description": "M545, CV2023, Mixed media on canvas. From solo show ’Transitions’ sept.2023 at Alzueta Gallery, Barcelona.",
+      "description": "M545, CV2023, Mixed media on canvas. From solo show ‘Transitions’ sept.2023 at Alzueta Gallery, Barcelona.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>M545, CV2023, Mixed media on canvas.</p> <p>From solo show ’Transitions’ sept.2023 at Alzueta Gallery, Barcelona.</p>"
+              "html": "<p>M545, CV2023, Mixed media on canvas.</p> <p>From solo show ‘Transitions’ sept.2023 at Alzueta Gallery, Barcelona.</p>"
             }
           ]
         },
@@ -1507,14 +1508,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 100X80cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-100x80cm/",
-      "description": "M547, CV2023, mix media on canvas. ’Transitions’ solo show at Alzueta Gallery, sept 2023",
+      "description": "M547, CV2023, mix media on canvas. ‘Transitions’ solo show at Alzueta Gallery, sept 2023",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>M547, CV2023, mix media on canvas.</p> <p>’Transitions’ solo show at Alzueta Gallery, sept 2023</p>"
+              "html": "<p>M547, CV2023, mix media on canvas.</p> <p>‘Transitions’ solo show at Alzueta Gallery, sept 2023</p>"
             }
           ]
         },
@@ -1585,14 +1586,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 60X50 cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-60x50-cm/",
-      "description": "P541, 2023 Gouache on paper 60&#215;50 cm",
+      "description": "P541, 2023 Gouache on paper 60×50 cm",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>P541, 2023</p> <p>Gouache on paper<span> </span></p> <p>60&#215;50 cm</p>"
+              "html": "<p>P541, 2023</p> <p>Gouache on paper<span> </span></p> <p>60×50 cm</p>"
             }
           ]
         },
@@ -1640,7 +1641,7 @@
         "available": true,
         "reference": "P541",
         "dimensions": "60 × 50 cm",
-        "materials": "Gouache on paper 60&#215"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -1702,7 +1703,7 @@
         "available": false,
         "reference": "M551",
         "dimensions": "100 × 80",
-        "materials": "Acrylic on canvas 70x60cm"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -1764,7 +1765,7 @@
         "available": false,
         "reference": "M550",
         "dimensions": "100 × 80 cm",
-        "materials": "Acrylic on canvas 70x60cm"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -1772,14 +1773,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 60X50CM",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-60x50cm/",
-      "description": "P543, 2023 Gouache on paper 60&#215;50 cm",
+      "description": "P543, 2023 Gouache on paper 60×50 cm",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>P543, 2023</p> <p>Gouache on paper<span> </span></p> <p>60&#215;50 cm</p>"
+              "html": "<p>P543, 2023</p> <p>Gouache on paper<span> </span></p> <p>60×50 cm</p>"
             }
           ]
         },
@@ -1850,7 +1851,7 @@
         "available": false,
         "reference": "P543",
         "dimensions": "60 × 50 cm",
-        "materials": "Gouache on paper 60&#215"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -1912,7 +1913,7 @@
         "available": false,
         "reference": "M549",
         "dimensions": "100 × 80 cm",
-        "materials": "Acrylic on canvas 70x60cm"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -1974,7 +1975,7 @@
         "available": false,
         "reference": "L549",
         "dimensions": "130 × 160 cm",
-        "materials": "Acrylic on canvas 130x160cm"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -1982,14 +1983,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 60X50CM",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-60x50cm-3/",
-      "description": "P546, 2023 Gouache on paper 60&#215;50 cm _ P545, 2023 Gouache on paper 60&#215;50 cm",
+      "description": "P546, 2023 Gouache on paper 60×50 cm _ P545, 2023 Gouache on paper 60×50 cm",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>P546, 2023</p> <p>Gouache on paper<span> </span></p> <p>60&#215;50 cm</p> <p>_</p> <p>P545, 2023</p> <p>Gouache on paper<span> </span></p> <p>60&#215;50 cm</p>"
+              "html": "<p>P546, 2023</p> <p>Gouache on paper<span> </span></p> <p>60×50 cm</p> <p>_</p> <p>P545, 2023</p> <p>Gouache on paper<span> </span></p> <p>60×50 cm</p>"
             }
           ]
         },
@@ -2084,7 +2085,7 @@
         "available": false,
         "reference": "P546",
         "dimensions": "60 × 50 cm",
-        "materials": "Gouache on paper 60&#215"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -2092,14 +2093,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 60X50CM",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-60x50cm-2/",
-      "description": "P544, 2023 Gouache on paper 60&#215;50 cm",
+      "description": "P544, 2023 Gouache on paper 60×50 cm",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>P544, 2023</p> <p>Gouache on paper<span> </span></p> <p>60&#215;50 cm</p>"
+              "html": "<p>P544, 2023</p> <p>Gouache on paper<span> </span></p> <p>60×50 cm</p>"
             }
           ]
         },
@@ -2170,7 +2171,7 @@
         "available": false,
         "reference": "P544",
         "dimensions": "60 × 50 cm",
-        "materials": "Gouache on paper 60&#215"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -2233,7 +2234,7 @@
         "available": true,
         "reference": "M563",
         "dimensions": "60 × 70 cm",
-        "materials": "Oil on canvas 60x70cm"
+        "materials": "Oil on canvas"
       }
     },
     {
@@ -2241,14 +2242,14 @@
       "kind": "work",
       "title": "Untitled 2024, 160×130 cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2024-160x130/",
-      "description": "L550, CV 2024, 160x130cm , Mixed media on canvas. A piece selected to be part of a group exhibition, ’What Abstract Art Means to Me’. A collective exhibition that opens on January 25th at Alzueta Gallery’s main space in Barcelona. In it, the formal strategies of eleven artists become mixed even if all of them navigate abstraction in different ways.",
+      "description": "L550, CV 2024, 160x130cm , Mixed media on canvas. A piece selected to be part of a group exhibition, ‘What Abstract Art Means to Me’. A collective exhibition that opens on January 25th at Alzueta Gallery’s main space in Barcelona. In it, the formal strategies of eleven artists become mixed even if all of them navigate abstraction in different ways.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>L550, CV 2024,</p> <p>160x130cm , Mixed media on canvas.</p> <p>A piece selected to be part of a group exhibition, ’What Abstract Art Means to Me’.</p> <p>A collective exhibition that opens on January 25th at Alzueta Gallery’s main space in Barcelona. In it, the formal strategies of eleven artists become mixed even if all of them navigate abstraction in different ways.</p>"
+              "html": "<p>L550, CV 2024,</p> <p>160x130cm , Mixed media on canvas.</p> <p>A piece selected to be part of a group exhibition, ‘What Abstract Art Means to Me’.</p> <p>A collective exhibition that opens on January 25th at Alzueta Gallery’s main space in Barcelona. In it, the formal strategies of eleven artists become mixed even if all of them navigate abstraction in different ways.</p>"
             }
           ]
         },
@@ -2346,14 +2347,14 @@
       "kind": "work",
       "title": "Untitled 2023, 50x60cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-50x60cm/",
-      "description": "P542, 2023 Gouache on paper 50&#215;60 cm",
+      "description": "P542, 2023 Gouache on paper 50×60 cm",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>P542, 2023</p> <p>Gouache on paper</p> <p>50&#215;60 cm</p>"
+              "html": "<p>P542, 2023</p> <p>Gouache on paper</p> <p>50×60 cm</p>"
             }
           ]
         },
@@ -2400,7 +2401,7 @@
         "available": false,
         "reference": "P542",
         "dimensions": "50 × 60 cm",
-        "materials": "Gouache on paper 50&#215"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -2557,14 +2558,14 @@
       "kind": "work",
       "title": "UNTITLED 2024, 100X80CM",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2024-100x80cm-4/",
-      "description": "M556, CV 2024, 100&#215;80 cm, Mixed media on canvas. A piece selected to be part of a group exhibition, ’What Abstract Art Means to Me’. A collective exhibition that opens on January 25th at Alzueta Gallery’s main space in Barcelona. In it, the formal strategies of eleven artists become mixed even if all of them navigate abstraction in different ways.",
+      "description": "M556, CV 2024, 100×80 cm, Mixed media on canvas. A piece selected to be part of a group exhibition, ‘What Abstract Art Means to Me’. A collective exhibition that opens on January 25th at Alzueta Gallery’s main space in Barcelona. In it, the formal strategies of eleven artists become mixed even if all of them navigate abstraction in different ways.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>M556, CV 2024,</p> <p>100&#215;80 cm, Mixed media on canvas.</p> <p>A piece selected to be part of a group exhibition, ’What Abstract Art Means to Me’.</p> <p>A collective exhibition that opens on January 25th at Alzueta Gallery’s main space in Barcelona. In it, the formal strategies of eleven artists become mixed even if all of them navigate abstraction in different ways.</p>"
+              "html": "<p>M556, CV 2024,</p> <p>100×80 cm, Mixed media on canvas.</p> <p>A piece selected to be part of a group exhibition, ‘What Abstract Art Means to Me’.</p> <p>A collective exhibition that opens on January 25th at Alzueta Gallery’s main space in Barcelona. In it, the formal strategies of eleven artists become mixed even if all of them navigate abstraction in different ways.</p>"
             }
           ]
         },
@@ -2716,7 +2717,7 @@
         "available": false,
         "reference": "S567",
         "dimensions": "26 × 36 cm",
-        "materials": "Oil on canvas 26x36cm"
+        "materials": "Oil on canvas"
       }
     },
     {
@@ -2778,7 +2779,7 @@
         "available": false,
         "reference": "M567",
         "dimensions": "80 × 100 cm",
-        "materials": "Oil on canvas 80x100cm"
+        "materials": "Oil on canvas"
       }
     },
     {
@@ -2902,7 +2903,7 @@
         "available": false,
         "reference": "M564",
         "dimensions": "60 × 70",
-        "materials": "Oil on canvas 60x70cm"
+        "materials": "Oil on canvas"
       }
     },
     {
@@ -3026,7 +3027,7 @@
         "available": false,
         "reference": "M565",
         "dimensions": "60 × 70 cm",
-        "materials": "Oil on canvas 60x70cm"
+        "materials": "Oil on canvas"
       }
     },
     {
@@ -3088,7 +3089,7 @@
         "available": false,
         "reference": "M553",
         "dimensions": "70 × 60 cm",
-        "materials": "Acrylic on canvas 70x60cm"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -3096,14 +3097,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 190X160CM",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-190x160cm-2/",
-      "description": "L545, CV2023, 160X190cm, mixed media on canvas. ’Transitions’ solo show at Alzueta Gallery , sept 2023.",
+      "description": "L545, CV2023, 160X190cm, mixed media on canvas. ‘Transitions’ solo show at Alzueta Gallery , sept 2023.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>L545, CV2023, 160X190cm, mixed media on canvas.</p> <p>’Transitions’ solo show at <a href=\"http://www.alzuetagallery.com\">Alzueta Gallery</a>, sept 2023.</p>"
+              "html": "<p>L545, CV2023, 160X190cm, mixed media on canvas.</p> <p>‘Transitions’ solo show at <a href=\"http://www.alzuetagallery.com\">Alzueta Gallery</a>, sept 2023.</p>"
             }
           ]
         },
@@ -3221,14 +3222,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 67X57CM",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-67x57cm/",
-      "description": "P540, CV2023, 67X57cm, gouache on paper. ’Transitions’ solo show at Alzueta Gallery , sept 2023.",
+      "description": "P540, CV2023, 67X57cm, gouache on paper. ‘Transitions’ solo show at Alzueta Gallery , sept 2023.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>P540, CV2023, 67X57cm, gouache on paper.</p> <p>’Transitions’ solo show at <a href=\"http://www.alzuetagallery.com\">Alzueta Gallery</a>, sept 2023.</p>"
+              "html": "<p>P540, CV2023, 67X57cm, gouache on paper.</p> <p>‘Transitions’ solo show at <a href=\"http://www.alzuetagallery.com\">Alzueta Gallery</a>, sept 2023.</p>"
             }
           ]
         },
@@ -3323,14 +3324,14 @@
       "kind": "work",
       "title": "UNTITLED 2023, 70X60cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2023-70x60cm-4/",
-      "description": "M550, CV2023, Mixed media on canvas. From solo show ’Transitions’ sept.2023 at Alzueta Gallery, Barcelona.",
+      "description": "M550, CV2023, Mixed media on canvas. From solo show ‘Transitions’ sept.2023 at Alzueta Gallery, Barcelona.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>M550, CV2023, Mixed media on canvas.</p> <p>From solo show ’Transitions’ sept.2023 at Alzueta Gallery, Barcelona.</p>"
+              "html": "<p>M550, CV2023, Mixed media on canvas.</p> <p>From solo show ‘Transitions’ sept.2023 at Alzueta Gallery, Barcelona.</p>"
             }
           ]
         },
@@ -3540,7 +3541,7 @@
         "available": false,
         "reference": "M559",
         "dimensions": "46 × 36 cm",
-        "materials": "Oil on canvas 46x36cm"
+        "materials": "Oil on canvas"
       }
     },
     {
@@ -3602,7 +3603,7 @@
         "available": false,
         "reference": "M560",
         "dimensions": "46 × 36 cm",
-        "materials": "Oil on canvas 46x36cm"
+        "materials": "Oil on canvas"
       }
     },
     {
@@ -5091,7 +5092,7 @@
         ],
         "available": false,
         "dimensions": "112 × 155 cm",
-        "materials": "Gouache on paper 112 x 155 cm"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -5212,7 +5213,7 @@
         ],
         "available": false,
         "dimensions": "110 × 153 cm",
-        "materials": "Gouache on paper 110x 153"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -5342,14 +5343,14 @@
       "kind": "work",
       "title": "UNTITLED 2021, 70 X 60 cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2021-70-x-60-cm-2/",
-      "description": "Untitled 2021, gouache on paper , 70 x 60 cm, 27,5&#8243; x 23,6&#8243;.",
+      "description": "Untitled 2021, gouache on paper , 70 x 60 cm, 27,5″ x 23,6″.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Untitled 2021, gouache on paper , 70 x 60 cm, 27,5&#8243; x 23,6&#8243;.</p>"
+              "html": "<p>Untitled 2021, gouache on paper , 70 x 60 cm, 27,5″ x 23,6″.</p>"
             }
           ]
         },
@@ -5456,7 +5457,7 @@
         ],
         "available": false,
         "dimensions": "100 × 90 cm",
-        "materials": "Gouache and collage on paper 100x90cm"
+        "materials": "Gouache and collage on paper"
       }
     },
     {
@@ -5525,14 +5526,14 @@
       "kind": "work",
       "title": "Gouache on paper 100x80cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/gouache-on-paper-100x80-2/",
-      "description": "Gouache on paper 100&#215;80 cm, 39,3 x31,4 inches",
+      "description": "Gouache on paper 100×80 cm, 39,3 x31,4 inches",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Gouache on paper 100&#215;80 cm, 39,3 x31,4 inches</p>"
+              "html": "<p>Gouache on paper 100×80 cm, 39,3 x31,4 inches</p>"
             }
           ]
         },
@@ -5578,7 +5579,7 @@
         ],
         "available": false,
         "dimensions": "100 × 80 cm",
-        "materials": "Gouache on paper 100&#215"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -5586,14 +5587,14 @@
       "kind": "work",
       "title": "Acrylic on canvas 160x130cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/acrylic-on-canvas-160x130cm/",
-      "description": "Untitled 160x130cm , acrylic on canvas, 2020, ( 63&#215;51 inches)",
+      "description": "Untitled 160x130cm , acrylic on canvas, 2020, ( 63×51 inches)",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Untitled 160x130cm , acrylic on canvas, 2020, ( 63&#215;51 inches)</p>"
+              "html": "<p>Untitled 160x130cm , acrylic on canvas, 2020, ( 63×51 inches)</p>"
             }
           ]
         },
@@ -5647,14 +5648,14 @@
       "kind": "work",
       "title": "Collage and gouache on paper, 100x90cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/collage-and-gouache-on-paper-100x90cm/",
-      "description": "Collage and gouache on paper 100x90cm, 39,3&#215;35,4 inches Untitled, 2020",
+      "description": "Collage and gouache on paper 100x90cm, 39,3×35,4 inches Untitled, 2020",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Collage and gouache on paper 100x90cm, 39,3&#215;35,4 inches</p> <p>Untitled, 2020</p>"
+              "html": "<p>Collage and gouache on paper 100x90cm, 39,3×35,4 inches</p> <p>Untitled, 2020</p>"
             }
           ]
         },
@@ -5700,7 +5701,7 @@
         ],
         "available": false,
         "dimensions": "100 × 90 cm",
-        "materials": "Gouache on paper 100x90cm"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -5708,14 +5709,14 @@
       "kind": "work",
       "title": "Gouache on paper 72x62cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/gouache-on-paper-72x62cm-2/",
-      "description": "Untitled 2020, gouache on paper 72&#215;62, 28,3 x 24, 4 inches",
+      "description": "Untitled 2020, gouache on paper 72×62, 28,3 x 24, 4 inches",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Untitled 2020, gouache on paper 72&#215;62, 28,3 x 24, 4 inches</p>"
+              "html": "<p>Untitled 2020, gouache on paper 72×62, 28,3 x 24, 4 inches</p>"
             }
           ]
         },
@@ -5761,7 +5762,7 @@
         ],
         "available": false,
         "dimensions": "72 × 62 cm",
-        "materials": "Gouache on paper 72&#215"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -5822,7 +5823,7 @@
         ],
         "available": false,
         "dimensions": "72 × 62 cm",
-        "materials": "Gouache on paper 72x 62cm"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -5830,14 +5831,14 @@
       "kind": "work",
       "title": "Untitled 2021, 110x153cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/gouache-on-paper-110x153cm/",
-      "description": "UNTITLED 2021, gouache on paper 110x153cm (43,30&#215;60,20 inches)",
+      "description": "UNTITLED 2021, gouache on paper 110x153cm (43,30×60,20 inches)",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>UNTITLED 2021, gouache on paper 110x153cm (43,30&#215;60,20 inches)</p>"
+              "html": "<p>UNTITLED 2021, gouache on paper 110x153cm (43,30×60,20 inches)</p>"
             }
           ]
         },
@@ -5883,7 +5884,7 @@
         ],
         "available": false,
         "dimensions": "110 × 153 cm",
-        "materials": "Gouache on paper 110x153cm (43"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -6012,14 +6013,14 @@
       "kind": "work",
       "title": "Gouache on paper 100x80cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/gouache-on-paper-100x80-3/",
-      "description": "Goauche on paper 100&#215;80, 39,3&#215;31,4 inches",
+      "description": "Goauche on paper 100×80, 39,3×31,4 inches",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Goauche on paper 100&#215;80, 39,3&#215;31,4 inches</p>"
+              "html": "<p>Goauche on paper 100×80, 39,3×31,4 inches</p>"
             }
           ]
         },
@@ -6072,14 +6073,14 @@
       "kind": "work",
       "title": "Gouache on paper 65x55cm (4)",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/gouache-on-paper-65x55cm-4/",
-      "description": "Gouache sobre papel 65&#215;55 cm Goauche on paper 25,5 x 21, 6 inches.",
+      "description": "Gouache sobre papel 65×55 cm Goauche on paper 25,5 x 21, 6 inches.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Gouache sobre papel 65&#215;55 cm</p> <p>Goauche on paper 25,5 x 21, 6 inches.</p>"
+              "html": "<p>Gouache sobre papel 65×55 cm</p> <p>Goauche on paper 25,5 x 21, 6 inches.</p>"
             }
           ]
         },
@@ -6125,7 +6126,7 @@
         ],
         "available": false,
         "dimensions": "65 × 55 cm",
-        "materials": "Gouache sobre papel 65&#215"
+        "materials": "Gouache sobre papel"
       }
     },
     {
@@ -6133,14 +6134,14 @@
       "kind": "work",
       "title": "Collage&gouache on paper 115x105cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/collage-gouache-on-paper-115x105cm/",
-      "description": "Goauche y collage sobre papel 115x105cm. Goauche and collage on paper 45&#215;41 inches.",
+      "description": "Goauche y collage sobre papel 115x105cm. Goauche and collage on paper 45×41 inches.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Goauche y collage sobre papel 115x105cm.</p> <p>Goauche and collage on paper 45&#215;41 inches.</p>"
+              "html": "<p>Goauche y collage sobre papel 115x105cm.</p> <p>Goauche and collage on paper 45×41 inches.</p>"
             }
           ]
         },
@@ -6363,14 +6364,14 @@
       "kind": "work",
       "title": "Mixed technique on canvas 160x130cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/mixed-technique-on-canvas-160x130cm-sold/",
-      "description": "Mixed technique on canvas 160x130cm, 63&#215;51 inches",
+      "description": "Mixed technique on canvas 160x130cm, 63×51 inches",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Mixed technique on canvas 160x130cm, 63&#215;51 inches</p>"
+              "html": "<p>Mixed technique on canvas 160x130cm, 63×51 inches</p>"
             }
           ]
         },
@@ -6423,14 +6424,14 @@
       "kind": "work",
       "title": "Mixed technique 160x130cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/mixed-technique-160x130-available/",
-      "description": "Mixed technique on canvas 160&#215;130, 63&#215;51 inches",
+      "description": "Mixed technique on canvas 160×130, 63×51 inches",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Mixed technique on canvas 160&#215;130, 63&#215;51 inches</p>"
+              "html": "<p>Mixed technique on canvas 160×130, 63×51 inches</p>"
             }
           ]
         },
@@ -6483,14 +6484,14 @@
       "kind": "work",
       "title": "Gouache on paper 100x80cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/gouache-on-paper-100x80/",
-      "description": "Gouache on paper 100&#215;80, 39,3&#215;31,4 inches",
+      "description": "Gouache on paper 100×80, 39,3×31,4 inches",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Gouache on paper 100&#215;80, 39,3&#215;31,4 inches</p>"
+              "html": "<p>Gouache on paper 100×80, 39,3×31,4 inches</p>"
             }
           ]
         },
@@ -6536,7 +6537,7 @@
         ],
         "available": false,
         "dimensions": "100 × 80 cm",
-        "materials": "Gouache on paper 100&#215"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -6544,14 +6545,14 @@
       "kind": "work",
       "title": "Gouache on paper 100x80cm",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/gouache-on-paper-100x80-4/",
-      "description": "Gouache on paper 100&#215;80, 39,3 x 31,4 inches",
+      "description": "Gouache on paper 100×80, 39,3 x 31,4 inches",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Gouache on paper 100&#215;80, 39,3 x 31,4 inches</p>"
+              "html": "<p>Gouache on paper 100×80, 39,3 x 31,4 inches</p>"
             }
           ]
         },
@@ -6597,7 +6598,7 @@
         ],
         "available": false,
         "dimensions": "100 × 80 cm",
-        "materials": "Gouache on paper 100&#215"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -6605,14 +6606,14 @@
       "kind": "work",
       "title": "Goauche on paper 65×55 cm (2)",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/goauche-on-paper-65x55-cm-2/",
-      "description": "Gouache sobre papel 65&#215;55 cm. Goauche on paper 25,5 x 21,6 inch.",
+      "description": "Gouache sobre papel 65×55 cm. Goauche on paper 25,5 x 21,6 inch.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Gouache sobre papel 65&#215;55 cm.</p> <p>Goauche on paper 25,5 x 21,6 inch.</p>"
+              "html": "<p>Gouache sobre papel 65×55 cm.</p> <p>Goauche on paper 25,5 x 21,6 inch.</p>"
             }
           ]
         },
@@ -6658,7 +6659,7 @@
         ],
         "available": false,
         "dimensions": "65 × 55 cm",
-        "materials": "Gouache sobre papel 65&#215"
+        "materials": "Gouache sobre papel"
       }
     },
     {
@@ -6779,7 +6780,7 @@
         ],
         "available": false,
         "dimensions": "110 × 100",
-        "materials": "Gouache on paper 110x100cm"
+        "materials": "Gouache on paper"
       }
     },
     {
@@ -6787,14 +6788,14 @@
       "kind": "work",
       "title": "Gouache on paper 65x75cm ( 27x31inch)",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/gouache-on-paper-65x75cm-27x31inch/",
-      "description": "Esta serie de gouache sobre papel la componen 10 piezas donde color y forma tienen un valor expresivo. Hay una dicotomia entre estructura y forma. Crece el concepto del espacio materializado con el blanco. El color ha de ser observado. Medidas 65&#215;75. This serie of gouache on paper are 10 different pieces where color and form have an expressive value. The white color grows as space itself and ",
+      "description": "Esta serie de gouache sobre papel la componen 10 piezas donde color y forma tienen un valor expresivo. Hay una dicotomia entre estructura y forma. Crece el concepto del espacio materializado con el blanco. El color ha de ser observado. Medidas 65×75. This serie of gouache on paper are 10 different pieces where color and form have an expressive value. The white color grows as space itself and the c",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Esta serie de gouache sobre papel la componen 10 piezas donde color y forma tienen un valor expresivo. Hay una dicotomia entre estructura y forma. Crece el concepto del espacio materializado con el blanco. El color ha de ser observado.</p> <p>Medidas 65&#215;75.</p> <p>This serie of gouache on paper are 10 different pieces where color and form have an expressive value. The white color grows as space itself and the color needs to be observed.</p> <p>Mesures 27&#215;31 inch.</p>"
+              "html": "<p>Esta serie de gouache sobre papel la componen 10 piezas donde color y forma tienen un valor expresivo. Hay una dicotomia entre estructura y forma. Crece el concepto del espacio materializado con el blanco. El color ha de ser observado.</p> <p>Medidas 65×75.</p> <p>This serie of gouache on paper are 10 different pieces where color and form have an expressive value. The white color grows as space itself and the color needs to be observed.</p> <p>Mesures 27×31 inch.</p>"
             }
           ]
         },
@@ -6984,7 +6985,7 @@
         ],
         "available": false,
         "dimensions": "65 × 75 cm",
-        "materials": "Gouache sobre papel la componen 10 piezas donde color y forma tienen un valor expresivo"
+        "materials": "Gouache sobre papel la componen"
       }
     },
     {
@@ -6992,14 +6993,14 @@
       "kind": "work",
       "title": "Acrylic on canvas 180×180",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/acrylic-on-canvas-180x180/",
-      "description": "Acrylic on canvas 180&#215;180 claudia valsells",
+      "description": "Acrylic on canvas 180×180 claudia valsells",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Acrylic on canvas 180&#215;180 claudia valsells</p>"
+              "html": "<p>Acrylic on canvas 180×180 claudia valsells</p>"
             }
           ]
         },
@@ -7046,7 +7047,7 @@
         ],
         "available": true,
         "dimensions": "180 × 180",
-        "materials": "Acrylic on canvas 180&#215"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -7054,14 +7055,14 @@
       "kind": "work",
       "title": "Recent works 2017, (160×160)(available)",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/recent-works-2017-160x160/",
-      "description": "Acrílico sobre tela 160&#215;160. Esta pieza pertenece a mi última exposición individual en la Galeria Miquel Alzueta de Barcelona. This acrylic paint on canvas 160&#215;160 belongs to my last individual exhibition in Barcelona.",
+      "description": "Acrílico sobre tela 160×160. Esta pieza pertenece a mi última exposición individual en la Galeria Miquel Alzueta de Barcelona. This acrylic paint on canvas 160×160 belongs to my last individual exhibition in Barcelona.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Acrílico sobre tela 160&#215;160. Esta pieza pertenece a mi última exposición individual en la Galeria Miquel Alzueta de Barcelona.</p> <p>This acrylic paint on canvas 160&#215;160 belongs to my last individual exhibition in Barcelona.</p>"
+              "html": "<p>Acrílico sobre tela 160×160. Esta pieza pertenece a mi última exposición individual en la Galeria Miquel Alzueta de Barcelona.</p> <p>This acrylic paint on canvas 160×160 belongs to my last individual exhibition in Barcelona.</p>"
             }
           ]
         },
@@ -7108,7 +7109,7 @@
         ],
         "available": true,
         "dimensions": "160 × 160",
-        "materials": "Acrylic paint on canvas 160&#215"
+        "materials": "Acrylic paint on canvas"
       }
     },
     {
@@ -7116,14 +7117,14 @@
       "kind": "work",
       "title": "RECENT WORKS 2017 ( 160×160)",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/recent-works-2017-7/",
-      "description": "Acrílico sobre tela 160&#215;160 perteneciente a mi última exposición en la Galeria Miquel Alzueta de Barcelona. Acrylic on canvas 160&#215;160 that belongs to my last exhibition in Barcelona at the Galeria Miquel Alzueta",
+      "description": "Acrílico sobre tela 160×160 perteneciente a mi última exposición en la Galeria Miquel Alzueta de Barcelona. Acrylic on canvas 160×160 that belongs to my last exhibition in Barcelona at the Galeria Miquel Alzueta",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Acrílico sobre tela 160&#215;160 perteneciente a mi última exposición en la Galeria Miquel Alzueta de Barcelona.</p> <p>Acrylic on canvas 160&#215;160 that belongs to my last exhibition in Barcelona at the <a href=\"http://www.galeriamiquelalzueta.com\">Galeria Miquel Alzueta </a></p>"
+              "html": "<p>Acrílico sobre tela 160×160 perteneciente a mi última exposición en la Galeria Miquel Alzueta de Barcelona.</p> <p>Acrylic on canvas 160×160 that belongs to my last exhibition in Barcelona at the <a href=\"http://www.galeriamiquelalzueta.com\">Galeria Miquel Alzueta </a></p>"
             }
           ]
         },
@@ -7169,7 +7170,7 @@
         ],
         "available": false,
         "dimensions": "160 × 160",
-        "materials": "Acrylic on canvas 160&#215"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -7177,7 +7178,7 @@
       "kind": "work",
       "title": "RECENT WORKS 2017 (130×100)",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/recent-works-2017-5/",
-      "description": "Este acrílico ( 130&#215;100) sobre tela pertenece a mi última exposición en la Galeria Miquel Alzueta de Barcelona. This acrylic paint (130&#215;100) belongs to my last exhibition in Barcelona at Galeria Miquel Alzueta.",
+      "description": "Este acrílico ( 130×100) sobre tela pertenece a mi última exposición en la Galeria Miquel Alzueta de Barcelona. This acrylic paint (130×100) belongs to my last exhibition in Barcelona at Galeria Miquel Alzueta.",
       "rows": [
         {
           "columns": [
@@ -7201,7 +7202,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Este acrílico ( 130&#215;100) sobre tela pertenece a mi última exposición en la Galeria Miquel Alzueta de Barcelona.</p> <p>This acrylic paint (130&#215;100) belongs to my last exhibition in Barcelona at <a href=\"http://www.galeriamiquelalzueta.com\">Galeria Miquel Alzueta.</a></p>"
+              "html": "<p>Este acrílico ( 130×100) sobre tela pertenece a mi última exposición en la Galeria Miquel Alzueta de Barcelona.</p> <p>This acrylic paint (130×100) belongs to my last exhibition in Barcelona at <a href=\"http://www.galeriamiquelalzueta.com\">Galeria Miquel Alzueta.</a></p>"
             }
           ]
         }
@@ -7230,7 +7231,7 @@
         ],
         "available": false,
         "dimensions": "130 × 100",
-        "materials": "Acrylic paint (130&#215"
+        "materials": "Acrylic paint"
       }
     },
     {
@@ -7238,14 +7239,14 @@
       "kind": "work",
       "title": "RECENT WORKS 2017 (130×100)",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/recent-works-2017-4/",
-      "description": "Esta pieza pertenece a mi última exposición en la Galeria Miquel Alzueta de Barcelona. Acrílico sobre tela de 130&#215;100. This paint belongs to my last exhibition in Barcelona at Galeria Miquel Alzueta Acrylic paint on canvas 130&#215;100.",
+      "description": "Esta pieza pertenece a mi última exposición en la Galeria Miquel Alzueta de Barcelona. Acrílico sobre tela de 130×100. This paint belongs to my last exhibition in Barcelona at Galeria Miquel Alzueta Acrylic paint on canvas 130×100.",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>Esta pieza pertenece a mi última exposición en la Galeria Miquel Alzueta de Barcelona.</p> <p>Acrílico sobre tela de 130&#215;100.</p> <p>This paint belongs to my last exhibition in Barcelona at <a href=\"http://www.galeriamiquelalzueta.com\">Galeria Miquel Alzueta </a></p> <p>Acrylic paint on canvas 130&#215;100.</p>"
+              "html": "<p>Esta pieza pertenece a mi última exposición en la Galeria Miquel Alzueta de Barcelona.</p> <p>Acrílico sobre tela de 130×100.</p> <p>This paint belongs to my last exhibition in Barcelona at <a href=\"http://www.galeriamiquelalzueta.com\">Galeria Miquel Alzueta </a></p> <p>Acrylic paint on canvas 130×100.</p>"
             }
           ]
         },
@@ -7291,7 +7292,7 @@
         ],
         "available": false,
         "dimensions": "130 × 100",
-        "materials": "Acrylic paint on canvas 130&#215"
+        "materials": "Acrylic paint on canvas"
       }
     },
     {
@@ -7472,7 +7473,7 @@
         ],
         "available": false,
         "dimensions": "220 × 270 cm",
-        "materials": "Acrylic on canvas 220x270cm"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -7534,7 +7535,7 @@
         "available": false,
         "reference": "M593",
         "dimensions": "70 × 60 cm",
-        "materials": "Acrylic on canvas 70x60cm"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -7596,7 +7597,7 @@
         "available": false,
         "reference": "M594",
         "dimensions": "70 × 60 cm",
-        "materials": "Acrylic on canvas 70x60cm"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -7658,7 +7659,7 @@
         "available": false,
         "reference": "M597",
         "dimensions": "100 × 80 cm",
-        "materials": "Acrylic on canvas 100x80cm"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -7720,7 +7721,7 @@
         "available": false,
         "reference": "M595",
         "dimensions": "70 × 60 cm",
-        "materials": "Acrylic on canvas 70x60cm"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -8339,7 +8340,7 @@
         "available": false,
         "reference": "S569",
         "dimensions": "26 × 36 cm",
-        "materials": "Oil on canvas 26x36cm"
+        "materials": "Oil on canvas"
       }
     },
     {
@@ -9032,14 +9033,14 @@
       "kind": "work",
       "title": "UNTITLED 2025, 160X130CM",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2025-160x130cm-6/",
-      "description": "L576, CV 2025, Acrylic on canvas 160&#215;130 cm",
+      "description": "L576, CV 2025, Acrylic on canvas 160×130 cm",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>L576, CV 2025,</p> <p>Acrylic on canvas 160&#215;130 cm</p>"
+              "html": "<p>L576, CV 2025,</p> <p>Acrylic on canvas 160×130 cm</p>"
             }
           ]
         },
@@ -9086,7 +9087,7 @@
         "available": false,
         "reference": "L576",
         "dimensions": "160 × 130 cm",
-        "materials": "Acrylic on canvas 160&#215"
+        "materials": "Acrylic on canvas"
       }
     },
     {
@@ -9406,14 +9407,14 @@
       "kind": "work",
       "title": "UNTITLED 2026, 160X190 CM",
       "sourceUrl": "https://www.claudiavalsells.com/portfolio/untitled-2026-160x190-cm/",
-      "description": "L583, cv 2026 Acrylic on linen 160&#215;190 cm",
+      "description": "L583, cv 2026 Acrylic on linen 160×190 cm",
       "rows": [
         {
           "columns": [
             {
               "kind": "text",
               "span": 12,
-              "html": "<p>L583, cv 2026</p> <p>Acrylic on linen</p> <p>160&#215;190 cm</p>"
+              "html": "<p>L583, cv 2026</p> <p>Acrylic on linen</p> <p>160×190 cm</p>"
             }
           ]
         },
@@ -9460,7 +9461,7 @@
         "available": false,
         "reference": "L583",
         "dimensions": "160 × 190 cm",
-        "materials": "Acrylic on linen 160&#215"
+        "materials": "Acrylic on linen"
       }
     },
     {
@@ -10621,7 +10622,7 @@
       "kind": "project",
       "title": "Color Atlas for Muralla Roja 2016-2020",
       "sourceUrl": "https://www.claudiavalsells.com/projects/dada-workshops-2017-2/",
-      "description": "LA MURALLA ROJA ( The Red Wall) Research and realization of the restored color scheme from Ricardo Bofill’s building, ’La Muralla Roja’. photos by @gregoricivera and @garatehausmann «Within the context of La Manzanera, La Muralla Roja (The Red Wall) asks to be considered as a case apart. It embodies a clear reference to the popular architecture of the Arab Mediterranean, in particular to the adobe",
+      "description": "LA MURALLA ROJA ( The Red Wall) Research and realization of the restored color scheme from Ricardo Bofill’s building, ‘La Muralla Roja’. photos by @gregoricivera and @garatehausmann «Within the context of La Manzanera, La Muralla Roja (The Red Wall) asks to be considered as a case apart. It embodies a clear reference to the popular architecture of the Arab Mediterranean, in particular to the adobe",
       "rows": [
         {
           "columns": [
@@ -10714,7 +10715,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<div></div> <p>LA MURALLA ROJA ( The Red Wall)</p> <p>Research and realization of the restored color scheme from Ricardo Bofill’s building, ’La Muralla Roja’.</p> <p>photos by @gregoricivera and @garatehausmann</p> <p>«Within the context of La Manzanera, La Muralla Roja (The Red Wall) asks to be considered as a case apart. It embodies a clear reference to the popular architecture of the Arab Mediterranean, in particular to the adobe towers of North Africa. The Red Wall is like a fortress which marks a vertical silhouette following the contour lines of the rocky cliff.</p> <p>With this building, RBTA wanted to break the post-Renaissance division between public and private spaces reinterpreting the Mediterranean tradition of the Kasbah. The labyrinth of this recreated Kasbah corresponds to a precise geometric plan based on the typology of…</p> <div><a href=\"https://ricardobofill.com/projects/la-muralla-roja/\">READ FULL ARTICLE</a></div> <div> <p>ARCHITECT RICARDO BOFILL</p> <p>YEAR: 1973<br> LOCATION: CALPE, ALICANTE, SPAIN</p> </div>"
+              "html": "<div></div> <p>LA MURALLA ROJA ( The Red Wall)</p> <p>Research and realization of the restored color scheme from Ricardo Bofill’s building, ‘La Muralla Roja’.</p> <p>photos by @gregoricivera and @garatehausmann</p> <p>«Within the context of La Manzanera, La Muralla Roja (The Red Wall) asks to be considered as a case apart. It embodies a clear reference to the popular architecture of the Arab Mediterranean, in particular to the adobe towers of North Africa. The Red Wall is like a fortress which marks a vertical silhouette following the contour lines of the rocky cliff.</p> <p>With this building, RBTA wanted to break the post-Renaissance division between public and private spaces reinterpreting the Mediterranean tradition of the Kasbah. The labyrinth of this recreated Kasbah corresponds to a precise geometric plan based on the typology of…</p> <div><a href=\"https://ricardobofill.com/projects/la-muralla-roja/\">READ FULL ARTICLE</a></div> <div> <p>ARCHITECT RICARDO BOFILL</p> <p>YEAR: 1973<br> LOCATION: CALPE, ALICANTE, SPAIN</p> </div>"
             }
           ]
         }
@@ -10780,7 +10781,7 @@
       "kind": "project",
       "title": "Silla 8 AOO 2019-2020",
       "sourceUrl": "https://www.claudiavalsells.com/projects/silla-8-aoo-2019-2020/",
-      "description": "SIETE SILLAS 8, an AOO EXERCISE IN ’COLOURING’ WITH CLAUDIA VALSELLS A project with AOO where I created and designed the different colour combinations for ’8 Chair’. The 8 Chair is the result of an AOO exercise where flat sheets of plywood are bent, under pressure and in a simple way, using different structures as support, achieving instantaneously and without moulds to generate what ends up being",
+      "description": "SIETE SILLAS 8, an AOO EXERCISE IN ‘COLOURING’ WITH CLAUDIA VALSELLS A project with AOO where I created and designed the different colour combinations for ‘8 Chair’. The 8 Chair is the result of an AOO exercise where flat sheets of plywood are bent, under pressure and in a simple way, using different structures as support, achieving instantaneously and without moulds to generate what ends up being",
       "rows": [
         {
           "columns": [
@@ -10946,7 +10947,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<p><span><span>SIETE SILLAS 8, </span></span></p> <p><span><span>an AOO EXERCISE IN ’COLOURING’ WITH CLAUDIA VALSELLS</span></span></p> <p>A project with AOO where I created and designed the different colour combinations for ’8 Chair’.</p> <p><span>The 8 Chair is the result of an AOO exercise where flat sheets of plywood are bent, under pressure and in a simple way, using different structures as support, achieving instantaneously and without moulds to generate what ends up being seats and backs. The resulting piece is formed by two frames joined together and stripped of any decorative element that, together with the backrest and seat, generate a comfortable, lightweight and plastically unique chair.</span></p> <p><span>To enhance its visual uniqueness, the artist Claudia Valsells has developed a series of colour combinations that denote her exploration of beauty. The chair transmits us the tactility of the work through the palette; because what can be touched is tangible and brings us closer to its reality. Each chair is painted in more than one color to emphasize the meaning of each one when it enters in contrast with the others.</span></p> <p><span>This proposal is the result of a collaboration that normally does not occur in the world of art and design, is a dialogue between disciplines that converge in a common and unlikely end point for each of the participants and also an excuse between two professionals that ends with a good friendship.</span></p> <p><span>If we had to design a chair we would talk about the conceptual and formal process of an object. If we had to talk about colour we would talk about texture and paint, about tones and shades. And here we talk about adding two languages and a single idea: a series of chairs shaped in a plastic exercise and the chromatic development that enhances, perhaps, their uniqueness. The object is raised piece by piece and is given a different value: the sense is decontextualized and a new proposal grows.</span></p> <p>—<br> Material: Structure in solid poplar and seat and back in poplar plywood<br> Finish: Pigment applied by brush and finished with semi-matt water-based varnish.</p> <p>images © <a href=\"http://www.yosigo.es\">yosigoyosigo </a></p> <p><a href=\"http://aoobarcelona.com\">www.aoobarcelona.com</a></p>"
+              "html": "<p><span><span>SIETE SILLAS 8, </span></span></p> <p><span><span>an AOO EXERCISE IN ‘COLOURING’ WITH CLAUDIA VALSELLS</span></span></p> <p>A project with AOO where I created and designed the different colour combinations for ‘8 Chair’.</p> <p><span>The 8 Chair is the result of an AOO exercise where flat sheets of plywood are bent, under pressure and in a simple way, using different structures as support, achieving instantaneously and without moulds to generate what ends up being seats and backs. The resulting piece is formed by two frames joined together and stripped of any decorative element that, together with the backrest and seat, generate a comfortable, lightweight and plastically unique chair.</span></p> <p><span>To enhance its visual uniqueness, the artist Claudia Valsells has developed a series of colour combinations that denote her exploration of beauty. The chair transmits us the tactility of the work through the palette; because what can be touched is tangible and brings us closer to its reality. Each chair is painted in more than one color to emphasize the meaning of each one when it enters in contrast with the others.</span></p> <p><span>This proposal is the result of a collaboration that normally does not occur in the world of art and design, is a dialogue between disciplines that converge in a common and unlikely end point for each of the participants and also an excuse between two professionals that ends with a good friendship.</span></p> <p><span>If we had to design a chair we would talk about the conceptual and formal process of an object. If we had to talk about colour we would talk about texture and paint, about tones and shades. And here we talk about adding two languages and a single idea: a series of chairs shaped in a plastic exercise and the chromatic development that enhances, perhaps, their uniqueness. The object is raised piece by piece and is given a different value: the sense is decontextualized and a new proposal grows.</span></p> <p>—<br> Material: Structure in solid poplar and seat and back in poplar plywood<br> Finish: Pigment applied by brush and finished with semi-matt water-based varnish.</p> <p>images © <a href=\"http://www.yosigo.es\">yosigoyosigo </a></p> <p><a href=\"http://aoobarcelona.com\">www.aoobarcelona.com</a></p>"
             }
           ]
         }
@@ -11048,7 +11049,7 @@
       "kind": "project",
       "title": "Edges Collection 2019",
       "sourceUrl": "https://www.claudiavalsells.com/projects/edges-collection-for-within-reach/",
-      "description": "EDGES COLLECTION An exclusive collection I designed for Design Within Reach, edited by Nani Marquina «The abstract forms of this piece ’Edges’ have significant value, a dichotomy between structure and form, a singular balance.» Claudia Valsells on sale at Design Within Reach",
+      "description": "EDGES COLLECTION An exclusive collection I designed for Design Within Reach, edited by Nani Marquina «The abstract forms of this piece ‘Edges’ have significant value, a dichotomy between structure and form, a singular balance.» Claudia Valsells on sale at Design Within Reach",
       "rows": [
         {
           "columns": [
@@ -11218,7 +11219,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<p><span>EDGES COLLECTION </span></p> <p>An exclusive collection I designed for Design Within Reach, edited by Nani Marquina</p> <p><em>«The abstract forms of this piece ’Edges’ have significant value, a dichotomy between structure and form, a singular balance.» <span>Claudia Valsells</span></em></p> <p><a href=\"https://www.dwr.com/new-arrivals/edges-rug/2516264.html?lang=en_US\"><span>on sale at Design Within Reach </span></a></p>"
+              "html": "<p><span>EDGES COLLECTION </span></p> <p>An exclusive collection I designed for Design Within Reach, edited by Nani Marquina</p> <p><em>«The abstract forms of this piece ‘Edges’ have significant value, a dichotomy between structure and form, a singular balance.» <span>Claudia Valsells</span></em></p> <p><a href=\"https://www.dwr.com/new-arrivals/edges-rug/2516264.html?lang=en_US\"><span>on sale at Design Within Reach </span></a></p>"
             }
           ]
         }
@@ -12960,7 +12961,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<p><strong>WHAT’S COLOR? 3rd edition</strong><br> Terranova Bookstore<br> 07/04 _28/04</p> <p><em>’*WHAT’S COLOR?</em><strong><em>’</em></strong> is a personal project I started in 2020 where I assign a color to people who inspire and admire me and whom I ask about their personal relationship with color. I presented this third edition at Llibreria Terranova in Barcelona during April 2024.</p> <div> <div> <div> <div></div> </div> </div> </div> <div> <div> <div> <div> <p><strong>MARC GÓMEZ del MORAL, DIRECTOR DE FOTOGRAFÍA / AC320 ARENA</strong></p> </div> </div> <div> <div> <p>“No puedo disociar el color de la luz, el color como el resultado de una serie de capas infinitas que parten de una o de varias fuentes de luz y que reflejan y que difuminan y que tiñen y que terminan en nuestro ojo. Esa superposición de capas infinitas hacen que cada color sea fruto de un momento único e irrepetible. El color es el presente, el color es el aquí y el ahora, el color es un instante.”</p> <p><strong>JOSE JAVIER SERRANO, Yosigo, FOTÓGRAFO / AC259 AZUL PISCINA</strong></p> <p>‘’Para mi el color es la luz. Siempre me ha fascinado que un mismo objeto, textura o paisaje no tengan un color en sí mismo, sino que vayan absorbiendo diferentes frecuencias de luz. También es pertenencia y asociación de ideas. Por ejemplo para mi el azul representa muchas cosas, y diría que todas buenas. Lo asocio a mi tierra (por el mar y la costa), a mi equipo de fútbol (la bandera es azul y blanca), es un color primario (sencillez), y pese a ser a priori un tono frío a mi me aporta mucha calma y armonía.’’</p> <p><strong>LUCIA BONED LIBRERA / AC033 AZUL CELESTE OSCURO</strong></p> <p>‘’La luz del sol ‘’</p> </div> </div> </div> </div> <div> <div> <div> <div> <p><strong>ISABEL MARTINEZ, isabelitavirtual , DIRECTORA CREATIVA / AC 193 FRESA</strong></p> </div> </div> <div> <div> <p>‘’El color es para mí como la sal en un plato. Un ingrediente que eleva la experiencia sensorial, la intensifica. A veces, es la expresión del alma, como si la música se pudiera ver.’’</p> <p><strong>ALBERT RIERA GALCERÁN, ARTISTA / AC16 ROSA INTENS</strong></p> <p>‘Per a mi el color es l’atracció, la manera en la que em relaciono amb el que em rodeja i el que determina en gran part les meves sensacions y emocions.’</p> <p><strong>MARIA MEDEM, ILUSTRADORA Y DIBUJANTE DE CÒMIC/ AC016 LILA MAGENTA</strong></p> <p>‘Es algo indispensable. Para mi está ligado a la memoria y los recuerdos, y lo necesito para transmitir emociones y construir atmósferas.’</p> <p><strong>ANA CUBA, FOTÓGRAFA / AC80 MANDARINA</strong></p> <p>‘El color para mí es un aspecto de nuestra realidad a la que se le pueden asignar tantos significados que, en mi caso como fotógrafa, es mi lenguaje favorito para trasladar lo que quiero decir en imágenes. Sería como las vocales en el abecedario.’</p> </div> </div> </div> </div> <div> <div> <div> <div> <p><strong>JULIA RUIZ CABELLO, ARQUITECTA, OCRE ROJIZO AC075</strong> ̈</p> <p>El color es una ventana ̈ Para mí el color es un elemento de muchos rostros que permanece en constante proceso de cambio según el material, el lugar o el paso del tiempo. Esta característica tan relativa y singular me hace relacionarlo directamente con la influencia del color en la memoria y en mis recuerdos. Los colores son una ventana a mi vida y mis experiencias. Son parte de quién soy.</p> <p><strong>RAQUEL QUEVEDO, DISEÑADORA y ARTISTA / AC299 GRIS PERLA</strong></p> <p>Color «colors.» 1. Una memoria habitada viajando a la velocidad de la luz 2. «jerg.» Un abrazo de la sombra</p> <p><strong>JOSÉ QUINTANAR, ARTISTA y EDITOR / AC267 AMARILLO</strong></p> <p>‘El color es un material El color es una ilusión El color es una bandera El color es una elección El color es caprichoso El color es una respuesta. El color es diversión.’</p> <p><strong>LUÍS CERVERÓ, REALIZADOR Y LIBRERO / AC 250 AZUL PROFUNDO</strong></p> <p>‘Me gusta pensar en el color como un lenguaje. Un lenguaje secreto, íntimo y muchas veces inconsciente que todos los objetos y superficies emplean para lanzar un mensaje al mundo. Desde ese punto de vista, me interesa mucho la lectura científica que nos dice que toda superficie absorbe unas ondas y las que no le interesan las repele, o las devuelve hacia el exterior, y esas son las que se traducen en el color que proyectan y nuestros ojos ven. Así que en cierto sentido, el color es el reverso negativo de lo que cada superficie decide guardar en su interior, de aquello que acoge y conserva. Y esta decisión de toda superficie de quedarse para sí un determinado espectro de ondas tiene algo de poético que es a la vez muy sencillo y extremadamente misterioso.</p> <p>En esta misma línea, me encanta pensar en la oscuridad como un silencio, un momento en el que absolutamente todos los objetos se relajan, dejan de gritar al mundo su personalidad intrínseca, para unirse en un discurso común en el que todos se ponen de acuerdo. Me encanta observar como la luz desaparece y todos los elementos del espacio físico en el que te encuentras se unifican, como dándose la mano y respirando aliviados. En pocas palabras, me encanta pensar en el color como algo vivo, alterable y ligado a las circunstancias que lo rodean.’<img></p> </div> </div> </div> </div> <div> <div> <div> <div> <p><strong>ÁLVARO GALMÉS, ARQUITECTO, ESCRITOR Y ARTISTA PLÁSTICO / AC065 OCRE AMARILLO</strong></p> <p>Como dice Goethe, los colores son las alegrías y los sufrimientos de la luz, por eso es blanca en lo exultante y negra en la insatisfacción. Pero entre ambos extremos está el conjunto de los estados emocionales de la naturaleza, desplegados en todas sus gamas y en los infinitos matices del color. Un vocabulario ubérrimo, incomparablemente más rico que el de nuestra expresión emocional. El color es el lenguaje que la naturaleza utiliza para hablar consigo misma, lenguaje que no se nos ha dado a conocer, pero que, por un prodigio de generosidad, se nos ha permitido contemplar. En consecuencia, nos sentimos desbordados e impotentes, y para mitigar esta impotencia, nos desgañitamos al intentar participar en esa conversación, en cierto sentido nos comportamos como recién nacidos que contemplan fascinados las conversaciones de sus mayores, pero que nada entienden y, aun así, se intentan inmiscuir. Desconocemos incluso cómo se articula una palabra o una oración, pero qué necesidad tan profunda tenemos de intervenir, por eso balbuceamos con el color en nuestras ciudades, en nuestras casas, en nuestras ropas y en nuestros cuerpos, con el objetivo de entrometernos y contribuir a esa conversación eterna con la que la naturaleza se despliega.’</p> <p><strong>JUAN DIEGO VALERA , FOTÓGRAFO, / AC096 VERDE GRIS</strong></p> <p>‘El color es una fuente de inspiración y contrastes. Es inseguridad, duda y cuestionamiento. Daltonismo.’</p> <p><strong>BELEN GAYÁN, PRODUCTORA EJECUTIVA / AC049 BLAU VERD</strong></p> <p>‘El color és emoció, vibració, estímul . També es opinió i percepció. Color i llum es fonen per expressar un tot. ‘</p> <p><strong>ARNAU BLANCH, FOTÓGRAFO /AC037 AZUL PLOMO</strong></p> <p>‘Para mí, el color es un elemento más para jugar en el proceso creativo. En fotografía, puedes jugar con cómo distribuyes la luz y la oscuridad en el “frame» generando una composición concreta. Esta composición también se ve afectada por el color. Así luz, oscuridad y color terminan siendo los pilares sobre los que puedes trabajar a la hora de componer una fotografía.’</p> </div> </div> </div> </div> <div> <div> <div> <div> <p><strong>MARTA D.RIEZU, ESCRITORA / AC263 VERDE</strong></p> </div> </div> <div> <div> <p>‘Para mí el color es, ante todo, símbolo. Antropología, historia, psicoanálisis, misterio. No es una ciencia exacta (esa es su gracia), sino una ensoñación en la que cada mirada tiene el camino libre. El verde siempre es verde, pero su significación emocional cambia de acuerdo a dónde lo encuentro. El color me enfrenta a imágenes poéticas, intuiciones y metáforas. Forma parte de un mundo espiritual que es eterno.’</p> <p><strong>CRISTINA STOLHE, FOTÓGRAFA / VERDE OSCURO CASI NEGRO AC39</strong></p> <p>‘El color es libertad, una búsqueda y un encuentro, supongo que tiene que ver con la identidad ‘</p> </div> </div> </div> </div> <div><img></div>"
+              "html": "<p><strong>WHAT’S COLOR? 3rd edition</strong><br> Terranova Bookstore<br> 07/04 _28/04</p> <p><em>‘*WHAT’S COLOR?</em><strong><em>‘</em></strong> is a personal project I started in 2020 where I assign a color to people who inspire and admire me and whom I ask about their personal relationship with color. I presented this third edition at Llibreria Terranova in Barcelona during April 2024.</p> <div> <div> <div> <div></div> </div> </div> </div> <div> <div> <div> <div> <p><strong>MARC GÓMEZ del MORAL, DIRECTOR DE FOTOGRAFÍA / AC320 ARENA</strong></p> </div> </div> <div> <div> <p>“No puedo disociar el color de la luz, el color como el resultado de una serie de capas infinitas que parten de una o de varias fuentes de luz y que reflejan y que difuminan y que tiñen y que terminan en nuestro ojo. Esa superposición de capas infinitas hacen que cada color sea fruto de un momento único e irrepetible. El color es el presente, el color es el aquí y el ahora, el color es un instante.”</p> <p><strong>JOSE JAVIER SERRANO, Yosigo, FOTÓGRAFO / AC259 AZUL PISCINA</strong></p> <p>‘’Para mi el color es la luz. Siempre me ha fascinado que un mismo objeto, textura o paisaje no tengan un color en sí mismo, sino que vayan absorbiendo diferentes frecuencias de luz. También es pertenencia y asociación de ideas. Por ejemplo para mi el azul representa muchas cosas, y diría que todas buenas. Lo asocio a mi tierra (por el mar y la costa), a mi equipo de fútbol (la bandera es azul y blanca), es un color primario (sencillez), y pese a ser a priori un tono frío a mi me aporta mucha calma y armonía.’’</p> <p><strong>LUCIA BONED LIBRERA / AC033 AZUL CELESTE OSCURO</strong></p> <p>‘’La luz del sol ‘’</p> </div> </div> </div> </div> <div> <div> <div> <div> <p><strong>ISABEL MARTINEZ, isabelitavirtual , DIRECTORA CREATIVA / AC 193 FRESA</strong></p> </div> </div> <div> <div> <p>‘’El color es para mí como la sal en un plato. Un ingrediente que eleva la experiencia sensorial, la intensifica. A veces, es la expresión del alma, como si la música se pudiera ver.’’</p> <p><strong>ALBERT RIERA GALCERÁN, ARTISTA / AC16 ROSA INTENS</strong></p> <p>‘Per a mi el color es l’atracció, la manera en la que em relaciono amb el que em rodeja i el que determina en gran part les meves sensacions y emocions.’</p> <p><strong>MARIA MEDEM, ILUSTRADORA Y DIBUJANTE DE CÒMIC/ AC016 LILA MAGENTA</strong></p> <p>‘Es algo indispensable. Para mi está ligado a la memoria y los recuerdos, y lo necesito para transmitir emociones y construir atmósferas.’</p> <p><strong>ANA CUBA, FOTÓGRAFA / AC80 MANDARINA</strong></p> <p>‘El color para mí es un aspecto de nuestra realidad a la que se le pueden asignar tantos significados que, en mi caso como fotógrafa, es mi lenguaje favorito para trasladar lo que quiero decir en imágenes. Sería como las vocales en el abecedario.’</p> </div> </div> </div> </div> <div> <div> <div> <div> <p><strong>JULIA RUIZ CABELLO, ARQUITECTA, OCRE ROJIZO AC075</strong> ̈</p> <p>El color es una ventana ̈ Para mí el color es un elemento de muchos rostros que permanece en constante proceso de cambio según el material, el lugar o el paso del tiempo. Esta característica tan relativa y singular me hace relacionarlo directamente con la influencia del color en la memoria y en mis recuerdos. Los colores son una ventana a mi vida y mis experiencias. Son parte de quién soy.</p> <p><strong>RAQUEL QUEVEDO, DISEÑADORA y ARTISTA / AC299 GRIS PERLA</strong></p> <p>Color «colors.» 1. Una memoria habitada viajando a la velocidad de la luz 2. «jerg.» Un abrazo de la sombra</p> <p><strong>JOSÉ QUINTANAR, ARTISTA y EDITOR / AC267 AMARILLO</strong></p> <p>‘El color es un material El color es una ilusión El color es una bandera El color es una elección El color es caprichoso El color es una respuesta. El color es diversión.’</p> <p><strong>LUÍS CERVERÓ, REALIZADOR Y LIBRERO / AC 250 AZUL PROFUNDO</strong></p> <p>‘Me gusta pensar en el color como un lenguaje. Un lenguaje secreto, íntimo y muchas veces inconsciente que todos los objetos y superficies emplean para lanzar un mensaje al mundo. Desde ese punto de vista, me interesa mucho la lectura científica que nos dice que toda superficie absorbe unas ondas y las que no le interesan las repele, o las devuelve hacia el exterior, y esas son las que se traducen en el color que proyectan y nuestros ojos ven. Así que en cierto sentido, el color es el reverso negativo de lo que cada superficie decide guardar en su interior, de aquello que acoge y conserva. Y esta decisión de toda superficie de quedarse para sí un determinado espectro de ondas tiene algo de poético que es a la vez muy sencillo y extremadamente misterioso.</p> <p>En esta misma línea, me encanta pensar en la oscuridad como un silencio, un momento en el que absolutamente todos los objetos se relajan, dejan de gritar al mundo su personalidad intrínseca, para unirse en un discurso común en el que todos se ponen de acuerdo. Me encanta observar como la luz desaparece y todos los elementos del espacio físico en el que te encuentras se unifican, como dándose la mano y respirando aliviados. En pocas palabras, me encanta pensar en el color como algo vivo, alterable y ligado a las circunstancias que lo rodean.’<img></p> </div> </div> </div> </div> <div> <div> <div> <div> <p><strong>ÁLVARO GALMÉS, ARQUITECTO, ESCRITOR Y ARTISTA PLÁSTICO / AC065 OCRE AMARILLO</strong></p> <p>Como dice Goethe, los colores son las alegrías y los sufrimientos de la luz, por eso es blanca en lo exultante y negra en la insatisfacción. Pero entre ambos extremos está el conjunto de los estados emocionales de la naturaleza, desplegados en todas sus gamas y en los infinitos matices del color. Un vocabulario ubérrimo, incomparablemente más rico que el de nuestra expresión emocional. El color es el lenguaje que la naturaleza utiliza para hablar consigo misma, lenguaje que no se nos ha dado a conocer, pero que, por un prodigio de generosidad, se nos ha permitido contemplar. En consecuencia, nos sentimos desbordados e impotentes, y para mitigar esta impotencia, nos desgañitamos al intentar participar en esa conversación, en cierto sentido nos comportamos como recién nacidos que contemplan fascinados las conversaciones de sus mayores, pero que nada entienden y, aun así, se intentan inmiscuir. Desconocemos incluso cómo se articula una palabra o una oración, pero qué necesidad tan profunda tenemos de intervenir, por eso balbuceamos con el color en nuestras ciudades, en nuestras casas, en nuestras ropas y en nuestros cuerpos, con el objetivo de entrometernos y contribuir a esa conversación eterna con la que la naturaleza se despliega.’</p> <p><strong>JUAN DIEGO VALERA , FOTÓGRAFO, / AC096 VERDE GRIS</strong></p> <p>‘El color es una fuente de inspiración y contrastes. Es inseguridad, duda y cuestionamiento. Daltonismo.’</p> <p><strong>BELEN GAYÁN, PRODUCTORA EJECUTIVA / AC049 BLAU VERD</strong></p> <p>‘El color és emoció, vibració, estímul . També es opinió i percepció. Color i llum es fonen per expressar un tot. ‘</p> <p><strong>ARNAU BLANCH, FOTÓGRAFO /AC037 AZUL PLOMO</strong></p> <p>‘Para mí, el color es un elemento más para jugar en el proceso creativo. En fotografía, puedes jugar con cómo distribuyes la luz y la oscuridad en el “frame» generando una composición concreta. Esta composición también se ve afectada por el color. Así luz, oscuridad y color terminan siendo los pilares sobre los que puedes trabajar a la hora de componer una fotografía.’</p> </div> </div> </div> </div> <div> <div> <div> <div> <p><strong>MARTA D.RIEZU, ESCRITORA / AC263 VERDE</strong></p> </div> </div> <div> <div> <p>‘Para mí el color es, ante todo, símbolo. Antropología, historia, psicoanálisis, misterio. No es una ciencia exacta (esa es su gracia), sino una ensoñación en la que cada mirada tiene el camino libre. El verde siempre es verde, pero su significación emocional cambia de acuerdo a dónde lo encuentro. El color me enfrenta a imágenes poéticas, intuiciones y metáforas. Forma parte de un mundo espiritual que es eterno.’</p> <p><strong>CRISTINA STOLHE, FOTÓGRAFA / VERDE OSCURO CASI NEGRO AC39</strong></p> <p>‘El color es libertad, una búsqueda y un encuentro, supongo que tiene que ver con la identidad ‘</p> </div> </div> </div> </div> <div><img></div>"
             }
           ]
         }
@@ -13679,7 +13680,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<p><a href=\"https://www.santacole.com/es/m64/\"><strong>Santa & Cole</strong></a> is a Spanish global editor of design products whose quality is recognizable at the touch of a hand, and that enriches people’s lives.</p> <p>A while ago I started a collaboration with Santa&cole, a love color story!.</p> <p><strong>In their own words the project consisted in: </strong></p> <p>«Santa & Cole has presented eight new colours for the M64 lamp, result of the chromatic study developed by colourist Claudia Valsells</p> <p>Claudia Valsells defines a chromatic universe that will give a new vision to the timelessness of Santa & Cole’s catalogue. A new visual and emotional perception of the M64</p> <p>The collaboration between Santa & Cole and Claudia Valsells presents a careful selection of eight new colours that reveal a new visual and emotional perception of the M64 lamp, designed in 1964 by maestro Miguel Milá. Maintaining the formal timelessness characteristic of this design icon, the new palette is born from Valsells’ intuition and her profound understanding on how colours interact.</p> <p><strong>The interplay of colour:</strong></p> <p>As a colourist, I approached my chromatic studies through a constant juxtaposition of colours. The key lies in placing one colour next to another, so as to influence their perception and achieve the desired visual experience. Rather than simply an individual selection of colours, the new palette represents a careful study of their combination. Demonstrating the close relationship between light and colour, the inside of the screens is covered in white, a detail that softens the light reflection.</p> <p>This collaboration seeks to add another layer of meaning to an existing product by emphasising the light interaction between the colours of the screens and how they engage with the space they are placed in.</p> <p>During the colour study, I developed the interaction of the selected colours to present the collection as chromatic harmonies. From this exercise, six new Neoseries, the art editions of Santa & Cole were born.</p> <p>more info at<a href=\"https://www.santacole.com/es/neoseries/colour-scheme-i-n-00240/\"> Claudia Valsells ’Color Schemes’</a></p> <p><span>© Jara Varela @jara_varela / Campaign images</span></p> <p><span>© Enric Badrinas @enricbadrinas / Studio images </span></p>"
+              "html": "<p><a href=\"https://www.santacole.com/es/m64/\"><strong>Santa & Cole</strong></a> is a Spanish global editor of design products whose quality is recognizable at the touch of a hand, and that enriches people’s lives.</p> <p>A while ago I started a collaboration with Santa&cole, a love color story!.</p> <p><strong>In their own words the project consisted in: </strong></p> <p>«Santa & Cole has presented eight new colours for the M64 lamp, result of the chromatic study developed by colourist Claudia Valsells</p> <p>Claudia Valsells defines a chromatic universe that will give a new vision to the timelessness of Santa & Cole’s catalogue. A new visual and emotional perception of the M64</p> <p>The collaboration between Santa & Cole and Claudia Valsells presents a careful selection of eight new colours that reveal a new visual and emotional perception of the M64 lamp, designed in 1964 by maestro Miguel Milá. Maintaining the formal timelessness characteristic of this design icon, the new palette is born from Valsells’ intuition and her profound understanding on how colours interact.</p> <p><strong>The interplay of colour:</strong></p> <p>As a colourist, I approached my chromatic studies through a constant juxtaposition of colours. The key lies in placing one colour next to another, so as to influence their perception and achieve the desired visual experience. Rather than simply an individual selection of colours, the new palette represents a careful study of their combination. Demonstrating the close relationship between light and colour, the inside of the screens is covered in white, a detail that softens the light reflection.</p> <p>This collaboration seeks to add another layer of meaning to an existing product by emphasising the light interaction between the colours of the screens and how they engage with the space they are placed in.</p> <p>During the colour study, I developed the interaction of the selected colours to present the collection as chromatic harmonies. From this exercise, six new Neoseries, the art editions of Santa & Cole were born.</p> <p>more info at<a href=\"https://www.santacole.com/es/neoseries/colour-scheme-i-n-00240/\"> Claudia Valsells ‘Color Schemes’</a></p> <p><span>© Jara Varela @jara_varela / Campaign images</span></p> <p><span>© Enric Badrinas @enricbadrinas / Studio images </span></p>"
             }
           ]
         },
@@ -14002,7 +14003,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<p><span><b>Claudia Valsells (1969) Barcelona, Spain<span> </span></b></span></p> <p><span>Claudia is an artist specialized in color. A multidisciplinary creator, she discovered painting through her own instinct for color. Her formation as a mural painter gave her a professional opportunity, and her passion in color her own artistic language.<span> </span></span></p> <p><span>Based on her reflections as an artist, her experience in color prediction and mural painting, brings to all her work, with color as a primary tool, an identifiable language.</span></p> <p><span>She began her artistic career painting and soon realized that she had a natural ability with color. In her own words, ’All I have done throughout my career has been to cultivate this natural gift.<span> </span>First as a mural painter, then designing color charts and prescribing color and finally as an artist’.</span></p> <p><span>The tireless search for the reason of color and its form has obsessed artists throughout history, from the very creation of pictorial expression. Claudia Valsells knows about this and she aims to portray this into her artwork.</span></p> <p><span>In her beginnings as a colorist she worked on commissions, for architects, and on projects of different scales advising and prescribing color. Soon she founded her own Studio, under the name of ‘Arts&Claus’, in allegory to the ‘Arts&Craft’ movement where she always found a lot of inspiration. She specialized in mural painting, color applied to architecture, and interior design for 20 years on projects in Spain and abroad. Her role was to convey the value of color and its texture in the decoration of interior spaces working closely with professionals in the fields of art, design, and architecture. It was in this context, working close with architects and designers,<span> </span>that she found out the communication between professionals was based by the painting companies, relegated the work of the colorist to the background due to ignorance or fear clients to make a mistake or be branded as eccentric. It was then when Claudia Valsells created a specific chromatic selection, a COLOUR CHART, with more than 200 references, which have been used as color comunication tools by Spain’s best architects.</span></p> <p><span>Her work has two very defined characteristics: on the one hand her chromatic instinct, a gift of colors and on the other her ability to select, group and interact colors creating a chromatic language of her own.</span></p> <p><span>The common denominator of all her work is color, and her obsession with the way colors interact with each other. The interaction of color occurs when two or more colors are combined in a composition. The combination of colors varies its own appearance and it is in these moments when Claudia decides to put one color next to another in order to influence its perception and achieve the desired visual experience. For Claudia the interaction of color is a key concept in her work as an artist and as a colorist and allows her to experiment and explore an ever new visual and emotional perception of colors in each work and commission.</span></p> <p><span>Her most personal and ongoing project emerged from the pandemic in 2020 where she launched a ‘Color glossary’ through the question ’What’s color?’ to people of thought, philosophers, historians, thinkers, writers, and other artists, in order to think of color in a broader context. She wanted to discover the notion of color as it is thought of by others. She opened a dialogue to grasp new ways of seeing colors, other perspectives, but mostly to better understand the reason of color and its form, and this way to understand better human being.</span></p> <p><span>This project has been represented in three solo shows, one in Barcelona ( 2020) and the other two in Madrid ( 2021, 2022) since then<span> </span></span></p> <p><span>Currently she combines her activity as an artist with colour prescription in the areas of design and architecture.<span> </span></span></p> <p><span>Her work is represented, in Spain and abroad, by the Barcelona gallery owner Miquel Alzueta. <a href=\"http://alzuetagallery.com\">ALZUETA GALLERY </a></span></p> <p>PRIVATE COLLECTIONS</p> <div> <div> <div> <div> <p>Fundació Vilacases (Barcelona)</p> <p>Fundació Banc Sabadell (Barcelona)</p> <p>Collection Hayot (France)</p> <p>Martinez Collection (Mexico-US)</p> <p>Niederberghaus Collection (Germany)</p> <p>Collection Richard (France)</p> <p>Smith Collection (Wyoming, US)</p> <p>EXHIBITIONS & ART FAIRS</p> <p>_2026 June_July, Palau de Casavells, ’<i>Shift Towards Coincidnce’, </i>Group exhibition</p> <p>_2026 June_July, New York, <em>’Abstract paintings’</em>, Scroll Ny , Group exhibition</p> <p>_2026 May _ June, Paris, ’<em>Moll de l’os’ peintures 2026</em>, Alzueta Gallery Paris</p> <p>_2026 February, Zona Maco CDMX Mexico with Alzueta Gallery</p> <p>_2025 October, Estampa contemporary art fair, Madrid with Alzueta Gallery</p> <p>-2025 April, <em>’Míra’m no deixis de mirar-me’</em> Solo show at Palau de Casavells with Alzueta Gallery</p> <p>-2025 March, ’Marco, límite y lugar’, Madrid with Alzueta Gallery, Group Exhibition</p> <p>-2024 November, Luxemburg art week with Alzueta Gallery</p> </div> <p>-2024 July, Gallery_br, Tetbury, UK, ’Painting as a gift from color’, solo show</p> <div> <p>-2024 February, ZONA MACO with Alzueta Gallery</p> <p>-2024 January, Alzueta Gallery Séneca, ’ What abstract art means to me? ’ Group exhibition</p> <p>-2023 November, Alzueta Gallery Madrid, «La terre est bleue comme une orange», Group exhibition</p> <p>-2023 September, Alzueta Gallery Turó, <em>’Transitions’ </em>solo show</p> </div> <p>-2023 February, Art Rotterdam, Contemporary Art Fair</p> <div> <p>-2021 December, Alzueta Gallery Madrid, ’Color Dialogues’ Solo Exhibition</p> <p>-2021 December, Espacio Pavillion, Madrid, 2nd Edition ’What’s color?’</p> <p>-2021 October, Alzueta Gallery, Madrid, Estampa Contemporary Art Fair</p> <p>-2021 September, Alzueta Gallery, Paris, Art Paris Fair</p> </div> </div> </div> </div> <p>-2021 June, Alzueta Gallery, Madrid, Art Madrid Feria</p> <p>-2020 December, Alzueta Gallery, Barcelona, Solo Exhibition, ’What’s color?’</p> <p><span>-2020 February, Alzueta Gallery, Barcelona, Aoo&Claudia Valsells ’Silla8’ show</span></p> <p><span>-2019 November, Solo Exhibition, Almost Perfect, Tokyo, Japan</span></p> <p><span>-2019 October, Art Élysées-Art & Design, París.</span></p> <p><span>-2019 April, Art Paris Grand Palais, París.</span></p> <p><span>-2019 April, Almoneda, Ifema feria de Madrid, Palau de Casavells, Madrid.</span></p> <p><span>-2019 March, AFF Art Fair Brussels</span></p> <p><span>-2019 March, Art Madrid, Madrid</span></p> <p><span>-2018 November, T10 at Alzueta Gallery, Barcelona</span></p> <p><span>-2018 November, Palau de Casavells, solo exhibition, Girona, Spain</span></p> <p><span>-2018 Art fair Hamburg</span></p> <p><span>-2018 Art Elysees París</span></p> <p><span>-2018 Art fair Stockholm</span></p> <p><span>-2018 Contemporary Art Fair Just LX, Portugal</span></p> <p><span>-2018 Almoneda Antik Passion, Madrid</span></p> <p><span>-2018 Art Fair Grand Palais, París</span></p> <p><span>-2018 Eurantica art fair, Brussels</span></p> <p><span>-2018 Art Madrid, Madrid</span></p> <p><span>-2017/07 Uterqüe Art Essays AW2017</span></p> <p><span>-2017/03 Art París, International Art Fair, París</span></p> <p><span>-2017/02 Alzueta Gallery «Color y forma» solo exhibition, Barcelona</span></p> <p><span>-2017/02 Art Madrid, Madrid</span></p> <p><span>-2016/12 <a href=\"http://www.axelpairon-gallery.com\">Galeria Axel Pairon</a> exposición colectiva.</span></p> <p><span>-2016/11 Antica Namur, Belgium</span></p> <p><span>-2016/10 Art Élysées, International Art Fair, París</span></p> <p><span>-2016/06 Scope Basel, Basel art fair</span></p> <p><span>-2007 <a href=\"http://www.palaudecasavells.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Palau de Casavells</a>, Baix Empordà, Solo exhibition , May 2007</span></p> <p><span>-2005 <a href=\"http://galeriamiquelalzueta.es/home/\" target=\"_blank\" rel=\"noopener noreferrer\">Galeria Miquel Alzueta</a>, Barcelona, Solo exhibition, March 2005 – «Expresions de Mur». Abstract Informalism paintings.</span></p> <p><span>-2000/04 <a href=\"http://www.vincon.com/es/\" target=\"_blank\" rel=\"noopener noreferrer\">Sala Vinçon</a>, Barcelona, Solo exhibition, Abril 2000 «El color no existe, existe la luz»/ «The color doesn’t exist, just the light». Individual exhibition where the interaction of the public with the installation was essential. I tried to demonstrate through personal experimentation that color only exists if there is light.<br> </span></p> <p>INQUIRES PLEASE CONTACT TO: editorial@alzuetagallery.com</p> <p><span>images:</span></p> <p><span>© yosigo_yosigo</span></p> <p><span>© Martina Domenech ( below)</span></p>"
+              "html": "<p><span><b>Claudia Valsells (1969) Barcelona, Spain<span> </span></b></span></p> <p><span>Claudia is an artist specialized in color. A multidisciplinary creator, she discovered painting through her own instinct for color. Her formation as a mural painter gave her a professional opportunity, and her passion in color her own artistic language.<span> </span></span></p> <p><span>Based on her reflections as an artist, her experience in color prediction and mural painting, brings to all her work, with color as a primary tool, an identifiable language.</span></p> <p><span>She began her artistic career painting and soon realized that she had a natural ability with color. In her own words, ‘All I have done throughout my career has been to cultivate this natural gift.<span> </span>First as a mural painter, then designing color charts and prescribing color and finally as an artist’.</span></p> <p><span>The tireless search for the reason of color and its form has obsessed artists throughout history, from the very creation of pictorial expression. Claudia Valsells knows about this and she aims to portray this into her artwork.</span></p> <p><span>In her beginnings as a colorist she worked on commissions, for architects, and on projects of different scales advising and prescribing color. Soon she founded her own Studio, under the name of ‘Arts&Claus’, in allegory to the ‘Arts&Craft’ movement where she always found a lot of inspiration. She specialized in mural painting, color applied to architecture, and interior design for 20 years on projects in Spain and abroad. Her role was to convey the value of color and its texture in the decoration of interior spaces working closely with professionals in the fields of art, design, and architecture. It was in this context, working close with architects and designers,<span> </span>that she found out the communication between professionals was based by the painting companies, relegated the work of the colorist to the background due to ignorance or fear clients to make a mistake or be branded as eccentric. It was then when Claudia Valsells created a specific chromatic selection, a COLOUR CHART, with more than 200 references, which have been used as color comunication tools by Spain’s best architects.</span></p> <p><span>Her work has two very defined characteristics: on the one hand her chromatic instinct, a gift of colors and on the other her ability to select, group and interact colors creating a chromatic language of her own.</span></p> <p><span>The common denominator of all her work is color, and her obsession with the way colors interact with each other. The interaction of color occurs when two or more colors are combined in a composition. The combination of colors varies its own appearance and it is in these moments when Claudia decides to put one color next to another in order to influence its perception and achieve the desired visual experience. For Claudia the interaction of color is a key concept in her work as an artist and as a colorist and allows her to experiment and explore an ever new visual and emotional perception of colors in each work and commission.</span></p> <p><span>Her most personal and ongoing project emerged from the pandemic in 2020 where she launched a ‘Color glossary’ through the question ‘What’s color?’ to people of thought, philosophers, historians, thinkers, writers, and other artists, in order to think of color in a broader context. She wanted to discover the notion of color as it is thought of by others. She opened a dialogue to grasp new ways of seeing colors, other perspectives, but mostly to better understand the reason of color and its form, and this way to understand better human being.</span></p> <p><span>This project has been represented in three solo shows, one in Barcelona ( 2020) and the other two in Madrid ( 2021, 2022) since then<span> </span></span></p> <p><span>Currently she combines her activity as an artist with colour prescription in the areas of design and architecture.<span> </span></span></p> <p><span>Her work is represented, in Spain and abroad, by the Barcelona gallery owner Miquel Alzueta. <a href=\"http://alzuetagallery.com\">ALZUETA GALLERY </a></span></p> <p>PRIVATE COLLECTIONS</p> <div> <div> <div> <div> <p>Fundació Vilacases (Barcelona)</p> <p>Fundació Banc Sabadell (Barcelona)</p> <p>Collection Hayot (France)</p> <p>Martinez Collection (Mexico-US)</p> <p>Niederberghaus Collection (Germany)</p> <p>Collection Richard (France)</p> <p>Smith Collection (Wyoming, US)</p> <p>EXHIBITIONS & ART FAIRS</p> <p>_2026 June_July, Palau de Casavells, ‘<i>Shift Towards Coincidnce’, </i>Group exhibition</p> <p>_2026 June_July, New York, <em>‘Abstract paintings’</em>, Scroll Ny , Group exhibition</p> <p>_2026 May _ June, Paris, ‘<em>Moll de l’os’ peintures 2026</em>, Alzueta Gallery Paris</p> <p>_2026 February, Zona Maco CDMX Mexico with Alzueta Gallery</p> <p>_2025 October, Estampa contemporary art fair, Madrid with Alzueta Gallery</p> <p>-2025 April, <em>‘Míra’m no deixis de mirar-me’</em> Solo show at Palau de Casavells with Alzueta Gallery</p> <p>-2025 March, ‘Marco, límite y lugar’, Madrid with Alzueta Gallery, Group Exhibition</p> <p>-2024 November, Luxemburg art week with Alzueta Gallery</p> </div> <p>-2024 July, Gallery_br, Tetbury, UK, ‘Painting as a gift from color’, solo show</p> <div> <p>-2024 February, ZONA MACO with Alzueta Gallery</p> <p>-2024 January, Alzueta Gallery Séneca, ‘ What abstract art means to me? ‘ Group exhibition</p> <p>-2023 November, Alzueta Gallery Madrid, «La terre est bleue comme une orange», Group exhibition</p> <p>-2023 September, Alzueta Gallery Turó, <em>‘Transitions’ </em>solo show</p> </div> <p>-2023 February, Art Rotterdam, Contemporary Art Fair</p> <div> <p>-2021 December, Alzueta Gallery Madrid, ‘Color Dialogues’ Solo Exhibition</p> <p>-2021 December, Espacio Pavillion, Madrid, 2nd Edition ‘What’s color?’</p> <p>-2021 October, Alzueta Gallery, Madrid, Estampa Contemporary Art Fair</p> <p>-2021 September, Alzueta Gallery, Paris, Art Paris Fair</p> </div> </div> </div> </div> <p>-2021 June, Alzueta Gallery, Madrid, Art Madrid Feria</p> <p>-2020 December, Alzueta Gallery, Barcelona, Solo Exhibition, ‘What’s color?’</p> <p><span>-2020 February, Alzueta Gallery, Barcelona, Aoo&Claudia Valsells ‘Silla8’ show</span></p> <p><span>-2019 November, Solo Exhibition, Almost Perfect, Tokyo, Japan</span></p> <p><span>-2019 October, Art Élysées-Art & Design, París.</span></p> <p><span>-2019 April, Art Paris Grand Palais, París.</span></p> <p><span>-2019 April, Almoneda, Ifema feria de Madrid, Palau de Casavells, Madrid.</span></p> <p><span>-2019 March, AFF Art Fair Brussels</span></p> <p><span>-2019 March, Art Madrid, Madrid</span></p> <p><span>-2018 November, T10 at Alzueta Gallery, Barcelona</span></p> <p><span>-2018 November, Palau de Casavells, solo exhibition, Girona, Spain</span></p> <p><span>-2018 Art fair Hamburg</span></p> <p><span>-2018 Art Elysees París</span></p> <p><span>-2018 Art fair Stockholm</span></p> <p><span>-2018 Contemporary Art Fair Just LX, Portugal</span></p> <p><span>-2018 Almoneda Antik Passion, Madrid</span></p> <p><span>-2018 Art Fair Grand Palais, París</span></p> <p><span>-2018 Eurantica art fair, Brussels</span></p> <p><span>-2018 Art Madrid, Madrid</span></p> <p><span>-2017/07 Uterqüe Art Essays AW2017</span></p> <p><span>-2017/03 Art París, International Art Fair, París</span></p> <p><span>-2017/02 Alzueta Gallery «Color y forma» solo exhibition, Barcelona</span></p> <p><span>-2017/02 Art Madrid, Madrid</span></p> <p><span>-2016/12 <a href=\"http://www.axelpairon-gallery.com\">Galeria Axel Pairon</a> exposición colectiva.</span></p> <p><span>-2016/11 Antica Namur, Belgium</span></p> <p><span>-2016/10 Art Élysées, International Art Fair, París</span></p> <p><span>-2016/06 Scope Basel, Basel art fair</span></p> <p><span>-2007 <a href=\"http://www.palaudecasavells.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Palau de Casavells</a>, Baix Empordà, Solo exhibition , May 2007</span></p> <p><span>-2005 <a href=\"http://galeriamiquelalzueta.es/home/\" target=\"_blank\" rel=\"noopener noreferrer\">Galeria Miquel Alzueta</a>, Barcelona, Solo exhibition, March 2005 – «Expresions de Mur». Abstract Informalism paintings.</span></p> <p><span>-2000/04 <a href=\"http://www.vincon.com/es/\" target=\"_blank\" rel=\"noopener noreferrer\">Sala Vinçon</a>, Barcelona, Solo exhibition, Abril 2000 «El color no existe, existe la luz»/ «The color doesn’t exist, just the light». Individual exhibition where the interaction of the public with the installation was essential. I tried to demonstrate through personal experimentation that color only exists if there is light.<br> </span></p> <p>INQUIRES PLEASE CONTACT TO: editorial@alzuetagallery.com</p> <p><span>images:</span></p> <p><span>© yosigo_yosigo</span></p> <p><span>© Martina Domenech ( below)</span></p>"
             }
           ]
         },
@@ -14344,7 +14345,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<div>’<strong>MÍRA’M NO DEIXIS DE MIRAR-ME’</strong></div> <p>Solo show at <a href=\"http://www.alzuetagallery.com/\" target=\"_blank\" rel=\"noopener\">Alzueta Gallery</a>, <span>Palau de Casavells, </span>Alzueta Gallery’s countryside space<span> </span>APRIL to JUNE 2025</p> <p><i>“Mira’m, no deixis de mirar-me” </i>[“Look at Me, Don’t Stop Looking at Me”] invites us to explore the work and career of Claudia Valsells, where color is both a physical substance and an intangible emotion. Throughout a life devoted to researching and experimenting with color and the creation of her own palette, the artist has created a language to channel her experience and perception of the world. In her work, color goes beyond aesthetics to become a meaningful, almost linguistic, element.</p> <p>For the artist, materializing a color is a complex process in three acts: first, she envisions it; then, she creates it through a unique combination of pigments; and finally, she applies it to the canvas, where it engages in dialogue with other colors. Valsells builds on technical knowledge but also surrenders to intuition, finding in painting a space of refuge and communication—both with herself and with the viewer. Each piece, each chromatic interaction, emerges from a delicate interplay of prior knowledge, instinct, and the artist’s lived experience.</p> <p>The exhibition brings together, for the first time, the series <i>What’s Color?</i>, <i>Color Dialogues</i>, <i>The Joy of Painting</i>, <i>Transitions</i>, and her most recent work, <i>Mapa</i>, in which Valsells explores chromatic juxtaposition with a newfound maturity. This collection of works showcases the evolution of her practice while highlighting the importance of the viewer’s gaze in art. The title, “<i>Mira’m, no deixis de mirar-me”</i>, refers, on one hand, to the act of exposing oneself to public recognition and, on the other, to the essential need to open up to others, not only in the artistic context but in all aspects of life.</p> <p>The concepts of the eye and the gaze have often been understood as symbols of otherness. In this sense, Sartre asserted that it is through the gaze of others that we recognize ourselves. This dimension of the other is what constitutes and defines us, allowing us to exist as subjects. According to the French philosopher, it is also what humanizes us and, therefore, enables communication. Daily experiences and interactions with others shape multiple identities: we are not made of a single piece.</p> <p>Valsells’ work becomes a space for connection, where the viewer and the artwork meet through the experience of color. In this exchange, the work finds meaning, and we, as viewers, also uncover something about ourselves. “<i>Mira’m, no deixis de mirar-me”</i> is an open invitation to this silent dialogue, where color becomes a language, speaking to us about who we are, about others, and about the artist’s own journey.</p>"
+              "html": "<div>‘<strong>MÍRA’M NO DEIXIS DE MIRAR-ME’</strong></div> <p>Solo show at <a href=\"http://www.alzuetagallery.com/\" target=\"_blank\" rel=\"noopener\">Alzueta Gallery</a>, <span>Palau de Casavells, </span>Alzueta Gallery’s countryside space<span> </span>APRIL to JUNE 2025</p> <p><i>“Mira’m, no deixis de mirar-me” </i>[“Look at Me, Don’t Stop Looking at Me”] invites us to explore the work and career of Claudia Valsells, where color is both a physical substance and an intangible emotion. Throughout a life devoted to researching and experimenting with color and the creation of her own palette, the artist has created a language to channel her experience and perception of the world. In her work, color goes beyond aesthetics to become a meaningful, almost linguistic, element.</p> <p>For the artist, materializing a color is a complex process in three acts: first, she envisions it; then, she creates it through a unique combination of pigments; and finally, she applies it to the canvas, where it engages in dialogue with other colors. Valsells builds on technical knowledge but also surrenders to intuition, finding in painting a space of refuge and communication—both with herself and with the viewer. Each piece, each chromatic interaction, emerges from a delicate interplay of prior knowledge, instinct, and the artist’s lived experience.</p> <p>The exhibition brings together, for the first time, the series <i>What’s Color?</i>, <i>Color Dialogues</i>, <i>The Joy of Painting</i>, <i>Transitions</i>, and her most recent work, <i>Mapa</i>, in which Valsells explores chromatic juxtaposition with a newfound maturity. This collection of works showcases the evolution of her practice while highlighting the importance of the viewer’s gaze in art. The title, “<i>Mira’m, no deixis de mirar-me”</i>, refers, on one hand, to the act of exposing oneself to public recognition and, on the other, to the essential need to open up to others, not only in the artistic context but in all aspects of life.</p> <p>The concepts of the eye and the gaze have often been understood as symbols of otherness. In this sense, Sartre asserted that it is through the gaze of others that we recognize ourselves. This dimension of the other is what constitutes and defines us, allowing us to exist as subjects. According to the French philosopher, it is also what humanizes us and, therefore, enables communication. Daily experiences and interactions with others shape multiple identities: we are not made of a single piece.</p> <p>Valsells’ work becomes a space for connection, where the viewer and the artwork meet through the experience of color. In this exchange, the work finds meaning, and we, as viewers, also uncover something about ourselves. “<i>Mira’m, no deixis de mirar-me”</i> is an open invitation to this silent dialogue, where color becomes a language, speaking to us about who we are, about others, and about the artist’s own journey.</p>"
             }
           ]
         },
@@ -14476,7 +14477,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<p><span><strong><em>‘What ́s color?’ ( I )</em></strong> Solo show december 2020 at </span><a href=\"http://www.alzuetagallery.com\">ALZUETA GALLERY</a> / BARCELONA.</p> <p><span>Throughout the lockdown I was away from my studio and my art form – painting.</span></p> <p><span>I found great comfort reading pieces by philosophers, historians, thinkers, writers, and other artists. They helped me better understand humanity and its role in this globalized world.</span></p> <p><span>During the past months I have invited them to consider and answer the question:</span><span> ‘What does color mean to you?’</span></p> <p><span>First of all, to open up a dialogue, to grasp new ways of seeing colors, other perspectives, but also to better understand the world. I wanted to think of color in a broader context, outside of the artistic view, and to discover the notion of color as it is thought of by others.</span></p> <p><span>Now, this whole journey has become a process of identifying and synthesizing knowledge, when possible, into color, with the wish to create and share a ’Color Glossary’ where color meets perception. </span><span>For what purpose?</span></p> <p><span>Because To me, COLOR is a universal visual emotion, capable of</span> <span>reaching and inspiring every human being.</span></p> <p><span>Claudia Valsells</span></p> <p><span><em>Film below : Mariona Domenech</em></span></p> <p><span><em>Graphic design: Maria Vicente</em></span></p>"
+              "html": "<p><span><strong><em>‘What ́s color?’ ( I )</em></strong> Solo show december 2020 at </span><a href=\"http://www.alzuetagallery.com\">ALZUETA GALLERY</a> / BARCELONA.</p> <p><span>Throughout the lockdown I was away from my studio and my art form – painting.</span></p> <p><span>I found great comfort reading pieces by philosophers, historians, thinkers, writers, and other artists. They helped me better understand humanity and its role in this globalized world.</span></p> <p><span>During the past months I have invited them to consider and answer the question:</span><span> ‘What does color mean to you?’</span></p> <p><span>First of all, to open up a dialogue, to grasp new ways of seeing colors, other perspectives, but also to better understand the world. I wanted to think of color in a broader context, outside of the artistic view, and to discover the notion of color as it is thought of by others.</span></p> <p><span>Now, this whole journey has become a process of identifying and synthesizing knowledge, when possible, into color, with the wish to create and share a ‘Color Glossary’ where color meets perception. </span><span>For what purpose?</span></p> <p><span>Because To me, COLOR is a universal visual emotion, capable of</span> <span>reaching and inspiring every human being.</span></p> <p><span>Claudia Valsells</span></p> <p><span><em>Film below : Mariona Domenech</em></span></p> <p><span><em>Graphic design: Maria Vicente</em></span></p>"
             }
           ]
         },
@@ -14494,7 +14495,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<p><span><strong>COLOR GLOSSARY </strong><em>where color meets perception</em></span></p> <p><span>’Thank you all for opening up a dialogue, for showing me new ways of seeing colors, other perspectives, but also for helping me better understand this world. </span><span>I wanted to understand color in a broader context, outside of the artistic view, and to discover the notion of color as it is thought of by others like yourself. Now, this whole journey has become a process of identifying and synthesizing knowledge, when possible, into color, with the wish to create and share a ’Color Glossary where color meets perception.’ </span></p> <p><span><i>Claudia Valsells, Barcelona. </i></span></p> <p><strong>MARINA GARCÉS </strong>FiLÒSOFA / PHILOSOPHER / AC011 POWDER RED</p> <p><span>‘Diria que el color, per a mi, és el gust del tacte’</span></p> <p><strong>OLAFUR ELIASSON </strong>ARTIST /AC 002 YELLOW</p> <p><span>‘Colour has an enormous psychological and associative potential: even though it has been cultivated to the extreme, the amount of individuality in experiencing colours is equally extreme. Colour does not exist in itself but only when looked at. The unique fact that colour only materialises when light bounces off a surface onto our retinas shows us that the analysis of colours is, in fact, about the ability to analyse ourselves.’</span></p> <p><strong> </strong><strong>LI EDELKOORT </strong>TREND FORECASTER<strong> /</strong> AC 119 NATURAL OFF WHITE</p> <p><span>‘Color approach to body and soul.The mystical aspect in colour; colour as an expression of a higher goal; colour as a form of profound concentration; colour as a new level of awareness.’</span></p> <p><strong>RUPI KAUR </strong>POET / AC 206 SOFT NUDE</p> <p><span><strong>‘</strong>Colour is laughter, and joy, and air. Colour is one of the most beautiful details of life.’</span></p> <p><strong>RAMÓN ANDRÉS, </strong>ENSAYISTA y PENSADOR / ESSAYIST and THINKER / AC 052 DARK GREEN</p> <p><span>«El color es una forma de nostalgia, un modo de entender la noche, de desnudar su sombra para que las cosas sean cuando ella duerme. El color es una lluvia, un vaso, el alba, la hoja vuelta de un álamo, la rodera de un carro de heno, que amarillea. Es el relieve del mundo para que nosotros, a ciegas, tocándolo, descubramos desde nuestra oscuridad su rostro y nos reconozcamos en él».</span></p> <p><strong>VICTORIA CIRLOT </strong>CATEDRÀTICA DE FILOLOGiA ROMÀNICA / PROFESSOR OF ROMANIC PHILOLOGY / AC019 ROUGE</p> <p><span>‘Entiendo el color como el aspecto espiritual de una representación. El color es un estado de ánimo, una emoción. El rojo burdeos expresa una pasión hecha de dolor y gozo. ‘</span></p> <p><strong>TORTELL POLTRONA </strong>PALLASSO / CLOWN /AC 009 RED</p> <p><span>‘Els meus colors de maquillatge son el Blanc, el negre i el vermell, que es el que més m’agrada’</span></p> <p><strong>ANGELICA DASS </strong>FOTÒGRAFA / PHOTOGRAPHER -HUMANAE PROJECT /AC073 BEAUTIFUL SAND.</p> <p><span>‘Nací en una familia llena de color ‘</span></p> <p><strong>JAUME FUNES</strong>, PSICÒLEG, EDUCADOR I PERIODISTA/ PSYCHOLOGIST, EDUCATOR AND JOURNALIST/ AC 048 GREEN BLUE</p> <p><span>‘Per a mi el color es una manera de mirar i d’interpretar la realitat que m’envolta. Miro amb filtres de llums i colors. La llum i el color són maneres d’entendre i explicar el món.’</span></p> <p><strong>OSCAR TUSQUETS </strong>ARQUITECTE, PINTOR i ESCRIPTOR / ARCHITECT, PAINTER AND WRITER/ AC071 POMPEIAN RED</p> <p><span>“En Arquitectura, la posibilidad de huir osadamente de la dictadura contemporánea del blanco ¡Viva Barragán!”.</span></p> <p><strong>DAVID BUENO I TORRENS </strong> BIÒLEG ESPECIALITZAT EN NEUROCIÈNCIA APLICADA A L’EDUCACIÓ / BIOLOGIST, EDUCATION AND NEUROSCIENCE/ AC 098 GREY GREEN</p> <p><span><strong>‘</strong>Com a científic haig de dir que el color és una ona electromagnètica de natura corpuscular que vibra en una determinada longitud d’ona. Ara bé, això és només una descripció que únicament grata la superfície. Per a mí el color és l’expressió vital de la natura, el reflex d’allò que ha estat i l’ombra del que vindrà.’</span></p> <p><strong>FLAVIA COMPANY</strong> <strong> </strong>ESCRIPTORA i PERIODISTA / WRITER and JOURNALIST/ AC062 OCHER GREEN</p> <p><span><strong>‘</strong>El color és el filtre amb què mirem la vida.’</span></p> <p><em><span>Flavia Company m’escriu aquestes increíbles ratlles en referència a les meves obres:<span> </span></span></em></p> <p><span>’La verticalitat del que comença i no acaba. Ens representa. Ens convoca. Ens pregunta -què podries construir amb mi?- però també ens contesta -tu ets dels colors del que construeixes-. </span><span>La relació entre l’horitzontalitat dels diferents colors -diferents conceptes, individualitats, temps, espais, idees, illes, cases, mons, sentiments, tot i tant-, colors interromputs -la vida- en les seves formes trencades, recolzades sobre el blanc, que és tots els colors, que és cap ni un. Contrast i significació. Context.’</span></p> <p><em><span>Flavia Company writes me these beautiful words in reference to my artworks :</span></em></p> <p><span>’The verticality of what begins and doesn’t end. It represents us. It convenes us. It asks us -what could construct with me?- but also it answers us -you are the colors that you build.<span> </span></span><span>The relation among the horizontality of the diferent colors-distinct concepts, individualities, time, rooms, ideas, islands, homes, worlds, feelings, everything and so much-, colors interrupted -the life- at its broken forms, placed on the white, that is all the colours, which is none and no one . Contrast and significance. Context.’</span></p> <p><em><span>Thank you Flavia!</span></em></p> <p><strong>SIRI HUSTVEDT </strong>ESSAYIST, NOVELIST AND POET/ ESCRIPTORA i POETA/ AC074 DARK ORANGE</p> <p><span>My neurological sensitivities have determined my life, I suffer from synaesthesia. I also have strong physical responses to colors—once while looking at a shade of turquoise in Iceland I had a revolting crawling sensation all over my body. Everyone responds to color, but my mirror-touch sensations probably exaggerate the response. It’s possible that this sensitivity increased my interest in looking at paintings. My earliest exposure to a painter was to Munch. </span><span>The colors are subjective. Everyone has her or his own.</span></p> <p><span><strong>HENRY GIROUX WRITER AND CULTURAL CRITIC, FOUNDER OF CRITICAL PEDAGOGY / </strong>ESCRIPTOR I CRÍTIC CULTURAL, FUNDADOR DE LA PEDAGOGIA CRÍTICA/ AC 008 WARM RED </span></p> <p><span>«Color for me opens a world that allows hope to present itself as a landscape of passion, possibility, and joy. </span><span>Color pushes against the darkness, literal and symbolic, and creates a world in which words appear limited. Color elevates </span><span>and merges with a visual world in which love and hope merge. Red is my color, it connects the blood in my veins and heart to the passion of resistance </span><span>and the narratives of courage that give the present a future. «</span></p> <p><span><strong>CAROLIN EMCKE, </strong>PHILOSOPHER, WRITER and JOURNALIST/ AC101</span></p> <p><span><strong>VALERIA LUISELLI </strong>WRITER and ESSAYIST /AC035</span></p> <p><span><strong>DAVID ATTENBORUGH </strong>NATURIST SCIENTIST / AC044</span></p> <p><span><strong>JUDY WAJCMANN </strong> SOCIOLOGIST / AC 023</span></p> <p><span><strong>ALESSANDRO BARICCO </strong>WRITER and JOURNALIST / AC 065</span></p> <p><span><strong>ARNO STERN </strong>RESEARCH EDUCATOR/ AC004</span></p> <p><span><strong>FINA BIRULÉS </strong>FILÒSOFA / PHILOSOPHER<span> / </span>AC022</span></p> <p><span><strong>STEFANO MANCUSO </strong>PLANT NEUROBIOLOGIST / AC055</span></p> <p><span><strong>DAVID LE BRETON </strong>ANTHROPOLOGIST, SOCIOLOGIST and PROFESSOR/ AC128</span></p> <p><span><strong>NOAH HARARI </strong>HISTORIAN and WRITER / AC 042</span></p> <p><span><strong>HIMALI SINGH SOIN </strong>ARTIST and WRITER / AC036</span></p> <p><span><strong>KRISTINE MCDIVITT TOMPKINS </strong>ENVIRONMENTAL CONSERVATIONIST AND ACTIVIST / AC 089 Sand Colour </span></p> <p><span><strong>CESAR BONA </strong>WRITER and PROFESSOR / AC 047 Deep Green</span></p> <p><strong>FRANCESCO TONUCCI</strong>, EDUCATOR AND CARTOONIST / AC 040</p>"
+              "html": "<p><span><strong>COLOR GLOSSARY </strong><em>where color meets perception</em></span></p> <p><span>‘Thank you all for opening up a dialogue, for showing me new ways of seeing colors, other perspectives, but also for helping me better understand this world. </span><span>I wanted to understand color in a broader context, outside of the artistic view, and to discover the notion of color as it is thought of by others like yourself. Now, this whole journey has become a process of identifying and synthesizing knowledge, when possible, into color, with the wish to create and share a ‘Color Glossary where color meets perception.’ </span></p> <p><span><i>Claudia Valsells, Barcelona. </i></span></p> <p><strong>MARINA GARCÉS </strong>FiLÒSOFA / PHILOSOPHER / AC011 POWDER RED</p> <p><span>‘Diria que el color, per a mi, és el gust del tacte’</span></p> <p><strong>OLAFUR ELIASSON </strong>ARTIST /AC 002 YELLOW</p> <p><span>‘Colour has an enormous psychological and associative potential: even though it has been cultivated to the extreme, the amount of individuality in experiencing colours is equally extreme. Colour does not exist in itself but only when looked at. The unique fact that colour only materialises when light bounces off a surface onto our retinas shows us that the analysis of colours is, in fact, about the ability to analyse ourselves.’</span></p> <p><strong> </strong><strong>LI EDELKOORT </strong>TREND FORECASTER<strong> /</strong> AC 119 NATURAL OFF WHITE</p> <p><span>‘Color approach to body and soul.The mystical aspect in colour; colour as an expression of a higher goal; colour as a form of profound concentration; colour as a new level of awareness.’</span></p> <p><strong>RUPI KAUR </strong>POET / AC 206 SOFT NUDE</p> <p><span><strong>‘</strong>Colour is laughter, and joy, and air. Colour is one of the most beautiful details of life.’</span></p> <p><strong>RAMÓN ANDRÉS, </strong>ENSAYISTA y PENSADOR / ESSAYIST and THINKER / AC 052 DARK GREEN</p> <p><span>«El color es una forma de nostalgia, un modo de entender la noche, de desnudar su sombra para que las cosas sean cuando ella duerme. El color es una lluvia, un vaso, el alba, la hoja vuelta de un álamo, la rodera de un carro de heno, que amarillea. Es el relieve del mundo para que nosotros, a ciegas, tocándolo, descubramos desde nuestra oscuridad su rostro y nos reconozcamos en él».</span></p> <p><strong>VICTORIA CIRLOT </strong>CATEDRÀTICA DE FILOLOGiA ROMÀNICA / PROFESSOR OF ROMANIC PHILOLOGY / AC019 ROUGE</p> <p><span>‘Entiendo el color como el aspecto espiritual de una representación. El color es un estado de ánimo, una emoción. El rojo burdeos expresa una pasión hecha de dolor y gozo. ‘</span></p> <p><strong>TORTELL POLTRONA </strong>PALLASSO / CLOWN /AC 009 RED</p> <p><span>‘Els meus colors de maquillatge son el Blanc, el negre i el vermell, que es el que més m’agrada’</span></p> <p><strong>ANGELICA DASS </strong>FOTÒGRAFA / PHOTOGRAPHER -HUMANAE PROJECT /AC073 BEAUTIFUL SAND.</p> <p><span>‘Nací en una familia llena de color ‘</span></p> <p><strong>JAUME FUNES</strong>, PSICÒLEG, EDUCADOR I PERIODISTA/ PSYCHOLOGIST, EDUCATOR AND JOURNALIST/ AC 048 GREEN BLUE</p> <p><span>‘Per a mi el color es una manera de mirar i d’interpretar la realitat que m’envolta. Miro amb filtres de llums i colors. La llum i el color són maneres d’entendre i explicar el món.’</span></p> <p><strong>OSCAR TUSQUETS </strong>ARQUITECTE, PINTOR i ESCRIPTOR / ARCHITECT, PAINTER AND WRITER/ AC071 POMPEIAN RED</p> <p><span>“En Arquitectura, la posibilidad de huir osadamente de la dictadura contemporánea del blanco ¡Viva Barragán!”.</span></p> <p><strong>DAVID BUENO I TORRENS </strong> BIÒLEG ESPECIALITZAT EN NEUROCIÈNCIA APLICADA A L’EDUCACIÓ / BIOLOGIST, EDUCATION AND NEUROSCIENCE/ AC 098 GREY GREEN</p> <p><span><strong>‘</strong>Com a científic haig de dir que el color és una ona electromagnètica de natura corpuscular que vibra en una determinada longitud d’ona. Ara bé, això és només una descripció que únicament grata la superfície. Per a mí el color és l’expressió vital de la natura, el reflex d’allò que ha estat i l’ombra del que vindrà.’</span></p> <p><strong>FLAVIA COMPANY</strong> <strong> </strong>ESCRIPTORA i PERIODISTA / WRITER and JOURNALIST/ AC062 OCHER GREEN</p> <p><span><strong>‘</strong>El color és el filtre amb què mirem la vida.’</span></p> <p><em><span>Flavia Company m’escriu aquestes increíbles ratlles en referència a les meves obres:<span> </span></span></em></p> <p><span>‘La verticalitat del que comença i no acaba. Ens representa. Ens convoca. Ens pregunta -què podries construir amb mi?- però també ens contesta -tu ets dels colors del que construeixes-. </span><span>La relació entre l’horitzontalitat dels diferents colors -diferents conceptes, individualitats, temps, espais, idees, illes, cases, mons, sentiments, tot i tant-, colors interromputs -la vida- en les seves formes trencades, recolzades sobre el blanc, que és tots els colors, que és cap ni un. Contrast i significació. Context.’</span></p> <p><em><span>Flavia Company writes me these beautiful words in reference to my artworks :</span></em></p> <p><span>‘The verticality of what begins and doesn’t end. It represents us. It convenes us. It asks us -what could construct with me?- but also it answers us -you are the colors that you build.<span> </span></span><span>The relation among the horizontality of the diferent colors-distinct concepts, individualities, time, rooms, ideas, islands, homes, worlds, feelings, everything and so much-, colors interrupted -the life- at its broken forms, placed on the white, that is all the colours, which is none and no one . Contrast and significance. Context.’</span></p> <p><em><span>Thank you Flavia!</span></em></p> <p><strong>SIRI HUSTVEDT </strong>ESSAYIST, NOVELIST AND POET/ ESCRIPTORA i POETA/ AC074 DARK ORANGE</p> <p><span>My neurological sensitivities have determined my life, I suffer from synaesthesia. I also have strong physical responses to colors—once while looking at a shade of turquoise in Iceland I had a revolting crawling sensation all over my body. Everyone responds to color, but my mirror-touch sensations probably exaggerate the response. It’s possible that this sensitivity increased my interest in looking at paintings. My earliest exposure to a painter was to Munch. </span><span>The colors are subjective. Everyone has her or his own.</span></p> <p><span><strong>HENRY GIROUX WRITER AND CULTURAL CRITIC, FOUNDER OF CRITICAL PEDAGOGY / </strong>ESCRIPTOR I CRÍTIC CULTURAL, FUNDADOR DE LA PEDAGOGIA CRÍTICA/ AC 008 WARM RED </span></p> <p><span>«Color for me opens a world that allows hope to present itself as a landscape of passion, possibility, and joy. </span><span>Color pushes against the darkness, literal and symbolic, and creates a world in which words appear limited. Color elevates </span><span>and merges with a visual world in which love and hope merge. Red is my color, it connects the blood in my veins and heart to the passion of resistance </span><span>and the narratives of courage that give the present a future. «</span></p> <p><span><strong>CAROLIN EMCKE, </strong>PHILOSOPHER, WRITER and JOURNALIST/ AC101</span></p> <p><span><strong>VALERIA LUISELLI </strong>WRITER and ESSAYIST /AC035</span></p> <p><span><strong>DAVID ATTENBORUGH </strong>NATURIST SCIENTIST / AC044</span></p> <p><span><strong>JUDY WAJCMANN </strong> SOCIOLOGIST / AC 023</span></p> <p><span><strong>ALESSANDRO BARICCO </strong>WRITER and JOURNALIST / AC 065</span></p> <p><span><strong>ARNO STERN </strong>RESEARCH EDUCATOR/ AC004</span></p> <p><span><strong>FINA BIRULÉS </strong>FILÒSOFA / PHILOSOPHER<span> / </span>AC022</span></p> <p><span><strong>STEFANO MANCUSO </strong>PLANT NEUROBIOLOGIST / AC055</span></p> <p><span><strong>DAVID LE BRETON </strong>ANTHROPOLOGIST, SOCIOLOGIST and PROFESSOR/ AC128</span></p> <p><span><strong>NOAH HARARI </strong>HISTORIAN and WRITER / AC 042</span></p> <p><span><strong>HIMALI SINGH SOIN </strong>ARTIST and WRITER / AC036</span></p> <p><span><strong>KRISTINE MCDIVITT TOMPKINS </strong>ENVIRONMENTAL CONSERVATIONIST AND ACTIVIST / AC 089 Sand Colour </span></p> <p><span><strong>CESAR BONA </strong>WRITER and PROFESSOR / AC 047 Deep Green</span></p> <p><strong>FRANCESCO TONUCCI</strong>, EDUCATOR AND CARTOONIST / AC 040</p>"
             }
           ]
         },
@@ -14632,7 +14633,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<p><span>In this second edition of <em>’What’s color?’</em> exhibition, I asked to anyone </span><span>connected to architecture or design <em>‘‘What’s color?’’. </em></span></p> <p><span>They sent us their professional experience with color, in a photo or phrase or video and all the material was included in the show celebrated during 10.12 to 14.12.2021 at </span><span><a href=\"https://www.instagram.com/pavilion_espacio/\">Espacio Pavilion</a> / <a href=\"https://planteaestudio.com\">Plantea Estudio</a> Madrid.</span></p> <p><span>photos </span> <span>© Julia Ruiz-Cabello and Gonzalo de Benito </span></p> <div> <div> <div> <p>THANKS TO:</p> <p>Plantea Estudi, Kal-a, Elii, HANGHAR, Nomos arquitectos, Montse Vicens (Int-sight), Isabel Francoy, Tomás López Design, Stefano Colli, Conti.Cert, Un parell d’arquitectes, Naso ++, Isla, Auxi Gálvez (PSAAP), Escobedo Soliz, Antoni Arola, Barbara Aurell, Laura Castanya, Andrea Batlló y Adrià Escolano, Marc Morro, Anna Vidal (Vis arquitectes), Gema Sach, Oscar Tusquets, Mariona Espinet, Isabel Sendra, AMOO, Loca Studio, Paula Arroyo, Cierto Estudio.</p> </div> </div> </div>"
+              "html": "<p><span>In this second edition of <em>‘What’s color?’</em> exhibition, I asked to anyone </span><span>connected to architecture or design <em>‘‘What’s color?’’. </em></span></p> <p><span>They sent us their professional experience with color, in a photo or phrase or video and all the material was included in the show celebrated during 10.12 to 14.12.2021 at </span><span><a href=\"https://www.instagram.com/pavilion_espacio/\">Espacio Pavilion</a> / <a href=\"https://planteaestudio.com\">Plantea Estudio</a> Madrid.</span></p> <p><span>photos </span> <span>© Julia Ruiz-Cabello and Gonzalo de Benito </span></p> <div> <div> <div> <p>THANKS TO:</p> <p>Plantea Estudi, Kal-a, Elii, HANGHAR, Nomos arquitectos, Montse Vicens (Int-sight), Isabel Francoy, Tomás López Design, Stefano Colli, Conti.Cert, Un parell d’arquitectes, Naso ++, Isla, Auxi Gálvez (PSAAP), Escobedo Soliz, Antoni Arola, Barbara Aurell, Laura Castanya, Andrea Batlló y Adrià Escolano, Marc Morro, Anna Vidal (Vis arquitectes), Gema Sach, Oscar Tusquets, Mariona Espinet, Isabel Sendra, AMOO, Loca Studio, Paula Arroyo, Cierto Estudio.</p> </div> </div> </div>"
             }
           ]
         },
@@ -14658,7 +14659,7 @@
             {
               "kind": "text",
               "span": 12,
-              "html": "<p><span><strong><em>’Color dialogues’.</em> </strong>Solo show 12/2021 to 01/2022 at <strong><a href=\"https://alzuetagallery.com/#contact\">Alzueta Gallery Madrid</a>, </strong>MADRID.</span></p> <p><span>After my last solo exhibition a year ago at Alzueta Gallery Barcelona questioning the meaning of color and introducing my new line of work on canvas, this new exhibition continues the intense meditation I have over color.</span></p> <div> <div> <div> <p><span>Investigating its meaning and the different concepts that poets, thinkers, architects and interior designers have about the meaning of color, my paintings are juxtaposed dialogues on the concept and importance of color as a universal visual emotion, capable of reaching and inspiring every human being.</span></p> </div> </div> </div>"
+              "html": "<p><span><strong><em>‘Color dialogues’.</em> </strong>Solo show 12/2021 to 01/2022 at <strong><a href=\"https://alzuetagallery.com/#contact\">Alzueta Gallery Madrid</a>, </strong>MADRID.</span></p> <p><span>After my last solo exhibition a year ago at Alzueta Gallery Barcelona questioning the meaning of color and introducing my new line of work on canvas, this new exhibition continues the intense meditation I have over color.</span></p> <div> <div> <div> <p><span>Investigating its meaning and the different concepts that poets, thinkers, architects and interior designers have about the meaning of color, my paintings are juxtaposed dialogues on the concept and importance of color as a universal visual emotion, capable of reaching and inspiring every human being.</span></p> </div> </div> </div>"
             }
           ]
         },
