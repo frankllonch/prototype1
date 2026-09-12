@@ -20,21 +20,27 @@
     <nav class="site-nav" id="site-nav" aria-label="Primary">
       <a
             href="/prototype1/works/"
+            
             aria-current="page"
           >Works</a><a
             href="/prototype1/editorial/"
             
+            
           >Editorial</a><a
             href="/prototype1/projects/"
+            
             
           >Projects</a><a
             href="/prototype1/exhibitions/"
             
+            
           >Exhibitions</a><a
             href="/prototype1/colour-chart/"
             
+            
           >Colour Chart</a><a
             href="/prototype1/about/"
+            data-overlay="about"
             
           >About</a>
     </nav>
@@ -148,6 +154,32 @@
     <p class="footer-note">Prototype built from the content of claudiavalsells.com.</p>
   </footer>
 <div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+
+<!--
+  Lightbox. Empty until opened: it is filled from the tile that was clicked, whose
+  markup already carries the srcset and every field the caption needs.
+-->
+<div class="lightbox" data-lightbox data-available-label="Available" hidden>
+  <div class="lightbox-veil" data-lightbox-veil></div>
+  <div class="lightbox-bar">
+    <span class="lightbox-title" data-lightbox-title></span>
+    <span class="lightbox-count" data-lightbox-count data-template="{n} of {total}"></span>
+    <button type="button" class="lightbox-close" data-lightbox-close>Close</button>
+  </div>
+  <button type="button" class="lightbox-nav lightbox-prev" data-lightbox-prev aria-label="Previous"></button>
+  <div class="lightbox-stage" data-lightbox-stage></div>
+  <button type="button" class="lightbox-nav lightbox-next" data-lightbox-next aria-label="Next"></button>
+  <p class="lightbox-meta" data-lightbox-meta></p>
+</div>
+
+<!-- About overlay. Content is fetched from /about/ the first time it is opened. -->
+<div class="about-overlay" data-about hidden>
+  <div class="about-veil" data-about-veil></div>
+  <div class="about-panel" role="dialog" aria-modal="true" aria-label="About">
+    <button type="button" class="about-close" data-about-close>Close</button>
+    <div class="about-body" data-about-body></div>
+  </div>
+</div>
 <script type="module" src="/prototype1/site.js"></script>
 </body>
 </html>

@@ -21,20 +21,26 @@
       <a
             href="/prototype1/ca/works/"
             
+            
           >Obra</a><a
             href="/prototype1/ca/editorial/"
             
+            
           >Editorial</a><a
             href="/prototype1/ca/projects/"
+            
             aria-current="page"
           >Projectes</a><a
             href="/prototype1/ca/exhibitions/"
             
+            
           >Exposicions</a><a
             href="/prototype1/ca/colour-chart/"
             
+            
           >Carta de Colors</a><a
             href="/prototype1/ca/about/"
+            data-overlay="about"
             
           >Perfil</a>
     </nav>
@@ -184,6 +190,32 @@
     <p class="footer-note">Prototip construït amb el contingut de claudiavalsells.com.</p>
   </footer>
 <div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+
+<!--
+  Lightbox. Empty until opened: it is filled from the tile that was clicked, whose
+  markup already carries the srcset and every field the caption needs.
+-->
+<div class="lightbox" data-lightbox data-available-label="Disponible" hidden>
+  <div class="lightbox-veil" data-lightbox-veil></div>
+  <div class="lightbox-bar">
+    <span class="lightbox-title" data-lightbox-title></span>
+    <span class="lightbox-count" data-lightbox-count data-template="{n} de {total}"></span>
+    <button type="button" class="lightbox-close" data-lightbox-close>Tanca</button>
+  </div>
+  <button type="button" class="lightbox-nav lightbox-prev" data-lightbox-prev aria-label="Anterior"></button>
+  <div class="lightbox-stage" data-lightbox-stage></div>
+  <button type="button" class="lightbox-nav lightbox-next" data-lightbox-next aria-label="Següent"></button>
+  <p class="lightbox-meta" data-lightbox-meta></p>
+</div>
+
+<!-- About overlay. Content is fetched from /about/ the first time it is opened. -->
+<div class="about-overlay" data-about hidden>
+  <div class="about-veil" data-about-veil></div>
+  <div class="about-panel" role="dialog" aria-modal="true" aria-label="Perfil">
+    <button type="button" class="about-close" data-about-close>Tanca</button>
+    <div class="about-body" data-about-body></div>
+  </div>
+</div>
 <script type="module" src="/prototype1/site.js"></script>
 </body>
 </html>
