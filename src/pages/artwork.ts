@@ -16,7 +16,7 @@ export function artworkPage(items: readonly Project[], years: readonly number[],
     active: 'artwork',
     children: html`
       <section class="page-head">
-        <h1 data-scramble>${t.pages.artwork}</h1>
+        <h1 data-roll>${t.pages.artwork}</h1>
         <p class="page-intro">${intro}</p>
         ${filterControls(years, items.length, t)}
       </section>

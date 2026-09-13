@@ -66,7 +66,6 @@ async function buildLocale(locale: Locale) {
   const route = (p: string) => localeDir(locale, p).replace(/^\/|\/$/g, '');
 
   await writePage(route('/'), homePage({
-    artwork: works,
     collaborations,
     about: findPage('about'),
     colourChart: findPage('colour-chart'),

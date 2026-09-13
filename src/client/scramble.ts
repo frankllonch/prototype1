@@ -1,7 +1,7 @@
 import { finePointer, reduceMotion } from './env.ts';
 
 /**
- * NOT IN USE. Kept for reference; the site runs `text-hover.ts` instead.
+ * NOT IN USE. Kept for reference; the site runs `text-roll.ts` instead.
  *
  * Proximity scramble on titles. Characters near the pointer show `*` and snap
  * back, the nearer ones holding longer, so a title resolves as a small ripple.

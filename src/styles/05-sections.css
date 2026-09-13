@@ -1,12 +1,9 @@
 /* Homepage sections share one shell so the rhythm stays identical. */
 .band { padding: var(--block) var(--pad); border-top: 1px solid var(--rule); scroll-margin-top: var(--bar); }
-.band-recent { border-top: 0; padding-top: 0; }
+.band:first-of-type { border-top: 0; }
 .band-head { margin-bottom: var(--pad); }
-.band-head-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .band-title { font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; }
 .band-intro { max-width: var(--measure); color: var(--ink-soft); margin: 0.35rem 0 0; }
-.band-more { color: var(--ink-faint); white-space: nowrap; }
-.band-more:hover { color: var(--ink); }
 
 /* ------------------------------------------------------------ index grid */
 

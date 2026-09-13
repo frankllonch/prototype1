@@ -41,7 +41,7 @@ const NAV: readonly NavItem[] = [
 ];
 
 /** The browser modules, in load order. `index` imports the rest. */
-const CLIENT_MODULES = ['env', 'text-hover', 'nav', 'gallery', 'slider', 'lightbox', 'panels', 'cursor', 'reveals', 'index'] as const;
+const CLIENT_MODULES = ['env', 'text-roll', 'nav', 'gallery', 'slider', 'lightbox', 'panels', 'cursor', 'reveals', 'index'] as const;
 
 function header(locale: Locale, t: Dictionary, path: string, active?: string): Html {
   const other = LOCALES.filter((l) => l !== locale);

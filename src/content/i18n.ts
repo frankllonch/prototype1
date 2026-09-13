@@ -55,11 +55,10 @@ export interface Dictionary {
     readonly allProjects: string;
     /** Template for the lightbox counter, e.g. "{n} of {total}". */
     readonly counter: string;
+    readonly permalink: string;
   };
   readonly home: {
     readonly tagline: string;
-    readonly recent: string;
-    readonly allArtwork: string;
   };
   readonly pages: {
     readonly artwork: string;
@@ -94,11 +93,10 @@ const en: Dictionary = {
   detail: {
     previous: 'Previous', next: 'Next', allWorks: 'All artwork', allProjects: 'All collaborations',
     counter: '{n} of {total}',
+    permalink: 'Open on its own page',
   },
   home: {
     tagline: 'An artist working with colour as material, language and subject.',
-    recent: 'Recent artwork',
-    allArtwork: 'All artwork',
   },
   pages: {
     artwork: 'Artwork',
@@ -131,11 +129,10 @@ const ca: Dictionary = {
     previous: 'Anterior', next: 'Següent',
     allWorks: 'Tota l’obra', allProjects: 'Totes les col·laboracions',
     counter: '{n} de {total}',
+    permalink: 'Obre en una pàgina pròpia',
   },
   home: {
     tagline: 'Artista que treballa el color com a matèria, llenguatge i tema.',
-    recent: 'Obra recent',
-    allArtwork: 'Tota l’obra',
   },
   pages: {
     artwork: 'Obra',

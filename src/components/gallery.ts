@@ -15,10 +15,11 @@ interface GalleryProps {
   readonly trackYears?: boolean;
   /**
    * Open works in the lightbox instead of navigating. Only for single artworks:
-   * a collaboration's page is mostly text and images the lightbox cannot show, so
-   * those tiles stay ordinary links.
+   * a collaboration's page is mostly text and images the lightbox cannot show.
    */
   readonly lightbox?: boolean;
+  /** Open each tile as a panel of this kind (`#<kind>-<slug>`) over the page. */
+  readonly panels?: string;
   readonly eagerCount?: number;
 }
 
@@ -34,7 +35,7 @@ const SHOW_COUNTS = [24, 60] as const;
  * 154 records alongside the markup that already contains them — would cost ~100 KB
  * to say the same thing twice.
  */
-function tile(project: Project, basePath: string, locale: Locale, index: number, priority: boolean): Html {
+function tile(project: Project, basePath: string, locale: Locale, index: number, priority: boolean, panels?: string): Html {
   const image = project.cover;
   if (!image) return html``;
 
@@ -47,6 +48,7 @@ function tile(project: Project, basePath: string, locale: Locale, index: number,
     href="${basePath}/${project.slug}/"
     style="--k:${Math.sqrt(aspect).toFixed(4)};--i:${index % 14}"
     data-cursor-title="${name}"
+    ${panels ? html`data-panel-open="${panels}-${project.slug}"` : ''}
     data-title="${name}"
     data-year="${year ?? ''}"
     data-dimensions="${dimensions ?? ''}"
@@ -84,10 +86,10 @@ function tile(project: Project, basePath: string, locale: Locale, index: number,
  * iOS photo library does it, so ten years of work read as one continuous sheet.
  */
 export function gallery({
-  items, basePath, locale, t, trackYears = false, lightbox = false, eagerCount = 18,
+  items, basePath, locale, t, trackYears = false, lightbox = false, panels, eagerCount = 18,
 }: GalleryProps): Html {
   const tiles = items.map((item, index) =>
-    tile(item, localePath(locale, basePath), locale, index, index < eagerCount),
+    tile(item, localePath(locale, basePath), locale, index, index < eagerCount, panels),
   );
 
   return html`<div

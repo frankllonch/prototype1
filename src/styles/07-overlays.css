@@ -129,6 +129,8 @@
 .panel-head { padding-inline: var(--pad); }
 .panel-text { max-width: 42rem; margin: var(--block) auto 0; padding: var(--pad) var(--pad) 0; border-top: 1px solid var(--rule); }
 .panel-text .prose { max-width: none; }
+.panel-permalink { margin: var(--pad) 0 0; color: var(--ink-faint); }
+.panel-permalink a:hover { color: var(--ink); }
 
 /* Without scripting the panels are plain anchor targets, so they must be visible
    when linked to directly rather than hidden behind a class the script adds. */

@@ -47,7 +47,7 @@ navigation moves between its sections without loading anything.
 
 | Route | What it is |
 |---|---|
-| `/` | The name, Recent artwork, then Exhibitions → Collaborations → Colour Chart → Inquiries |
+| `/` | The name, then Exhibitions → Collaborations → Colour Chart → Inquiries |
 | `/artwork/` | All 154 paintings as one uninterrupted contact sheet |
 | `/artwork/<slug>/` | One painting |
 | `/collaborations/<slug>/` | One collaboration: imagery first, text below |
