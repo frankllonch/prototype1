@@ -98,7 +98,7 @@ main { padding-top: var(--bar); }
 .skip-link:focus { left: 0; }
 
 /* Every label on the site: 10px, caps, tracked. */
-.label, .tile-meta, .filters, .facts dt, .pager-dir, .site-header, .band-more, .slider-count,
+.label, .tile-meta, .filters, .facts dt, .pager-dir, .site-header, .slider-count, .panel-permalink,
 figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-count,
 .lightbox-close {
   font-size: 10px;
@@ -188,39 +188,41 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
 }
 
 /*
- * Hover text effect, after landonorris.com. Each character is two layers: the
- * real glyph, in flow, which fixes the box's width; and a cycle layer laid over
- * it whose `content` runs through uppercase letters on a stepped keyframe
- * animation, offset per character by `--i`. The word never changes length —
- * a cycling letter wider than the glyph is simply clipped to its box.
+ * Hover text roll, after landonorris.com. Each character is a span with its own
+ * text made transparent and two pseudo-elements drawing the same character: one
+ * in place, one held just below and clipped. On hover the top copy rolls up and
+ * out while the lower copy rolls up into place, each character 25ms after the
+ * one before. Nothing new appears; the word turns over like a split-flap board.
+ *
+ * The span's own glyph stays in flow, so the width never changes. The clip box
+ * is extended downward with padding (cancelled by a negative margin) so a
+ * descender is not cut off while at rest.
  */
-.rc { position: relative; display: inline-block; white-space: pre; overflow: hidden; vertical-align: bottom; }
-.rc-glyph { display: inline-block; }
-.rc-cycle { position: absolute; inset: 0; text-align: center; opacity: 0; }
-/* `content` is only meaningful on the pseudo-element, so that is what animates. */
-.rc-cycle::before { content: attr(data-ch); }
+:root { --roll-step: 25ms; --roll-time: 260ms; }
 
-.is-cycling .rc-glyph { opacity: 0; }
-.is-cycling .rc-cycle { opacity: 1; }
-.is-cycling .rc-cycle::before { animation: 420ms steps(1, end) calc(var(--i) * 32ms) both; }
-.is-cycling .rc-cycle-0::before { animation-name: rc-cycle-0; }
-.is-cycling .rc-cycle-1::before { animation-name: rc-cycle-1; }
-.is-cycling .rc-cycle-2::before { animation-name: rc-cycle-2; }
+.roll {
+  position: relative;
+  display: inline-block;
+  white-space: pre;
+  color: transparent;
+  overflow: hidden;
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
+}
+.roll::before, .roll::after {
+  content: attr(data-ch);
+  position: absolute;
+  left: 0; top: 0;
+  color: var(--ink);
+  transition: transform var(--roll-time) ease-in-out, opacity var(--roll-time) ease-in-out;
+  transition-delay: calc(var(--i) * var(--roll-step));
+}
+.roll::before { transform: translateY(0); }
+.roll::after  { transform: translateY(100%); opacity: 0; }
 
-/* Three sequences so adjacent characters never show the same letter at once.
-   Each ends on the character's own glyph, so the hand-off back is invisible. */
-@keyframes rc-cycle-0 {
-  0%  { content: 'R'; } 14% { content: 'K'; } 28% { content: 'E'; } 42% { content: 'V'; }
-  56% { content: 'N'; } 70% { content: 'T'; } 84% { content: 'A'; } 100% { content: attr(data-ch); }
-}
-@keyframes rc-cycle-1 {
-  0%  { content: 'S'; } 14% { content: 'B'; } 28% { content: 'O'; } 42% { content: 'H'; }
-  56% { content: 'U'; } 70% { content: 'C'; } 84% { content: 'D'; } 100% { content: attr(data-ch); }
-}
-@keyframes rc-cycle-2 {
-  0%  { content: 'G'; } 14% { content: 'X'; } 28% { content: 'P'; } 42% { content: 'Z'; }
-  56% { content: 'F'; } 70% { content: 'Y'; } 84% { content: 'L'; } 100% { content: attr(data-ch); }
-}
+[data-roll]:hover .roll::before { transform: translateY(-100%); opacity: 0; }
+[data-roll]:hover .roll::after  { transform: translateY(0); opacity: 1; }
+
 
 .page-head { padding: var(--block) var(--pad) calc(var(--block) * 0.5); }
 .page-head h1 { font-size: clamp(1.5rem, 3.2vw, 2.25rem); line-height: 1.05; font-weight: 500; }
@@ -346,13 +348,10 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
 
 /* Homepage sections share one shell so the rhythm stays identical. */
 .band { padding: var(--block) var(--pad); border-top: 1px solid var(--rule); scroll-margin-top: var(--bar); }
-.band-recent { border-top: 0; padding-top: 0; }
+.band:first-of-type { border-top: 0; }
 .band-head { margin-bottom: var(--pad); }
-.band-head-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .band-title { font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; }
 .band-intro { max-width: var(--measure); color: var(--ink-soft); margin: 0.35rem 0 0; }
-.band-more { color: var(--ink-faint); white-space: nowrap; }
-.band-more:hover { color: var(--ink); }
 
 /* ------------------------------------------------------------ index grid */
 
@@ -572,6 +571,8 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
 .panel-head { padding-inline: var(--pad); }
 .panel-text { max-width: 42rem; margin: var(--block) auto 0; padding: var(--pad) var(--pad) 0; border-top: 1px solid var(--rule); }
 .panel-text .prose { max-width: none; }
+.panel-permalink { margin: var(--pad) 0 0; color: var(--ink-faint); }
+.panel-permalink a:hover { color: var(--ink); }
 
 /* Without scripting the panels are plain anchor targets, so they must be visible
    when linked to directly rather than hidden behind a class the script adds. */
