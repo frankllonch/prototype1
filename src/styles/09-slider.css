@@ -1,0 +1,38 @@
+/*
+ * Horizontal slide-through. Every image shares one height, so widths follow
+ * the pictures; each snaps to the centre of the viewport, and the padding on
+ * either end lets the first and last centre too. Scrollbar hidden: the bar
+ * below carries the position instead.
+ */
+.slider { --slide-h: clamp(16rem, 60vh, 44rem); }
+
+.slider-track {
+  display: flex;
+  gap: var(--pad);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding: 0 50vw;               /* lets the first and last slide sit centred */
+  scrollbar-width: none;
+  cursor: grab;
+  outline: none;
+}
+.slider-track::-webkit-scrollbar { display: none; }
+.slider-track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.slider-track:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+.slide { flex: 0 0 auto; margin: 0; scroll-snap-align: center; }
+.slide picture, .slide img { height: var(--slide-h); width: auto; max-width: 92vw; }
+.slide figcaption { color: var(--ink-faint); margin-top: 0.35rem; }
+/* Drag, don't select; drag, don't ghost-drag the image. */
+.slider-track img { user-select: none; -webkit-user-drag: none; pointer-events: none; }
+
+.slider-bar { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: var(--pad); }
+.slider-count { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.slider-nav {
+  background: none; border: 0; padding: 0.2rem 0.4rem; cursor: pointer;
+  color: var(--ink-faint); font: inherit; font-size: 14px; transition: color 0.2s var(--ease);
+}
+.slider-nav:hover { color: var(--ink); }
+
+@media (max-width: 899px) { .slider { --slide-h: clamp(12rem, 48vh, 24rem); } }

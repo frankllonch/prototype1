@@ -17,10 +17,16 @@
 
 /* --------------------------------------------------------------- lightbox */
 
+/*
+ * Five columns, mirrored: nav, an empty column the width of the caption, the
+ * plate, the caption, nav. The two outer pairs are equal, so the plate sits on
+ * the exact centre of the screen with the caption beside it.
+ */
 .lightbox {
+  --caption: minmax(12rem, 17rem);
   position: fixed; inset: 0; z-index: 80;
   display: grid;
-  grid-template-columns: auto 1fr minmax(13rem, 19rem) auto;
+  grid-template-columns: auto var(--caption) 1fr var(--caption) auto;
   align-items: center;
   gap: var(--pad);
   padding: var(--bar) var(--pad) var(--pad);
@@ -35,7 +41,7 @@
 .lightbox-plate, .lightbox-caption, .lightbox-nav, .lightbox-close { position: relative; z-index: 1; }
 
 .lightbox-plate {
-  grid-column: 2;
+  grid-column: 3;
   display: grid; place-items: center;
   min-width: 0; min-height: 0;
   transition: opacity 0.2s var(--ease);
@@ -47,7 +53,7 @@
 
 /* The caption sits beside the plate, in black at reading size — a painting's
    dimensions and medium are the substance of the page, not a footnote. */
-.lightbox-caption { grid-column: 3; align-self: center; transition: opacity 0.2s var(--ease); }
+.lightbox-caption { grid-column: 4; align-self: center; transition: opacity 0.2s var(--ease); }
 .lightbox-title { font-size: clamp(1.1rem, 1.8vw, 1.5rem); font-weight: 500; letter-spacing: -0.02em; margin: 0 0 0.5rem; }
 .lightbox-meta { display: flex; flex-direction: column; gap: 0.18rem; margin: 0 0 0.9rem; }
 .lightbox-meta span { font-size: 14px; line-height: 1.45; }
@@ -64,7 +70,7 @@
 }
 .lightbox-nav:hover { color: var(--ink); }
 .lightbox-prev { grid-column: 1; }
-.lightbox-next { grid-column: 4; }
+.lightbox-next { grid-column: 5; }
 .lightbox-prev::before { content: '←'; font-size: 15px; }
 .lightbox-next::before { content: '→'; font-size: 15px; }
 
@@ -75,19 +81,22 @@
   .lightbox-nav { display: none; }          /* swipe instead */
   .lightbox-plate img { max-height: 58vh; }
 }
+@media (min-width: 900px) and (max-width: 1199px) { .lightbox { --caption: minmax(9rem, 12rem); } }
 
 /* ----------------------------------------------------------------- panels */
 
 /*
  * The veil is always present and only its opacity changes, so a panel opening
  * reads as the page receding behind it rather than a sheet dropping in front.
- * Both ease over the same half-second.
+ * Both take most of a second on a long, soft curve: fast to start, then a slow
+ * settle — the page falls away and the text arrives without a bump.
  */
+:root { --panel-time: 0.9s; --panel-ease: cubic-bezier(0.16, 1, 0.3, 1); }
 .panel-veil {
   z-index: 84;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.5s var(--ease);
+  transition: opacity var(--panel-time) var(--panel-ease);
 }
 .panel-veil.is-open { opacity: 1; pointer-events: auto; }
 
@@ -100,8 +109,11 @@
   padding: var(--block) var(--pad) var(--block);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(12px);
-  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), visibility 0s linear 0.5s;
+  transform: translateY(24px);
+  transition:
+    opacity var(--panel-time) var(--panel-ease),
+    transform var(--panel-time) var(--panel-ease),
+    visibility 0s linear var(--panel-time);
   -webkit-overflow-scrolling: touch;
 }
 .panel.is-open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
@@ -112,10 +124,11 @@
 .panel-close { margin-inline: auto 0; color: var(--ink-soft); }
 .panel-close:hover { color: var(--ink); }
 
-.panel-body { max-width: 62rem; margin: 0 auto; display: flex; flex-direction: column; gap: var(--pad); }
-.panel-row { display: grid; gap: var(--pad); }
-.panel-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--gap); }
-.panel-body .prose { max-width: 42rem; }
+/* The panel's inner gutter is dropped so the slider can run edge to edge. */
+.panel { padding-inline: 0; }
+.panel-head { padding-inline: var(--pad); }
+.panel-text { max-width: 42rem; margin: var(--block) auto 0; padding: var(--pad) var(--pad) 0; border-top: 1px solid var(--rule); }
+.panel-text .prose { max-width: none; }
 
 /* Without scripting the panels are plain anchor targets, so they must be visible
    when linked to directly rather than hidden behind a class the script adds. */

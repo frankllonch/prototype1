@@ -35,16 +35,15 @@
   .detail-work .facts div:last-child { border-bottom: 1px solid var(--rule); }
 }
 
-/* A collaboration: imagery first, text below. These projects are photographed
-   rather than written, so the pictures carry the page and the text closes it. */
-.collab-gallery { display: flex; flex-direction: column; gap: var(--pad); max-width: 72rem; margin: 0 auto; }
-.collab-figure { margin: 0; }
-.collab-figure img { width: 100%; height: auto; max-height: 86vh; object-fit: contain; }
-.collab-figure figcaption { color: var(--ink-faint); margin-top: 0.35rem; }
+/* A collaboration: the slide-through first, text below. These projects are
+   photographed rather than written, so the pictures carry the page. */
+.detail-project { padding-inline: 0; }
+.detail-project .detail-back, .detail-project .detail-head, .detail-project .pager,
+.detail-project .collab-text { padding-inline: var(--pad); }
+.detail-project .detail-head { text-align: center; }
+.detail-project .detail-title { margin-inline: auto; }
 .collab-text { max-width: 42rem; margin: var(--block) auto 0; padding-top: var(--pad); border-top: 1px solid var(--rule); }
-.collab-text .prose { font-size: 13px; line-height: 1.6; }
-.detail-project .detail-head, .detail-project .detail-back, .detail-project .pager { max-width: 72rem; margin-inline: auto; }
-.detail-project .detail-back { display: block; }
+.collab-text .prose { max-width: none; font-size: 13px; line-height: 1.6; }
 
 .pager { display: flex; justify-content: space-between; gap: 1rem;
   margin-top: var(--block); padding-top: 0.7rem; border-top: 1px solid var(--rule); }

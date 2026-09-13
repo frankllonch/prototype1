@@ -31,7 +31,10 @@ export interface Dictionary {
     readonly skip: string;
   };
   readonly gallery: {
-    readonly density: string;
+    readonly show: string;
+    readonly all: string;
+    readonly year: string;
+    readonly allYears: string;
     readonly untitled: string;
   };
   readonly facts: {
@@ -82,7 +85,7 @@ const en: Dictionary = {
     collaborations: 'Collaborations', colourChart: 'Colour Chart', inquiries: 'Inquiries',
     menu: 'Menu', close: 'Close', skip: 'Skip to content',
   },
-  gallery: { density: 'Shown', untitled: 'Untitled' },
+  gallery: { show: 'Show', all: 'All', year: 'Year', allYears: 'All years', untitled: 'Untitled' },
   facts: {
     year: 'Year', dimensions: 'Dimensions', medium: 'Medium', location: 'Location',
     client: 'Client', credits: 'Credits', reference: 'Reference', status: 'Status',
@@ -118,7 +121,7 @@ const ca: Dictionary = {
     collaborations: 'Col·laboracions', colourChart: 'Carta de Colors', inquiries: 'Consultes',
     menu: 'Menú', close: 'Tanca', skip: 'Vés al contingut',
   },
-  gallery: { density: 'Mostrant', untitled: 'Sense títol' },
+  gallery: { show: 'Mostra', all: 'Tot', year: 'Any', allYears: 'Tots els anys', untitled: 'Sense títol' },
   facts: {
     year: 'Any', dimensions: 'Dimensions', medium: 'Tècnica', location: 'Lloc',
     client: 'Client', credits: 'Crèdits', reference: 'Referència', status: 'Estat',

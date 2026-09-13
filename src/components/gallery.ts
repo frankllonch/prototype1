@@ -22,23 +22,11 @@ interface GalleryProps {
   readonly eagerCount?: number;
 }
 
-/**
- * Zoom levels for the contact sheet.
- *
- * `unit` is the side of the square each work occupies, in px. Because every tile
- * is sized to the same *area* rather than the same height, the number of works
- * on a screen is a function of that unit alone — so each level can be labelled
- * with how many of Claudia's 154 pieces are visible at once.
- *
- * Derived from a ~1400×800 viewport with ~15% lost to gaps: visible ≈ 950_000 / unit²
- */
-const ZOOM_LEVELS = [
-  { unit: 200, visible: 24 },
-  { unit: 126, visible: 60 },
-  { unit: 78, visible: 154 },
-] as const;
+/** Side of the square each work occupies, in px (every tile has the same area). */
+const UNIT = 126;
 
-const DEFAULT_ZOOM = 1;
+/** The counts offered by the "Show" filter; "All" is added after them. */
+const SHOW_COUNTS = [24, 60] as const;
 
 /**
  * Metadata is mirrored onto the tile as data attributes so the lightbox can build
@@ -107,7 +95,7 @@ export function gallery({
     data-gallery
     ${trackYears ? html`data-track-years` : ''}
     ${lightbox ? html`data-lightbox-source` : ''}
-    style="--unit:${ZOOM_LEVELS[DEFAULT_ZOOM]!.unit}px"
+    style="--unit:${UNIT}px"
   >${join(tiles)}</div>`;
 }
 
@@ -116,19 +104,26 @@ export function yearIndicator(): Html {
   return html`<div class="year-float" data-year-float aria-hidden="true"><span></span></div>`;
 }
 
-/** The zoom control: three densities, labelled by works visible at each. */
-export function zoomControl(t: Dictionary): Html {
-  return html`<div class="zoom" role="group" aria-label="${t.gallery.density}">
-    <span class="zoom-label">${t.gallery.density}</span>
-    ${join(
-      ZOOM_LEVELS.map(
-        (level, i) => html`<button
-          type="button"
-          class="zoom-step${i === DEFAULT_ZOOM ? ' is-active' : ''}"
-          data-unit="${level.unit}"
-          aria-pressed="${i === DEFAULT_ZOOM ? 'true' : 'false'}"
-        >${level.visible}</button>`,
-      ),
-    )}
+/**
+ * Filters for the sheet: how many of the newest works to show, and which year.
+ * Both are plain buttons; the script narrows the sheet in place. Without it the
+ * full sheet is shown, so nothing is gated behind scripting.
+ */
+export function filterControls(years: readonly number[], total: number, t: Dictionary): Html {
+  const chip = (group: string, value: string, label: string | number, active = false) =>
+    html`<button type="button" class="filter${active ? ' is-active' : ''}"
+      data-filter-${group}="${value}" aria-pressed="${active ? 'true' : 'false'}">${label}</button>`;
+
+  return html`<div class="filters" data-filters>
+    <div class="filter-group" role="group" aria-label="${t.gallery.show}">
+      <span class="filter-label">${t.gallery.show}</span>
+      ${join(SHOW_COUNTS.filter((n) => n < total).map((n) => chip('count', String(n), n)))}
+      ${chip('count', 'all', t.gallery.all, true)}
+    </div>
+    <div class="filter-group" role="group" aria-label="${t.gallery.year}">
+      <span class="filter-label">${t.gallery.year}</span>
+      ${chip('year', 'all', t.gallery.allYears, true)}
+      ${join(years.map((year) => chip('year', String(year), year)))}
+    </div>
   </div>`;
 }

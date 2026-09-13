@@ -1,6 +1,6 @@
 import { html, type Html } from '../components/html.ts';
 import { layout } from '../components/layout.ts';
-import { gallery, yearIndicator, zoomControl } from '../components/gallery.ts';
+import { filterControls, gallery, yearIndicator } from '../components/gallery.ts';
 import { dict, type Locale } from '../content/i18n.ts';
 import type { Project } from '../content/types.ts';
 
@@ -18,7 +18,7 @@ export function artworkPage(items: readonly Project[], years: readonly number[],
       <section class="page-head">
         <h1 data-scramble>${t.pages.artwork}</h1>
         <p class="page-intro">${intro}</p>
-        ${zoomControl(t)}
+        ${filterControls(years, items.length, t)}
       </section>
       ${gallery({ items, basePath: '/artwork', locale, t, trackYears: true, lightbox: true })}
       ${yearIndicator()}

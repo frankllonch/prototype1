@@ -1,6 +1,7 @@
 import { html, join, raw, type Html } from './html.ts';
 import { rowsBody } from './rows.ts';
 import { responsiveImage } from './image.ts';
+import { slider } from './slider.ts';
 import { describeImage } from '../content/describe.ts';
 import { displayTitle } from '../content/title.ts';
 import type { Dictionary, Locale } from '../content/i18n.ts';
@@ -59,30 +60,17 @@ function pager(
 }
 
 /**
- * A collaboration: the imagery first, scrolled through at full width, then the
- * text underneath — the hierarchy the source site uses and the one the work
- * deserves, since these projects are photographed rather than written.
+ * A collaboration: the photographs in a slide-through, then the text beneath —
+ * the hierarchy the source site uses and the one the work deserves, since these
+ * projects are photographed rather than written.
  */
-function collaborationBody(project: Project): Html {
+function collaborationBody(project: Project, t: Dictionary): Html {
   const text = project.rows
     .flatMap((row) => row.columns)
     .filter((column) => column.kind === 'text');
 
   return html`<div class="collab">
-    <div class="collab-gallery">
-      ${join(
-        project.images.map(
-          (image, i) => html`<figure class="collab-figure${i === 0 ? '' : ' reveal'}">
-            ${responsiveImage({
-              image,
-              sizes: '(max-width: 900px) 94vw, 70vw',
-              priority: i === 0,
-            })}
-            ${image.caption ? html`<figcaption>${image.caption}</figcaption>` : ''}
-          </figure>`,
-        ),
-      )}
-    </div>
+    ${slider({ images: project.images, counter: t.detail.counter, previous: t.detail.previous, next: t.detail.next })}
     <div class="collab-text">
       ${join(text.map((column) => html`<div class="prose">${raw(column.kind === 'text' ? column.html : '')}</div>`))}
     </div>
@@ -115,7 +103,7 @@ export function detail({
       <h1 class="detail-title">${displayTitle(project.title, project.kind, locale)}</h1>
     </header>
 
-    ${!isWork ? collaborationBody(project) : ''}
+    ${!isWork ? collaborationBody(project, t) : ''}
 
     <div class="detail-main">
       ${plate && isWork

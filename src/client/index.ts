@@ -6,8 +6,9 @@
  * and every panel is a real element reachable by its own `#` fragment.
  */
 import { initMenuToggle, initSectionNav } from './nav.ts';
-import { initScramble } from './scramble.ts';
-import { initYearFloat, initZoom } from './gallery.ts';
+import { initTextHover } from './text-hover.ts';
+import { initFilters, initYearFloat } from './gallery.ts';
+import { initSliders } from './slider.ts';
 import { initLightbox } from './lightbox.ts';
 import { initPanels } from './panels.ts';
 import { initCursor } from './cursor.ts';
@@ -15,9 +16,10 @@ import { initReveals } from './reveals.ts';
 
 initMenuToggle();
 initSectionNav();
-initScramble();
+initTextHover();
 initYearFloat();
-initZoom();
+initFilters();
+initSliders();
 initLightbox();
 initPanels();
 initCursor();

@@ -29,7 +29,7 @@ main { padding-top: var(--bar); }
 .skip-link:focus { left: 0; }
 
 /* Every label on the site: 10px, caps, tracked. */
-.label, .tile-meta, .zoom, .facts dt, .pager-dir, .site-header, .band-more,
+.label, .tile-meta, .filters, .facts dt, .pager-dir, .site-header, .band-more, .slider-count,
 figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-count,
 .lightbox-close {
   font-size: 10px;

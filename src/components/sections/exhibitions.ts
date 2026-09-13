@@ -1,5 +1,6 @@
 import { html, join, raw, type Html } from '../html.ts';
 import { responsiveImage } from '../image.ts';
+import { slider } from '../slider.ts';
 import { band } from './band.ts';
 import type { Exhibition } from '../../content/sections.ts';
 import type { Dictionary } from '../../content/i18n.ts';
@@ -30,9 +31,10 @@ export function exhibitionsSection(exhibitions: readonly Exhibition[], t: Dictio
 
 /**
  * Exhibition bodies, rendered once into the page and raised as an overlay on
- * demand. In the markup rather than fetched, so opening one is instant and the
- * text is present for search engines and for readers without scripting, who
- * reach it through the plain `#exhibition-…` anchor.
+ * demand: the photographs in a slide-through, the text beneath. In the markup
+ * rather than fetched, so opening one is instant and the text is present for
+ * search engines and for readers without scripting, who reach it through the
+ * plain `#exhibition-…` anchor.
  */
 export function exhibitionPanels(exhibitions: readonly Exhibition[], t: Dictionary): Html {
   return html`<div class="panels">
@@ -44,28 +46,11 @@ export function exhibitionPanels(exhibitions: readonly Exhibition[], t: Dictiona
             ${exhibition.year ? html`<span class="panel-year">${exhibition.year}</span>` : ''}
             <a class="panel-close" href="#" data-panel-close>${t.nav.close}</a>
           </header>
-          <div class="panel-body">
-            ${join(
-              exhibition.rows.map(
-                (row) => html`<div class="panel-row">
-                  ${join(
-                    row.columns.map((column) =>
-                      column.kind === 'text'
-                        ? html`<div class="prose">${raw(column.html)}</div>`
-                        : html`<div class="panel-images">
-                            ${join(
-                              column.images.map(
-                                (image) => html`<figure class="figure">
-                                  ${responsiveImage({ image, sizes: '(max-width: 900px) 92vw, 44vw' })}
-                                </figure>`,
-                              ),
-                            )}
-                          </div>`,
-                    ),
-                  )}
-                </div>`,
-              ),
-            )}
+          ${slider({ images: exhibition.images, counter: t.detail.counter, previous: t.detail.previous, next: t.detail.next })}
+          <div class="panel-text">
+            ${join(exhibition.rows.flatMap((row) => row.columns)
+              .filter((column) => column.kind === 'text')
+              .map((column) => html`<div class="prose">${raw(column.kind === 'text' ? column.html : '')}</div>`))}
           </div>
         </article>`,
       ),

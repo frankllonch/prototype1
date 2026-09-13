@@ -9,25 +9,53 @@
 }
 
 /*
- * Characters split for the proximity scramble. The script fixes each one to its
- * own glyph's width, so the substituted asterisk cannot change the word's length,
- * and scales the asterisk to fit that box (`--x`), so it neither runs into its
- * neighbours behind a narrow letter nor floats loose behind a wide one.
+ * Hover text effect, after landonorris.com. Each character is two layers: the
+ * real glyph, in flow, which fixes the box's width; and a cycle layer laid over
+ * it whose `content` runs through uppercase letters on a stepped keyframe
+ * animation, offset per character by `--i`. The word never changes length —
+ * a cycling letter wider than the glyph is simply clipped to its box.
  */
-.sc { display: inline-block; white-space: pre; text-align: center; vertical-align: bottom; }
-.sc.is-x { transform: scale(var(--x, 1)); }
+.rc { position: relative; display: inline-block; white-space: pre; overflow: hidden; vertical-align: bottom; }
+.rc-glyph { display: inline-block; }
+.rc-cycle { position: absolute; inset: 0; text-align: center; opacity: 0; }
+/* `content` is only meaningful on the pseudo-element, so that is what animates. */
+.rc-cycle::before { content: attr(data-ch); }
+
+.is-cycling .rc-glyph { opacity: 0; }
+.is-cycling .rc-cycle { opacity: 1; }
+.is-cycling .rc-cycle::before { animation: 420ms steps(1, end) calc(var(--i) * 32ms) both; }
+.is-cycling .rc-cycle-0::before { animation-name: rc-cycle-0; }
+.is-cycling .rc-cycle-1::before { animation-name: rc-cycle-1; }
+.is-cycling .rc-cycle-2::before { animation-name: rc-cycle-2; }
+
+/* Three sequences so adjacent characters never show the same letter at once.
+   Each ends on the character's own glyph, so the hand-off back is invisible. */
+@keyframes rc-cycle-0 {
+  0%  { content: 'R'; } 14% { content: 'K'; } 28% { content: 'E'; } 42% { content: 'V'; }
+  56% { content: 'N'; } 70% { content: 'T'; } 84% { content: 'A'; } 100% { content: attr(data-ch); }
+}
+@keyframes rc-cycle-1 {
+  0%  { content: 'S'; } 14% { content: 'B'; } 28% { content: 'O'; } 42% { content: 'H'; }
+  56% { content: 'U'; } 70% { content: 'C'; } 84% { content: 'D'; } 100% { content: attr(data-ch); }
+}
+@keyframes rc-cycle-2 {
+  0%  { content: 'G'; } 14% { content: 'X'; } 28% { content: 'P'; } 42% { content: 'Z'; }
+  56% { content: 'F'; } 70% { content: 'Y'; } 84% { content: 'L'; } 100% { content: attr(data-ch); }
+}
 
 .page-head { padding: var(--block) var(--pad) calc(var(--block) * 0.5); }
 .page-head h1 { font-size: clamp(1.5rem, 3.2vw, 2.25rem); line-height: 1.05; font-weight: 500; }
 .page-intro { max-width: var(--measure); color: var(--ink-soft); margin: 0.4rem 0 0; }
 
-.zoom { display: flex; align-items: center; gap: 0.45rem; margin-top: 0.9rem; }
-.zoom-label { color: var(--ink-faint); margin-right: 0.15rem; }
-.zoom-step {
-  font: inherit; font-size: 10px; letter-spacing: 0.07em;
+.filters { display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.9rem; }
+.filter-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
+.filter-label { color: var(--ink-faint); margin-right: 0.15rem; min-width: 2.5rem; }
+.filter {
+  font: inherit; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
   background: none; border: 0; padding: 0.15rem 0.1rem; cursor: pointer;
   color: var(--ink-faint); border-bottom: 1px solid transparent;
+  font-variant-numeric: tabular-nums;
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
-.zoom-step:hover { color: var(--ink); }
-.zoom-step.is-active { color: var(--ink); border-bottom-color: var(--ink); }
+.filter:hover { color: var(--ink); }
+.filter.is-active { color: var(--ink); border-bottom-color: var(--ink); }
