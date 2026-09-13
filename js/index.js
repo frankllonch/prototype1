@@ -6,17 +6,19 @@
  * and every panel is a real element reachable by its own `#` fragment.
  */
 import { initMenuToggle, initSectionNav } from "./nav.js";
-import { initScramble } from "./scramble.js";
-import { initYearFloat, initZoom } from "./gallery.js";
+import { initTextHover } from "./text-hover.js";
+import { initFilters, initYearFloat } from "./gallery.js";
+import { initSliders } from "./slider.js";
 import { initLightbox } from "./lightbox.js";
 import { initPanels } from "./panels.js";
 import { initCursor } from "./cursor.js";
 import { initReveals } from "./reveals.js";
 initMenuToggle();
 initSectionNav();
-initScramble();
+initTextHover();
 initYearFloat();
-initZoom();
+initFilters();
+initSliders();
 initLightbox();
 initPanels();
 initCursor();

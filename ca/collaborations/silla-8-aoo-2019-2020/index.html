@@ -11,9 +11,10 @@
 <link rel="preload" href="/prototype1/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="/prototype1/site.css" />
 <link rel="modulepreload" href="/prototype1/js/env.js" />
-<link rel="modulepreload" href="/prototype1/js/scramble.js" />
+<link rel="modulepreload" href="/prototype1/js/text-hover.js" />
 <link rel="modulepreload" href="/prototype1/js/nav.js" />
 <link rel="modulepreload" href="/prototype1/js/gallery.js" />
+<link rel="modulepreload" href="/prototype1/js/slider.js" />
 <link rel="modulepreload" href="/prototype1/js/lightbox.js" />
 <link rel="modulepreload" href="/prototype1/js/panels.js" />
 <link rel="modulepreload" href="/prototype1/js/cursor.js" />
@@ -77,11 +78,12 @@
     </header>
 
     <div class="collab">
-    <div class="collab-gallery">
-      <figure class="collab-figure">
+    <div class="slider" data-slider>
+    <div class="slider-track" data-slider-track tabindex="0" aria-label="11 photographs">
+      <figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/eaeaf083949582b7-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/eaeaf083949582b7-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/eaeaf083949582b7-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/eaeaf083949582b7-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/eaeaf083949582b7-400.jpg"
         alt="Silla 8 - Claudia Valsells"
@@ -93,25 +95,25 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/2feda8882997457d-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/2feda8882997457d-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/2feda8882997457d-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/2feda8882997457d-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/2feda8882997457d-400.jpg"
         alt="Silla 8 - Claudia Valsells Work in progress"
         width="400"
         height="500"
         style="aspect-ratio:400 / 500"
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        fetchpriority="high"
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/b6ed0ed8347dddf0-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/b6ed0ed8347dddf0-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/b6ed0ed8347dddf0-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/b6ed0ed8347dddf0-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/b6ed0ed8347dddf0-400.jpg"
         alt="Silla 8 - Claudia Valsells"
@@ -123,10 +125,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/cd56ec4ca76f081e-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/cd56ec4ca76f081e-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/cd56ec4ca76f081e-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/cd56ec4ca76f081e-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/cd56ec4ca76f081e-400.jpg"
         alt="Silla 8 - Claudia Valsells in her studio"
@@ -138,10 +140,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/3f20f13f055705d8-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/3f20f13f055705d8-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/3f20f13f055705d8-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/3f20f13f055705d8-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/3f20f13f055705d8-400.jpg"
         alt="Silla 8 - Claudia Valsells"
@@ -153,10 +155,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/9164a19a15fe150b-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/9164a19a15fe150b-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/9164a19a15fe150b-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/9164a19a15fe150b-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/9164a19a15fe150b-400.jpg"
         alt="Silla 8 - Claudia Valsells"
@@ -168,10 +170,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/cddc2d0dbf75357b-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/cddc2d0dbf75357b-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/cddc2d0dbf75357b-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/cddc2d0dbf75357b-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/cddc2d0dbf75357b-400.jpg"
         alt="Silla 8 - Claudia Valsells Studio"
@@ -183,10 +185,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/cc3379e44be1eb4a-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/cc3379e44be1eb4a-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/cc3379e44be1eb4a-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/cc3379e44be1eb4a-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/cc3379e44be1eb4a-400.jpg"
         alt="Silla 8 - Show at alzueta gallery"
@@ -198,10 +200,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/2cd795bd28c9c571-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/2cd795bd28c9c571-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/2cd795bd28c9c571-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/2cd795bd28c9c571-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/2cd795bd28c9c571-400.jpg"
         alt="Silla 8 - Claudia Valsells"
@@ -213,10 +215,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/4f7f0f22ef5e7ff2-400.avif 400w, /prototype1/media/4f7f0f22ef5e7ff2-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/4f7f0f22ef5e7ff2-400.webp 400w, /prototype1/media/4f7f0f22ef5e7ff2-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/4f7f0f22ef5e7ff2-400.avif 400w, /prototype1/media/4f7f0f22ef5e7ff2-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/4f7f0f22ef5e7ff2-400.webp 400w, /prototype1/media/4f7f0f22ef5e7ff2-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/4f7f0f22ef5e7ff2-800.jpg"
         alt="Silla 8 - Claudia Valsells"
@@ -228,10 +230,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/69180fb7bfaf35cb-400.avif 400w, /prototype1/media/69180fb7bfaf35cb-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/69180fb7bfaf35cb-400.webp 400w, /prototype1/media/69180fb7bfaf35cb-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/69180fb7bfaf35cb-400.avif 400w, /prototype1/media/69180fb7bfaf35cb-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/69180fb7bfaf35cb-400.webp 400w, /prototype1/media/69180fb7bfaf35cb-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/69180fb7bfaf35cb-800.jpg"
         alt="Silla 8 - Exhibition - Claudia Valsells"
@@ -245,6 +247,12 @@
             
           </figure>
     </div>
+    <div class="slider-bar">
+      <button type="button" class="slider-nav" data-slider-prev aria-label="Anterior">←</button>
+      <span class="slider-count" data-slider-count data-template="{n} de {total}"></span>
+      <button type="button" class="slider-nav" data-slider-next aria-label="Següent">→</button>
+    </div>
+  </div>
     <div class="collab-text">
       <div class="prose"><p><span><span>SIETE SILLAS 8, </span></span></p> <p><span><span>an AOO EXERCISE IN ‘COLOURING’ WITH CLAUDIA VALSELLS</span></span></p> <p>A project with AOO where I created and designed the different colour combinations for ‘8 Chair’.</p> <p><span>The 8 Chair is the result of an AOO exercise where flat sheets of plywood are bent, under pressure and in a simple way, using different structures as support, achieving instantaneously and without moulds to generate what ends up being seats and backs. The resulting piece is formed by two frames joined together and stripped of any decorative element that, together with the backrest and seat, generate a comfortable, lightweight and plastically unique chair.</span></p> <p><span>To enhance its visual uniqueness, the artist Claudia Valsells has developed a series of colour combinations that denote her exploration of beauty. The chair transmits us the tactility of the work through the palette; because what can be touched is tangible and brings us closer to its reality. Each chair is painted in more than one color to emphasize the meaning of each one when it enters in contrast with the others.</span></p> <p><span>This proposal is the result of a collaboration that normally does not occur in the world of art and design, is a dialogue between disciplines that converge in a common and unlikely end point for each of the participants and also an excuse between two professionals that ends with a good friendship.</span></p> <p><span>If we had to design a chair we would talk about the conceptual and formal process of an object. If we had to talk about colour we would talk about texture and paint, about tones and shades. And here we talk about adding two languages and a single idea: a series of chairs shaped in a plastic exercise and the chromatic development that enhances, perhaps, their uniqueness. The object is raised piece by piece and is given a different value: the sense is decontextualized and a new proposal grows.</span></p> <p>—<br> Material: Structure in solid poplar and seat and back in poplar plywood<br> Finish: Pigment applied by brush and finished with semi-matt water-based varnish.</p> <p>images © <a href="http://www.yosigo.es">yosigoyosigo </a></p> <p><a href="http://aoobarcelona.com">www.aoobarcelona.com</a></p></div>
     </div>

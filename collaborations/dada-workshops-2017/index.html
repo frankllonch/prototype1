@@ -11,9 +11,10 @@
 <link rel="preload" href="/prototype1/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="/prototype1/site.css" />
 <link rel="modulepreload" href="/prototype1/js/env.js" />
-<link rel="modulepreload" href="/prototype1/js/scramble.js" />
+<link rel="modulepreload" href="/prototype1/js/text-hover.js" />
 <link rel="modulepreload" href="/prototype1/js/nav.js" />
 <link rel="modulepreload" href="/prototype1/js/gallery.js" />
+<link rel="modulepreload" href="/prototype1/js/slider.js" />
 <link rel="modulepreload" href="/prototype1/js/lightbox.js" />
 <link rel="modulepreload" href="/prototype1/js/panels.js" />
 <link rel="modulepreload" href="/prototype1/js/cursor.js" />
@@ -77,11 +78,12 @@
     </header>
 
     <div class="collab">
-    <div class="collab-gallery">
-      <figure class="collab-figure">
+    <div class="slider" data-slider>
+    <div class="slider-track" data-slider-track tabindex="0" aria-label="6 photographs">
+      <figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/a2a9a7c14fe4794c-400.avif 400w, /prototype1/media/a2a9a7c14fe4794c-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/a2a9a7c14fe4794c-400.webp 400w, /prototype1/media/a2a9a7c14fe4794c-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/a2a9a7c14fe4794c-400.avif 400w, /prototype1/media/a2a9a7c14fe4794c-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/a2a9a7c14fe4794c-400.webp 400w, /prototype1/media/a2a9a7c14fe4794c-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/a2a9a7c14fe4794c-800.jpg"
         alt=""
@@ -93,25 +95,25 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/1626b31021c7dd29-400.avif 400w, /prototype1/media/1626b31021c7dd29-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/1626b31021c7dd29-400.webp 400w, /prototype1/media/1626b31021c7dd29-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/1626b31021c7dd29-400.avif 400w, /prototype1/media/1626b31021c7dd29-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/1626b31021c7dd29-400.webp 400w, /prototype1/media/1626b31021c7dd29-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/1626b31021c7dd29-800.jpg"
         alt=""
         width="1000"
         height="668"
         style="aspect-ratio:1000 / 668"
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        fetchpriority="high"
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/b47e2dd886318d9f-400.avif 400w, /prototype1/media/b47e2dd886318d9f-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/b47e2dd886318d9f-400.webp 400w, /prototype1/media/b47e2dd886318d9f-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/b47e2dd886318d9f-400.avif 400w, /prototype1/media/b47e2dd886318d9f-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/b47e2dd886318d9f-400.webp 400w, /prototype1/media/b47e2dd886318d9f-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/b47e2dd886318d9f-800.jpg"
         alt=""
@@ -123,10 +125,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/f7bd3a3afd21970b-400.avif 400w, /prototype1/media/f7bd3a3afd21970b-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/f7bd3a3afd21970b-400.webp 400w, /prototype1/media/f7bd3a3afd21970b-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/f7bd3a3afd21970b-400.avif 400w, /prototype1/media/f7bd3a3afd21970b-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/f7bd3a3afd21970b-400.webp 400w, /prototype1/media/f7bd3a3afd21970b-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/f7bd3a3afd21970b-800.jpg"
         alt=""
@@ -138,10 +140,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/b7cebd3a0ed3fa84-400.avif 400w, /prototype1/media/b7cebd3a0ed3fa84-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/b7cebd3a0ed3fa84-400.webp 400w, /prototype1/media/b7cebd3a0ed3fa84-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/b7cebd3a0ed3fa84-400.avif 400w, /prototype1/media/b7cebd3a0ed3fa84-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/b7cebd3a0ed3fa84-400.webp 400w, /prototype1/media/b7cebd3a0ed3fa84-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/b7cebd3a0ed3fa84-800.jpg"
         alt=""
@@ -153,10 +155,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/ccf668d3ce220c31-400.avif 400w, /prototype1/media/ccf668d3ce220c31-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/ccf668d3ce220c31-400.webp 400w, /prototype1/media/ccf668d3ce220c31-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/ccf668d3ce220c31-400.avif 400w, /prototype1/media/ccf668d3ce220c31-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/ccf668d3ce220c31-400.webp 400w, /prototype1/media/ccf668d3ce220c31-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/ccf668d3ce220c31-800.jpg"
         alt=""
@@ -170,6 +172,12 @@
             
           </figure>
     </div>
+    <div class="slider-bar">
+      <button type="button" class="slider-nav" data-slider-prev aria-label="Previous">←</button>
+      <span class="slider-count" data-slider-count data-template="{n} of {total}"></span>
+      <button type="button" class="slider-nav" data-slider-next aria-label="Next">→</button>
+    </div>
+  </div>
     <div class="collab-text">
       <div class="prose"><p><strong>Art to look </strong></p> <p>Idea and project</p> <p>© DadàBarcelona</p> <p>Esther Rovira Carbonell</p> <p><span>images © Iris Humm</span></p> <p>“To look is an act of choice”</p> <p>John Berger</p> <p><em>I had the opportunity to collaborate for two consecutive years at DadàBarcelona workshops, artistic summer projects developed around an important topic and divided into two weeks: one to discover creative languages and the other to produce an artistic project. The workshops are triangulated into movement sound and art.</em></p></div>
     </div>

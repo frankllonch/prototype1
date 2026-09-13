@@ -98,7 +98,7 @@ main { padding-top: var(--bar); }
 .skip-link:focus { left: 0; }
 
 /* Every label on the site: 10px, caps, tracked. */
-.label, .tile-meta, .zoom, .facts dt, .pager-dir, .site-header, .band-more,
+.label, .tile-meta, .filters, .facts dt, .pager-dir, .site-header, .band-more, .slider-count,
 figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-count,
 .lightbox-close {
   font-size: 10px;
@@ -188,28 +188,56 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
 }
 
 /*
- * Characters split for the proximity scramble. The script fixes each one to its
- * own glyph's width, so the substituted asterisk cannot change the word's length,
- * and scales the asterisk to fit that box (`--x`), so it neither runs into its
- * neighbours behind a narrow letter nor floats loose behind a wide one.
+ * Hover text effect, after landonorris.com. Each character is two layers: the
+ * real glyph, in flow, which fixes the box's width; and a cycle layer laid over
+ * it whose `content` runs through uppercase letters on a stepped keyframe
+ * animation, offset per character by `--i`. The word never changes length —
+ * a cycling letter wider than the glyph is simply clipped to its box.
  */
-.sc { display: inline-block; white-space: pre; text-align: center; vertical-align: bottom; }
-.sc.is-x { transform: scale(var(--x, 1)); }
+.rc { position: relative; display: inline-block; white-space: pre; overflow: hidden; vertical-align: bottom; }
+.rc-glyph { display: inline-block; }
+.rc-cycle { position: absolute; inset: 0; text-align: center; opacity: 0; }
+/* `content` is only meaningful on the pseudo-element, so that is what animates. */
+.rc-cycle::before { content: attr(data-ch); }
+
+.is-cycling .rc-glyph { opacity: 0; }
+.is-cycling .rc-cycle { opacity: 1; }
+.is-cycling .rc-cycle::before { animation: 420ms steps(1, end) calc(var(--i) * 32ms) both; }
+.is-cycling .rc-cycle-0::before { animation-name: rc-cycle-0; }
+.is-cycling .rc-cycle-1::before { animation-name: rc-cycle-1; }
+.is-cycling .rc-cycle-2::before { animation-name: rc-cycle-2; }
+
+/* Three sequences so adjacent characters never show the same letter at once.
+   Each ends on the character's own glyph, so the hand-off back is invisible. */
+@keyframes rc-cycle-0 {
+  0%  { content: 'R'; } 14% { content: 'K'; } 28% { content: 'E'; } 42% { content: 'V'; }
+  56% { content: 'N'; } 70% { content: 'T'; } 84% { content: 'A'; } 100% { content: attr(data-ch); }
+}
+@keyframes rc-cycle-1 {
+  0%  { content: 'S'; } 14% { content: 'B'; } 28% { content: 'O'; } 42% { content: 'H'; }
+  56% { content: 'U'; } 70% { content: 'C'; } 84% { content: 'D'; } 100% { content: attr(data-ch); }
+}
+@keyframes rc-cycle-2 {
+  0%  { content: 'G'; } 14% { content: 'X'; } 28% { content: 'P'; } 42% { content: 'Z'; }
+  56% { content: 'F'; } 70% { content: 'Y'; } 84% { content: 'L'; } 100% { content: attr(data-ch); }
+}
 
 .page-head { padding: var(--block) var(--pad) calc(var(--block) * 0.5); }
 .page-head h1 { font-size: clamp(1.5rem, 3.2vw, 2.25rem); line-height: 1.05; font-weight: 500; }
 .page-intro { max-width: var(--measure); color: var(--ink-soft); margin: 0.4rem 0 0; }
 
-.zoom { display: flex; align-items: center; gap: 0.45rem; margin-top: 0.9rem; }
-.zoom-label { color: var(--ink-faint); margin-right: 0.15rem; }
-.zoom-step {
-  font: inherit; font-size: 10px; letter-spacing: 0.07em;
+.filters { display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.9rem; }
+.filter-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
+.filter-label { color: var(--ink-faint); margin-right: 0.15rem; min-width: 2.5rem; }
+.filter {
+  font: inherit; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
   background: none; border: 0; padding: 0.15rem 0.1rem; cursor: pointer;
   color: var(--ink-faint); border-bottom: 1px solid transparent;
+  font-variant-numeric: tabular-nums;
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
-.zoom-step:hover { color: var(--ink); }
-.zoom-step.is-active { color: var(--ink); border-bottom-color: var(--ink); }
+.filter:hover { color: var(--ink); }
+.filter.is-active { color: var(--ink); border-bottom-color: var(--ink); }
 
 /*
  * A contact sheet, not a grid.
@@ -395,16 +423,15 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
   .detail-work .facts div:last-child { border-bottom: 1px solid var(--rule); }
 }
 
-/* A collaboration: imagery first, text below. These projects are photographed
-   rather than written, so the pictures carry the page and the text closes it. */
-.collab-gallery { display: flex; flex-direction: column; gap: var(--pad); max-width: 72rem; margin: 0 auto; }
-.collab-figure { margin: 0; }
-.collab-figure img { width: 100%; height: auto; max-height: 86vh; object-fit: contain; }
-.collab-figure figcaption { color: var(--ink-faint); margin-top: 0.35rem; }
+/* A collaboration: the slide-through first, text below. These projects are
+   photographed rather than written, so the pictures carry the page. */
+.detail-project { padding-inline: 0; }
+.detail-project .detail-back, .detail-project .detail-head, .detail-project .pager,
+.detail-project .collab-text { padding-inline: var(--pad); }
+.detail-project .detail-head { text-align: center; }
+.detail-project .detail-title { margin-inline: auto; }
 .collab-text { max-width: 42rem; margin: var(--block) auto 0; padding-top: var(--pad); border-top: 1px solid var(--rule); }
-.collab-text .prose { font-size: 13px; line-height: 1.6; }
-.detail-project .detail-head, .detail-project .detail-back, .detail-project .pager { max-width: 72rem; margin-inline: auto; }
-.detail-project .detail-back { display: block; }
+.collab-text .prose { max-width: none; font-size: 13px; line-height: 1.6; }
 
 .pager { display: flex; justify-content: space-between; gap: 1rem;
   margin-top: var(--block); padding-top: 0.7rem; border-top: 1px solid var(--rule); }
@@ -433,10 +460,16 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
 
 /* --------------------------------------------------------------- lightbox */
 
+/*
+ * Five columns, mirrored: nav, an empty column the width of the caption, the
+ * plate, the caption, nav. The two outer pairs are equal, so the plate sits on
+ * the exact centre of the screen with the caption beside it.
+ */
 .lightbox {
+  --caption: minmax(12rem, 17rem);
   position: fixed; inset: 0; z-index: 80;
   display: grid;
-  grid-template-columns: auto 1fr minmax(13rem, 19rem) auto;
+  grid-template-columns: auto var(--caption) 1fr var(--caption) auto;
   align-items: center;
   gap: var(--pad);
   padding: var(--bar) var(--pad) var(--pad);
@@ -451,7 +484,7 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
 .lightbox-plate, .lightbox-caption, .lightbox-nav, .lightbox-close { position: relative; z-index: 1; }
 
 .lightbox-plate {
-  grid-column: 2;
+  grid-column: 3;
   display: grid; place-items: center;
   min-width: 0; min-height: 0;
   transition: opacity 0.2s var(--ease);
@@ -463,7 +496,7 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
 
 /* The caption sits beside the plate, in black at reading size — a painting's
    dimensions and medium are the substance of the page, not a footnote. */
-.lightbox-caption { grid-column: 3; align-self: center; transition: opacity 0.2s var(--ease); }
+.lightbox-caption { grid-column: 4; align-self: center; transition: opacity 0.2s var(--ease); }
 .lightbox-title { font-size: clamp(1.1rem, 1.8vw, 1.5rem); font-weight: 500; letter-spacing: -0.02em; margin: 0 0 0.5rem; }
 .lightbox-meta { display: flex; flex-direction: column; gap: 0.18rem; margin: 0 0 0.9rem; }
 .lightbox-meta span { font-size: 14px; line-height: 1.45; }
@@ -480,7 +513,7 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
 }
 .lightbox-nav:hover { color: var(--ink); }
 .lightbox-prev { grid-column: 1; }
-.lightbox-next { grid-column: 4; }
+.lightbox-next { grid-column: 5; }
 .lightbox-prev::before { content: '←'; font-size: 15px; }
 .lightbox-next::before { content: '→'; font-size: 15px; }
 
@@ -491,19 +524,22 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
   .lightbox-nav { display: none; }          /* swipe instead */
   .lightbox-plate img { max-height: 58vh; }
 }
+@media (min-width: 900px) and (max-width: 1199px) { .lightbox { --caption: minmax(9rem, 12rem); } }
 
 /* ----------------------------------------------------------------- panels */
 
 /*
  * The veil is always present and only its opacity changes, so a panel opening
  * reads as the page receding behind it rather than a sheet dropping in front.
- * Both ease over the same half-second.
+ * Both take most of a second on a long, soft curve: fast to start, then a slow
+ * settle — the page falls away and the text arrives without a bump.
  */
+:root { --panel-time: 0.9s; --panel-ease: cubic-bezier(0.16, 1, 0.3, 1); }
 .panel-veil {
   z-index: 84;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.5s var(--ease);
+  transition: opacity var(--panel-time) var(--panel-ease);
 }
 .panel-veil.is-open { opacity: 1; pointer-events: auto; }
 
@@ -516,8 +552,11 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
   padding: var(--block) var(--pad) var(--block);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(12px);
-  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), visibility 0s linear 0.5s;
+  transform: translateY(24px);
+  transition:
+    opacity var(--panel-time) var(--panel-ease),
+    transform var(--panel-time) var(--panel-ease),
+    visibility 0s linear var(--panel-time);
   -webkit-overflow-scrolling: touch;
 }
 .panel.is-open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
@@ -528,10 +567,11 @@ figcaption, .detail-back, .panel-close, .panel-year, .index-year, .lightbox-coun
 .panel-close { margin-inline: auto 0; color: var(--ink-soft); }
 .panel-close:hover { color: var(--ink); }
 
-.panel-body { max-width: 62rem; margin: 0 auto; display: flex; flex-direction: column; gap: var(--pad); }
-.panel-row { display: grid; gap: var(--pad); }
-.panel-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--gap); }
-.panel-body .prose { max-width: 42rem; }
+/* The panel's inner gutter is dropped so the slider can run edge to edge. */
+.panel { padding-inline: 0; }
+.panel-head { padding-inline: var(--pad); }
+.panel-text { max-width: 42rem; margin: var(--block) auto 0; padding: var(--pad) var(--pad) 0; border-top: 1px solid var(--rule); }
+.panel-text .prose { max-width: none; }
 
 /* Without scripting the panels are plain anchor targets, so they must be visible
    when linked to directly rather than hidden behind a class the script adds. */
@@ -586,3 +626,42 @@ html:not(.js) .panel-veil { display: none; }
 }
 
 @view-transition { navigation: auto; }
+
+/*
+ * Horizontal slide-through. Every image shares one height, so widths follow
+ * the pictures; each snaps to the centre of the viewport, and the padding on
+ * either end lets the first and last centre too. Scrollbar hidden: the bar
+ * below carries the position instead.
+ */
+.slider { --slide-h: clamp(16rem, 60vh, 44rem); }
+
+.slider-track {
+  display: flex;
+  gap: var(--pad);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding: 0 50vw;               /* lets the first and last slide sit centred */
+  scrollbar-width: none;
+  cursor: grab;
+  outline: none;
+}
+.slider-track::-webkit-scrollbar { display: none; }
+.slider-track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.slider-track:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+.slide { flex: 0 0 auto; margin: 0; scroll-snap-align: center; }
+.slide picture, .slide img { height: var(--slide-h); width: auto; max-width: 92vw; }
+.slide figcaption { color: var(--ink-faint); margin-top: 0.35rem; }
+/* Drag, don't select; drag, don't ghost-drag the image. */
+.slider-track img { user-select: none; -webkit-user-drag: none; pointer-events: none; }
+
+.slider-bar { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: var(--pad); }
+.slider-count { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.slider-nav {
+  background: none; border: 0; padding: 0.2rem 0.4rem; cursor: pointer;
+  color: var(--ink-faint); font: inherit; font-size: 14px; transition: color 0.2s var(--ease);
+}
+.slider-nav:hover { color: var(--ink); }
+
+@media (max-width: 899px) { .slider { --slide-h: clamp(12rem, 48vh, 24rem); } }

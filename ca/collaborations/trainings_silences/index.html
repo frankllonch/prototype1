@@ -11,9 +11,10 @@
 <link rel="preload" href="/prototype1/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="/prototype1/site.css" />
 <link rel="modulepreload" href="/prototype1/js/env.js" />
-<link rel="modulepreload" href="/prototype1/js/scramble.js" />
+<link rel="modulepreload" href="/prototype1/js/text-hover.js" />
 <link rel="modulepreload" href="/prototype1/js/nav.js" />
 <link rel="modulepreload" href="/prototype1/js/gallery.js" />
+<link rel="modulepreload" href="/prototype1/js/slider.js" />
 <link rel="modulepreload" href="/prototype1/js/lightbox.js" />
 <link rel="modulepreload" href="/prototype1/js/panels.js" />
 <link rel="modulepreload" href="/prototype1/js/cursor.js" />
@@ -77,11 +78,12 @@
     </header>
 
     <div class="collab">
-    <div class="collab-gallery">
-      <figure class="collab-figure">
+    <div class="slider" data-slider>
+    <div class="slider-track" data-slider-track tabindex="0" aria-label="9 photographs">
+      <figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/64b98136d3b9dcdb-400.avif 400w, /prototype1/media/64b98136d3b9dcdb-800.avif 800w, /prototype1/media/64b98136d3b9dcdb-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/64b98136d3b9dcdb-400.webp 400w, /prototype1/media/64b98136d3b9dcdb-800.webp 800w, /prototype1/media/64b98136d3b9dcdb-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/64b98136d3b9dcdb-400.avif 400w, /prototype1/media/64b98136d3b9dcdb-800.avif 800w, /prototype1/media/64b98136d3b9dcdb-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/64b98136d3b9dcdb-400.webp 400w, /prototype1/media/64b98136d3b9dcdb-800.webp 800w, /prototype1/media/64b98136d3b9dcdb-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/64b98136d3b9dcdb-1600.jpg"
         alt=""
@@ -93,25 +95,25 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/1055c86e1dcc5761-400.avif 400w, /prototype1/media/1055c86e1dcc5761-800.avif 800w, /prototype1/media/1055c86e1dcc5761-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/1055c86e1dcc5761-400.webp 400w, /prototype1/media/1055c86e1dcc5761-800.webp 800w, /prototype1/media/1055c86e1dcc5761-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/1055c86e1dcc5761-400.avif 400w, /prototype1/media/1055c86e1dcc5761-800.avif 800w, /prototype1/media/1055c86e1dcc5761-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/1055c86e1dcc5761-400.webp 400w, /prototype1/media/1055c86e1dcc5761-800.webp 800w, /prototype1/media/1055c86e1dcc5761-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/1055c86e1dcc5761-1600.jpg"
         alt=""
         width="1707"
         height="2560"
         style="aspect-ratio:1707 / 2560"
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        fetchpriority="high"
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/ca4b6ebc44b0c1f3-400.avif 400w, /prototype1/media/ca4b6ebc44b0c1f3-800.avif 800w, /prototype1/media/ca4b6ebc44b0c1f3-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/ca4b6ebc44b0c1f3-400.webp 400w, /prototype1/media/ca4b6ebc44b0c1f3-800.webp 800w, /prototype1/media/ca4b6ebc44b0c1f3-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/ca4b6ebc44b0c1f3-400.avif 400w, /prototype1/media/ca4b6ebc44b0c1f3-800.avif 800w, /prototype1/media/ca4b6ebc44b0c1f3-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/ca4b6ebc44b0c1f3-400.webp 400w, /prototype1/media/ca4b6ebc44b0c1f3-800.webp 800w, /prototype1/media/ca4b6ebc44b0c1f3-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/ca4b6ebc44b0c1f3-1600.jpg"
         alt=""
@@ -123,10 +125,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/a772227cd93b760c-400.avif 400w, /prototype1/media/a772227cd93b760c-800.avif 800w, /prototype1/media/a772227cd93b760c-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/a772227cd93b760c-400.webp 400w, /prototype1/media/a772227cd93b760c-800.webp 800w, /prototype1/media/a772227cd93b760c-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/a772227cd93b760c-400.avif 400w, /prototype1/media/a772227cd93b760c-800.avif 800w, /prototype1/media/a772227cd93b760c-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/a772227cd93b760c-400.webp 400w, /prototype1/media/a772227cd93b760c-800.webp 800w, /prototype1/media/a772227cd93b760c-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/a772227cd93b760c-1600.jpg"
         alt=""
@@ -138,10 +140,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/ddb7376aba9b9ae6-400.avif 400w, /prototype1/media/ddb7376aba9b9ae6-800.avif 800w, /prototype1/media/ddb7376aba9b9ae6-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/ddb7376aba9b9ae6-400.webp 400w, /prototype1/media/ddb7376aba9b9ae6-800.webp 800w, /prototype1/media/ddb7376aba9b9ae6-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/ddb7376aba9b9ae6-400.avif 400w, /prototype1/media/ddb7376aba9b9ae6-800.avif 800w, /prototype1/media/ddb7376aba9b9ae6-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/ddb7376aba9b9ae6-400.webp 400w, /prototype1/media/ddb7376aba9b9ae6-800.webp 800w, /prototype1/media/ddb7376aba9b9ae6-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/ddb7376aba9b9ae6-1600.jpg"
         alt=""
@@ -153,10 +155,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/390d0c8565c0cd72-400.avif 400w, /prototype1/media/390d0c8565c0cd72-800.avif 800w, /prototype1/media/390d0c8565c0cd72-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/390d0c8565c0cd72-400.webp 400w, /prototype1/media/390d0c8565c0cd72-800.webp 800w, /prototype1/media/390d0c8565c0cd72-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/390d0c8565c0cd72-400.avif 400w, /prototype1/media/390d0c8565c0cd72-800.avif 800w, /prototype1/media/390d0c8565c0cd72-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/390d0c8565c0cd72-400.webp 400w, /prototype1/media/390d0c8565c0cd72-800.webp 800w, /prototype1/media/390d0c8565c0cd72-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/390d0c8565c0cd72-1600.jpg"
         alt=""
@@ -168,10 +170,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/990a0ae5a28aeb0f-400.avif 400w, /prototype1/media/990a0ae5a28aeb0f-800.avif 800w, /prototype1/media/990a0ae5a28aeb0f-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/990a0ae5a28aeb0f-400.webp 400w, /prototype1/media/990a0ae5a28aeb0f-800.webp 800w, /prototype1/media/990a0ae5a28aeb0f-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/990a0ae5a28aeb0f-400.avif 400w, /prototype1/media/990a0ae5a28aeb0f-800.avif 800w, /prototype1/media/990a0ae5a28aeb0f-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/990a0ae5a28aeb0f-400.webp 400w, /prototype1/media/990a0ae5a28aeb0f-800.webp 800w, /prototype1/media/990a0ae5a28aeb0f-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/990a0ae5a28aeb0f-1600.jpg"
         alt=""
@@ -183,10 +185,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/cd2127696291d1f4-400.avif 400w, /prototype1/media/cd2127696291d1f4-800.avif 800w, /prototype1/media/cd2127696291d1f4-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/cd2127696291d1f4-400.webp 400w, /prototype1/media/cd2127696291d1f4-800.webp 800w, /prototype1/media/cd2127696291d1f4-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/cd2127696291d1f4-400.avif 400w, /prototype1/media/cd2127696291d1f4-800.avif 800w, /prototype1/media/cd2127696291d1f4-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/cd2127696291d1f4-400.webp 400w, /prototype1/media/cd2127696291d1f4-800.webp 800w, /prototype1/media/cd2127696291d1f4-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/cd2127696291d1f4-1600.jpg"
         alt=""
@@ -198,10 +200,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/07a54c2e75242d8f-400.avif 400w, /prototype1/media/07a54c2e75242d8f-800.avif 800w, /prototype1/media/07a54c2e75242d8f-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/07a54c2e75242d8f-400.webp 400w, /prototype1/media/07a54c2e75242d8f-800.webp 800w, /prototype1/media/07a54c2e75242d8f-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/07a54c2e75242d8f-400.avif 400w, /prototype1/media/07a54c2e75242d8f-800.avif 800w, /prototype1/media/07a54c2e75242d8f-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/07a54c2e75242d8f-400.webp 400w, /prototype1/media/07a54c2e75242d8f-800.webp 800w, /prototype1/media/07a54c2e75242d8f-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/07a54c2e75242d8f-1600.jpg"
         alt=""
@@ -215,6 +217,12 @@
             
           </figure>
     </div>
+    <div class="slider-bar">
+      <button type="button" class="slider-nav" data-slider-prev aria-label="Anterior">←</button>
+      <span class="slider-count" data-slider-count data-template="{n} de {total}"></span>
+      <button type="button" class="slider-nav" data-slider-next aria-label="Següent">→</button>
+    </div>
+  </div>
     <div class="collab-text">
       <div class="prose"><p>SILENCES_TRAININGS a @dadabarcelona project_ at MAMT</p> <p>WORKSHOPS FOR ADULTS STRUCTURED ALONG THESE FOUR AXIS.</p> <p>Movement / Sonority / Presence / Otherness</p> <p>«We believe that establishing links between different disciplines and enjoying the silence in each of them brings clarity, calm and well-being. With this project we would like to shed some light, to feel that there is another possibility, to offer a new horizon: we want to teach everyone to stop! To find alternative paths in the noise and speed – of society – that avoids reflection in favour of constant evasion.<span> </span></p> <p>We also want to leave a useful mark: to read the silence of others or of spaces and to be able to interpret them, to communicate without the need for speech or to create silence through presence.<span> </span></p> <p>And finally, to set ourselves a challenge: to learn to take the time to do things, to know how to waste time and to find our own silences!» .</p> <p><strong>Otherness</strong></p> <p>We face silence from our creation and transform it into a dialogue with ourselves. We consider silence as part of the creative processes and we generate a moment of connection with ourselves and with others; we try to generate a new value in our daily life, through our actions, in the little things that form our self.</p> <div> <div> <div> <div> <div> <div> <div> <div> <p><strong>Podcast 62_ </strong></p> <p>CLÀUDIA VALSELLS Artista / Artist</p> <p><em>Silence when contemplating</em></p> </div> </div> </div> </div> <p>/<br> Silence for me… is the space that surrounds us when there is no hurry, no effort, nor expectations: a beginning. Silence would be a beginning. This silence understood as a state of calm – a slow and leisurely state – is not a sign of our time and should be a universal right.<br> /<br> To my work… When I work in the studio, when I don’t do, I am in silence and this silence gives me a lot of strength.<br> /<br> An image of silence… would be to contemplate a desert landscape, to contemplate a blank sheet of paper, to contemplate!</p> </div> <p><a href="http://www.silencis.org">@silencis</a> a <a href="http://www.dadabarcelona.com">dadabarcelona</a> project at <a href="https://www.dipta.cat/mamt">MAMT </a></p> <p>photos <a href="https://www.instagram.com/hleb_hleb/">@hleb_masha </a></p> </div> </div> </div></div>
     </div>

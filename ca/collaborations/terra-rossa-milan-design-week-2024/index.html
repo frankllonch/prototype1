@@ -11,9 +11,10 @@
 <link rel="preload" href="/prototype1/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="/prototype1/site.css" />
 <link rel="modulepreload" href="/prototype1/js/env.js" />
-<link rel="modulepreload" href="/prototype1/js/scramble.js" />
+<link rel="modulepreload" href="/prototype1/js/text-hover.js" />
 <link rel="modulepreload" href="/prototype1/js/nav.js" />
 <link rel="modulepreload" href="/prototype1/js/gallery.js" />
+<link rel="modulepreload" href="/prototype1/js/slider.js" />
 <link rel="modulepreload" href="/prototype1/js/lightbox.js" />
 <link rel="modulepreload" href="/prototype1/js/panels.js" />
 <link rel="modulepreload" href="/prototype1/js/cursor.js" />
@@ -77,11 +78,12 @@
     </header>
 
     <div class="collab">
-    <div class="collab-gallery">
-      <figure class="collab-figure">
+    <div class="slider" data-slider>
+    <div class="slider-track" data-slider-track tabindex="0" aria-label="5 photographs">
+      <figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/6331e7c1e2c4da66-400.avif 400w, /prototype1/media/6331e7c1e2c4da66-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/6331e7c1e2c4da66-400.webp 400w, /prototype1/media/6331e7c1e2c4da66-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/6331e7c1e2c4da66-400.avif 400w, /prototype1/media/6331e7c1e2c4da66-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/6331e7c1e2c4da66-400.webp 400w, /prototype1/media/6331e7c1e2c4da66-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/6331e7c1e2c4da66-800.jpg"
         alt=""
@@ -93,25 +95,25 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/d1c1dd258515b23c-400.avif 400w, /prototype1/media/d1c1dd258515b23c-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/d1c1dd258515b23c-400.webp 400w, /prototype1/media/d1c1dd258515b23c-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/d1c1dd258515b23c-400.avif 400w, /prototype1/media/d1c1dd258515b23c-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/d1c1dd258515b23c-400.webp 400w, /prototype1/media/d1c1dd258515b23c-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/d1c1dd258515b23c-800.jpg"
         alt=""
         width="1000"
         height="1333"
         style="aspect-ratio:1000 / 1333"
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        fetchpriority="high"
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/8ec798532a5378f3-400.avif 400w, /prototype1/media/8ec798532a5378f3-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/8ec798532a5378f3-400.webp 400w, /prototype1/media/8ec798532a5378f3-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/8ec798532a5378f3-400.avif 400w, /prototype1/media/8ec798532a5378f3-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/8ec798532a5378f3-400.webp 400w, /prototype1/media/8ec798532a5378f3-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/8ec798532a5378f3-800.jpg"
         alt=""
@@ -123,10 +125,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/3e848eb0758a7514-400.avif 400w, /prototype1/media/3e848eb0758a7514-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/3e848eb0758a7514-400.webp 400w, /prototype1/media/3e848eb0758a7514-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/3e848eb0758a7514-400.avif 400w, /prototype1/media/3e848eb0758a7514-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/3e848eb0758a7514-400.webp 400w, /prototype1/media/3e848eb0758a7514-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/3e848eb0758a7514-800.jpg"
         alt=""
@@ -138,10 +140,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/1e4ff24686d9108f-400.avif 400w, /prototype1/media/1e4ff24686d9108f-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/1e4ff24686d9108f-400.webp 400w, /prototype1/media/1e4ff24686d9108f-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/1e4ff24686d9108f-400.avif 400w, /prototype1/media/1e4ff24686d9108f-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/1e4ff24686d9108f-400.webp 400w, /prototype1/media/1e4ff24686d9108f-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/1e4ff24686d9108f-800.jpg"
         alt=""
@@ -155,6 +157,12 @@
             
           </figure>
     </div>
+    <div class="slider-bar">
+      <button type="button" class="slider-nav" data-slider-prev aria-label="Anterior">←</button>
+      <span class="slider-count" data-slider-count data-template="{n} de {total}"></span>
+      <button type="button" class="slider-nav" data-slider-next aria-label="Següent">→</button>
+    </div>
+  </div>
     <div class="collab-text">
       <div class="prose"><p>“Terra Rossa” is a group exhibition inspired by the use of clay as a primordial and universal element for the creation of the first design artefacts, especially common in the Mediterranean region. Curated by <a href="https://www.juliaesque.com"><strong>Júlia Esqué</strong></a> with a concept by <strong>Apartamento Studios</strong>, the centrepiece of the installation is a monumental pyramid with 80 jugs made by 16 creatives.</p> <p>The artistic ‘alterations’ have been carried out in collaboration with the ceramist <a href="https://www.instagram.com/eloibonadona/?locale=es_LA&hl=am-et"><strong>Eloi Bonadona</strong></a>.</p> <p>In the words of the curator <strong>Júlia Esqué</strong>“<i>Exploring the symbiotic relationship between earth and clay in relation to food we uncover a profound narrative of sustenance and nourishment. Earth provides raw ingredients and clay transforms them into vessels that elevate the experience. These objects become conduits that bridge our connection to the land and the artisans. They become vessels for cultural and artistic significance, reflecting the creativity and craftsmanship of societies throughout history</i>.”</p> <p>My intervention examined the meaning related to the ‘readymade’ color: the color purchased in the store instead of hand-mixed.</p> <p><i>‘’Color of red clay, rich with red iron oxides. </i><i>Clay is a Mediterranean element, very characteristic…»</i></p> <p><i>Words that describe the color ‘brown earth’ and invite you to touche it. </i><i>Descriptions that help us to perceive and understand color, to feel it. </i><i>Words that are also the name of the color itself.</i></p> <p><i>So what happens when colors are described by codes, numbers?</i></p> <p><i>Is the emotional part of the color lost?</i></p> <p><i>Does the perception we have of that color change?</i></p> <p><i>I had chosen 5 colors with a reference to explore the impact of mass-produced color on contemporary art. References that openly testify to the status of painting as a product manufactured in series and standardized.</i></p> <p><i>The dialogue is precisely between the natural clay color base with the almost provocative color sample and its reference.</i></p> <p>photos by @Francesco Stelitano</p> <p>Concept by Apartamento Studios</p> <p>Curated by Júlia Esqué</p> <p>Creative Partners: Eloi Bonadona, Carles Llarch and Max Milà</p></div>
     </div>

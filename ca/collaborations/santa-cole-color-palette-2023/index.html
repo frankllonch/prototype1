@@ -11,9 +11,10 @@
 <link rel="preload" href="/prototype1/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="/prototype1/site.css" />
 <link rel="modulepreload" href="/prototype1/js/env.js" />
-<link rel="modulepreload" href="/prototype1/js/scramble.js" />
+<link rel="modulepreload" href="/prototype1/js/text-hover.js" />
 <link rel="modulepreload" href="/prototype1/js/nav.js" />
 <link rel="modulepreload" href="/prototype1/js/gallery.js" />
+<link rel="modulepreload" href="/prototype1/js/slider.js" />
 <link rel="modulepreload" href="/prototype1/js/lightbox.js" />
 <link rel="modulepreload" href="/prototype1/js/panels.js" />
 <link rel="modulepreload" href="/prototype1/js/cursor.js" />
@@ -77,11 +78,12 @@
     </header>
 
     <div class="collab">
-    <div class="collab-gallery">
-      <figure class="collab-figure">
+    <div class="slider" data-slider>
+    <div class="slider-track" data-slider-track tabindex="0" aria-label="9 photographs">
+      <figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/ee8e1757f4c42044-400.avif 400w, /prototype1/media/ee8e1757f4c42044-800.avif 800w, /prototype1/media/ee8e1757f4c42044-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/ee8e1757f4c42044-400.webp 400w, /prototype1/media/ee8e1757f4c42044-800.webp 800w, /prototype1/media/ee8e1757f4c42044-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/ee8e1757f4c42044-400.avif 400w, /prototype1/media/ee8e1757f4c42044-800.avif 800w, /prototype1/media/ee8e1757f4c42044-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/ee8e1757f4c42044-400.webp 400w, /prototype1/media/ee8e1757f4c42044-800.webp 800w, /prototype1/media/ee8e1757f4c42044-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/ee8e1757f4c42044-1600.jpg"
         alt=""
@@ -93,25 +95,25 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/3441b25dd60d68b6-400.avif 400w, /prototype1/media/3441b25dd60d68b6-800.avif 800w, /prototype1/media/3441b25dd60d68b6-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/3441b25dd60d68b6-400.webp 400w, /prototype1/media/3441b25dd60d68b6-800.webp 800w, /prototype1/media/3441b25dd60d68b6-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/3441b25dd60d68b6-400.avif 400w, /prototype1/media/3441b25dd60d68b6-800.avif 800w, /prototype1/media/3441b25dd60d68b6-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/3441b25dd60d68b6-400.webp 400w, /prototype1/media/3441b25dd60d68b6-800.webp 800w, /prototype1/media/3441b25dd60d68b6-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/3441b25dd60d68b6-1600.jpg"
         alt=""
         width="1926"
         height="2560"
         style="aspect-ratio:1926 / 2560"
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        fetchpriority="high"
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/2ef59dc3f7b8e402-400.avif 400w, /prototype1/media/2ef59dc3f7b8e402-800.avif 800w, /prototype1/media/2ef59dc3f7b8e402-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/2ef59dc3f7b8e402-400.webp 400w, /prototype1/media/2ef59dc3f7b8e402-800.webp 800w, /prototype1/media/2ef59dc3f7b8e402-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/2ef59dc3f7b8e402-400.avif 400w, /prototype1/media/2ef59dc3f7b8e402-800.avif 800w, /prototype1/media/2ef59dc3f7b8e402-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/2ef59dc3f7b8e402-400.webp 400w, /prototype1/media/2ef59dc3f7b8e402-800.webp 800w, /prototype1/media/2ef59dc3f7b8e402-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/2ef59dc3f7b8e402-1600.jpg"
         alt=""
@@ -123,10 +125,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/431b7e8440644ac4-400.avif 400w, /prototype1/media/431b7e8440644ac4-800.avif 800w, /prototype1/media/431b7e8440644ac4-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/431b7e8440644ac4-400.webp 400w, /prototype1/media/431b7e8440644ac4-800.webp 800w, /prototype1/media/431b7e8440644ac4-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/431b7e8440644ac4-400.avif 400w, /prototype1/media/431b7e8440644ac4-800.avif 800w, /prototype1/media/431b7e8440644ac4-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/431b7e8440644ac4-400.webp 400w, /prototype1/media/431b7e8440644ac4-800.webp 800w, /prototype1/media/431b7e8440644ac4-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/431b7e8440644ac4-1600.jpg"
         alt=""
@@ -138,10 +140,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/a864b4a9a187a7a4-400.avif 400w, /prototype1/media/a864b4a9a187a7a4-800.avif 800w, /prototype1/media/a864b4a9a187a7a4-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/a864b4a9a187a7a4-400.webp 400w, /prototype1/media/a864b4a9a187a7a4-800.webp 800w, /prototype1/media/a864b4a9a187a7a4-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/a864b4a9a187a7a4-400.avif 400w, /prototype1/media/a864b4a9a187a7a4-800.avif 800w, /prototype1/media/a864b4a9a187a7a4-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/a864b4a9a187a7a4-400.webp 400w, /prototype1/media/a864b4a9a187a7a4-800.webp 800w, /prototype1/media/a864b4a9a187a7a4-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/a864b4a9a187a7a4-1600.jpg"
         alt=""
@@ -153,10 +155,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/a98bf1af543c3c3f-400.avif 400w, /prototype1/media/a98bf1af543c3c3f-800.avif 800w, /prototype1/media/a98bf1af543c3c3f-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/a98bf1af543c3c3f-400.webp 400w, /prototype1/media/a98bf1af543c3c3f-800.webp 800w, /prototype1/media/a98bf1af543c3c3f-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/a98bf1af543c3c3f-400.avif 400w, /prototype1/media/a98bf1af543c3c3f-800.avif 800w, /prototype1/media/a98bf1af543c3c3f-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/a98bf1af543c3c3f-400.webp 400w, /prototype1/media/a98bf1af543c3c3f-800.webp 800w, /prototype1/media/a98bf1af543c3c3f-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/a98bf1af543c3c3f-1600.jpg"
         alt=""
@@ -168,10 +170,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/3e7f3666e8b81f68-400.avif 400w, /prototype1/media/3e7f3666e8b81f68-800.avif 800w, /prototype1/media/3e7f3666e8b81f68-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/3e7f3666e8b81f68-400.webp 400w, /prototype1/media/3e7f3666e8b81f68-800.webp 800w, /prototype1/media/3e7f3666e8b81f68-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/3e7f3666e8b81f68-400.avif 400w, /prototype1/media/3e7f3666e8b81f68-800.avif 800w, /prototype1/media/3e7f3666e8b81f68-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/3e7f3666e8b81f68-400.webp 400w, /prototype1/media/3e7f3666e8b81f68-800.webp 800w, /prototype1/media/3e7f3666e8b81f68-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/3e7f3666e8b81f68-1600.jpg"
         alt=""
@@ -183,10 +185,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/0faacaf02af4c0b5-400.avif 400w, /prototype1/media/0faacaf02af4c0b5-800.avif 800w, /prototype1/media/0faacaf02af4c0b5-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/0faacaf02af4c0b5-400.webp 400w, /prototype1/media/0faacaf02af4c0b5-800.webp 800w, /prototype1/media/0faacaf02af4c0b5-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/0faacaf02af4c0b5-400.avif 400w, /prototype1/media/0faacaf02af4c0b5-800.avif 800w, /prototype1/media/0faacaf02af4c0b5-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/0faacaf02af4c0b5-400.webp 400w, /prototype1/media/0faacaf02af4c0b5-800.webp 800w, /prototype1/media/0faacaf02af4c0b5-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/0faacaf02af4c0b5-1600.jpg"
         alt=""
@@ -198,10 +200,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/de662b5f549c9e49-400.avif 400w, /prototype1/media/de662b5f549c9e49-800.avif 800w, /prototype1/media/de662b5f549c9e49-1600.avif 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/de662b5f549c9e49-400.webp 400w, /prototype1/media/de662b5f549c9e49-800.webp 800w, /prototype1/media/de662b5f549c9e49-1600.webp 1600w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/de662b5f549c9e49-400.avif 400w, /prototype1/media/de662b5f549c9e49-800.avif 800w, /prototype1/media/de662b5f549c9e49-1600.avif 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/de662b5f549c9e49-400.webp 400w, /prototype1/media/de662b5f549c9e49-800.webp 800w, /prototype1/media/de662b5f549c9e49-1600.webp 1600w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/de662b5f549c9e49-1600.jpg"
         alt=""
@@ -215,6 +217,12 @@
             
           </figure>
     </div>
+    <div class="slider-bar">
+      <button type="button" class="slider-nav" data-slider-prev aria-label="Anterior">←</button>
+      <span class="slider-count" data-slider-count data-template="{n} de {total}"></span>
+      <button type="button" class="slider-nav" data-slider-next aria-label="Següent">→</button>
+    </div>
+  </div>
     <div class="collab-text">
       <div class="prose"><p><a href="https://www.santacole.com/es/m64/"><strong>Santa & Cole</strong></a> is a Spanish global editor of design products whose quality is recognizable at the touch of a hand, and that enriches people’s lives.</p> <p>A while ago I started a collaboration with Santa&cole, a love color story!.</p> <p><strong>In their own words the project consisted in: </strong></p> <p>«Santa & Cole has presented eight new colours for the M64 lamp, result of the chromatic study developed by colourist Claudia Valsells</p> <p>Claudia Valsells defines a chromatic universe that will give a new vision to the timelessness of Santa & Cole’s catalogue. A new visual and emotional perception of the M64</p> <p>The collaboration between Santa & Cole and Claudia Valsells presents a careful selection of eight new colours that reveal a new visual and emotional perception of the M64 lamp, designed in 1964 by maestro Miguel Milá. Maintaining the formal timelessness characteristic of this design icon, the new palette is born from Valsells’ intuition and her profound understanding on how colours interact.</p> <p><strong>The interplay of colour:</strong></p> <p>As a colourist, I approached my chromatic studies through a constant juxtaposition of colours. The key lies in placing one colour next to another, so as to influence their perception and achieve the desired visual experience. Rather than simply an individual selection of colours, the new palette represents a careful study of their combination. Demonstrating the close relationship between light and colour, the inside of the screens is covered in white, a detail that softens the light reflection.</p> <p>This collaboration seeks to add another layer of meaning to an existing product by emphasising the light interaction between the colours of the screens and how they engage with the space they are placed in.</p> <p>During the colour study, I developed the interaction of the selected colours to present the collection as chromatic harmonies. From this exercise, six new Neoseries, the art editions of Santa & Cole were born.</p> <p>more info at<a href="https://www.santacole.com/es/neoseries/colour-scheme-i-n-00240/"> Claudia Valsells ‘Color Schemes’</a></p> <p><span>© Jara Varela @jara_varela / Campaign images</span></p> <p><span>© Enric Badrinas @enricbadrinas / Studio images </span></p></div>
     </div>

@@ -11,9 +11,10 @@
 <link rel="preload" href="/prototype1/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="/prototype1/site.css" />
 <link rel="modulepreload" href="/prototype1/js/env.js" />
-<link rel="modulepreload" href="/prototype1/js/scramble.js" />
+<link rel="modulepreload" href="/prototype1/js/text-hover.js" />
 <link rel="modulepreload" href="/prototype1/js/nav.js" />
 <link rel="modulepreload" href="/prototype1/js/gallery.js" />
+<link rel="modulepreload" href="/prototype1/js/slider.js" />
 <link rel="modulepreload" href="/prototype1/js/lightbox.js" />
 <link rel="modulepreload" href="/prototype1/js/panels.js" />
 <link rel="modulepreload" href="/prototype1/js/cursor.js" />
@@ -77,11 +78,12 @@
     </header>
 
     <div class="collab">
-    <div class="collab-gallery">
-      <figure class="collab-figure">
+    <div class="slider" data-slider>
+    <div class="slider-track" data-slider-track tabindex="0" aria-label="9 photographs">
+      <figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/eb575e7e8ebe454b-400.avif 400w, /prototype1/media/eb575e7e8ebe454b-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/eb575e7e8ebe454b-400.webp 400w, /prototype1/media/eb575e7e8ebe454b-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/eb575e7e8ebe454b-400.avif 400w, /prototype1/media/eb575e7e8ebe454b-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/eb575e7e8ebe454b-400.webp 400w, /prototype1/media/eb575e7e8ebe454b-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/eb575e7e8ebe454b-800.jpg"
         alt=""
@@ -93,25 +95,25 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/17fe0f870a3d0602-400.avif 400w, /prototype1/media/17fe0f870a3d0602-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/17fe0f870a3d0602-400.webp 400w, /prototype1/media/17fe0f870a3d0602-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/17fe0f870a3d0602-400.avif 400w, /prototype1/media/17fe0f870a3d0602-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/17fe0f870a3d0602-400.webp 400w, /prototype1/media/17fe0f870a3d0602-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/17fe0f870a3d0602-800.jpg"
         alt=""
         width="900"
         height="509"
         style="aspect-ratio:900 / 509"
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        fetchpriority="high"
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/d0fa19fa8071c30e-400.avif 400w, /prototype1/media/d0fa19fa8071c30e-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/d0fa19fa8071c30e-400.webp 400w, /prototype1/media/d0fa19fa8071c30e-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/d0fa19fa8071c30e-400.avif 400w, /prototype1/media/d0fa19fa8071c30e-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/d0fa19fa8071c30e-400.webp 400w, /prototype1/media/d0fa19fa8071c30e-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/d0fa19fa8071c30e-800.jpg"
         alt=""
@@ -123,10 +125,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/a265d7fad12e33b1-400.avif 400w, /prototype1/media/a265d7fad12e33b1-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/a265d7fad12e33b1-400.webp 400w, /prototype1/media/a265d7fad12e33b1-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/a265d7fad12e33b1-400.avif 400w, /prototype1/media/a265d7fad12e33b1-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/a265d7fad12e33b1-400.webp 400w, /prototype1/media/a265d7fad12e33b1-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/a265d7fad12e33b1-800.jpg"
         alt=""
@@ -138,10 +140,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/b85a5ba1d63f2364-400.avif 400w, /prototype1/media/b85a5ba1d63f2364-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/b85a5ba1d63f2364-400.webp 400w, /prototype1/media/b85a5ba1d63f2364-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/b85a5ba1d63f2364-400.avif 400w, /prototype1/media/b85a5ba1d63f2364-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/b85a5ba1d63f2364-400.webp 400w, /prototype1/media/b85a5ba1d63f2364-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/b85a5ba1d63f2364-800.jpg"
         alt=""
@@ -153,10 +155,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/8599b084b27dbd01-400.avif 400w, /prototype1/media/8599b084b27dbd01-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/8599b084b27dbd01-400.webp 400w, /prototype1/media/8599b084b27dbd01-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/8599b084b27dbd01-400.avif 400w, /prototype1/media/8599b084b27dbd01-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/8599b084b27dbd01-400.webp 400w, /prototype1/media/8599b084b27dbd01-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/8599b084b27dbd01-800.jpg"
         alt=""
@@ -168,10 +170,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/0ec39f0f124b162c-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/0ec39f0f124b162c-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/0ec39f0f124b162c-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/0ec39f0f124b162c-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/0ec39f0f124b162c-400.jpg"
         alt=""
@@ -183,10 +185,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/91415c562c0daeda-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/91415c562c0daeda-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/91415c562c0daeda-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/91415c562c0daeda-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/91415c562c0daeda-400.jpg"
         alt=""
@@ -198,10 +200,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/4215361d27dc77f8-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/4215361d27dc77f8-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/4215361d27dc77f8-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/4215361d27dc77f8-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/4215361d27dc77f8-400.jpg"
         alt=""
@@ -215,6 +217,12 @@
             
           </figure>
     </div>
+    <div class="slider-bar">
+      <button type="button" class="slider-nav" data-slider-prev aria-label="Anterior">←</button>
+      <span class="slider-count" data-slider-count data-template="{n} de {total}"></span>
+      <button type="button" class="slider-nav" data-slider-next aria-label="Següent">→</button>
+    </div>
+  </div>
     <div class="collab-text">
       <div class="prose"><div> <video><source><a href="https://www.claudiavalsells.com/wp-content/uploads/2019/04/Claudia_Valsells-Uterque_Art_Essays.mp4">https://www.claudiavalsells.com/wp-content/uploads/2019/04/Claudia_Valsells-Uterque_Art_Essays.mp4</a></video></div></div><div class="prose"><p>URTERQÜE ART ESSAYS AW2017</p> <p>“Creativity, Art and Fashion. Synonyms of a search for beauty, the effort to tell a unique and personal story. Disciplines that have joined in history, that have mixed and created together; they can’t be understood separately. Style is architecture. Creativity is a second skin. And fashion is, always, art .”</p> <p>Uterqüe Art Essays was a project I carried out in 2017 for Inditex company during the autumn and winter collection.</p> <p>Two big artworks sized 250x200m each in acrylic on canvas reproducing color harmonies. This two big artworks were used as background for the photo shoot and at the same time as a color palette for the collection.</p> <p>Creative direction and design by Play&Type Studio. Edtited by Uterqüe.</p> <p>All the artworks are made by Claudia Valsells</p> <p>images © Cesc Nogueres</p></div>
     </div>

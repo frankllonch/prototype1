@@ -35,33 +35,44 @@ export function initYearFloat() {
     }, { passive: true });
     update();
 }
-/** Density control: one custom property resizes all 154 tiles. Remembered per browser. */
-export function initZoom() {
-    const steps = document.querySelectorAll('.zoom-step');
+/**
+ * Filters for the sheet: a count of the newest works to show, and a year. The
+ * two combine — the year narrows the set, the count caps it — and filtering is
+ * a `hidden` toggle, so the sheet re-flows on its own and the lightbox, which
+ * skips hidden tiles, follows automatically.
+ */
+export function initFilters() {
+    const root = document.querySelector('[data-filters]');
     const galleryEl = document.querySelector('[data-gallery]');
-    if (!steps.length || !galleryEl)
+    if (!root || !galleryEl)
         return;
-    const KEY = 'cv:zoom';
-    const apply = (unit, persist) => {
-        galleryEl.style.setProperty('--unit', `${unit}px`);
-        for (const step of steps) {
-            const active = step.dataset.unit === unit;
-            step.classList.toggle('is-active', active);
-            step.setAttribute('aria-pressed', String(active));
-        }
-        if (persist) {
-            try {
-                localStorage.setItem(KEY, unit);
-            }
-            catch { /* private mode */ }
+    const tiles = [...galleryEl.querySelectorAll('.tile')];
+    const countChips = [...root.querySelectorAll('[data-filter-count]')];
+    const yearChips = [...root.querySelectorAll('[data-filter-year]')];
+    let count = 'all';
+    let year = 'all';
+    const press = (chips, key, value) => {
+        for (const chip of chips) {
+            const active = chip.dataset[key] === value;
+            chip.classList.toggle('is-active', active);
+            chip.setAttribute('aria-pressed', String(active));
         }
     };
-    for (const step of steps)
-        step.addEventListener('click', () => apply(step.dataset.unit ?? '126', true));
-    try {
-        const saved = localStorage.getItem(KEY);
-        if (saved && [...steps].some((s) => s.dataset.unit === saved))
-            apply(saved, false);
-    }
-    catch { /* keep the default */ }
+    const apply = () => {
+        const cap = count === 'all' ? Infinity : Number(count);
+        let shown = 0;
+        for (const tile of tiles) {
+            const matches = year === 'all' || tile.dataset.year === year;
+            const show = matches && shown < cap;
+            tile.hidden = !show;
+            if (show)
+                shown++;
+        }
+        press(countChips, 'filterCount', count);
+        press(yearChips, 'filterYear', year);
+    };
+    for (const chip of countChips)
+        chip.addEventListener('click', () => { count = chip.dataset.filterCount; apply(); });
+    for (const chip of yearChips)
+        chip.addEventListener('click', () => { year = chip.dataset.filterYear; apply(); });
 }

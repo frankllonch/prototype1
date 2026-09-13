@@ -11,9 +11,10 @@
 <link rel="preload" href="/prototype1/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="/prototype1/site.css" />
 <link rel="modulepreload" href="/prototype1/js/env.js" />
-<link rel="modulepreload" href="/prototype1/js/scramble.js" />
+<link rel="modulepreload" href="/prototype1/js/text-hover.js" />
 <link rel="modulepreload" href="/prototype1/js/nav.js" />
 <link rel="modulepreload" href="/prototype1/js/gallery.js" />
+<link rel="modulepreload" href="/prototype1/js/slider.js" />
 <link rel="modulepreload" href="/prototype1/js/lightbox.js" />
 <link rel="modulepreload" href="/prototype1/js/panels.js" />
 <link rel="modulepreload" href="/prototype1/js/cursor.js" />
@@ -73,24 +74,32 @@
       <section class="page-head">
         <h1 data-scramble>Obra</h1>
         <p class="page-intro">154 pintures, 2016–2026. El color com a matèria, llenguatge i tema.</p>
-        <div class="zoom" role="group" aria-label="Mostrant">
-    <span class="zoom-label">Mostrant</span>
-    <button
-          type="button"
-          class="zoom-step"
-          data-unit="200"
-          aria-pressed="false"
-        >24</button><button
-          type="button"
-          class="zoom-step is-active"
-          data-unit="126"
-          aria-pressed="true"
-        >60</button><button
-          type="button"
-          class="zoom-step"
-          data-unit="78"
-          aria-pressed="false"
-        >154</button>
+        <div class="filters" data-filters>
+    <div class="filter-group" role="group" aria-label="Mostra">
+      <span class="filter-label">Mostra</span>
+      <button type="button" class="filter"
+      data-filter-count="24" aria-pressed="false">24</button><button type="button" class="filter"
+      data-filter-count="60" aria-pressed="false">60</button>
+      <button type="button" class="filter is-active"
+      data-filter-count="all" aria-pressed="true">Tot</button>
+    </div>
+    <div class="filter-group" role="group" aria-label="Any">
+      <span class="filter-label">Any</span>
+      <button type="button" class="filter is-active"
+      data-filter-year="all" aria-pressed="true">Tots els anys</button>
+      <button type="button" class="filter"
+      data-filter-year="2026" aria-pressed="false">2026</button><button type="button" class="filter"
+      data-filter-year="2025" aria-pressed="false">2025</button><button type="button" class="filter"
+      data-filter-year="2024" aria-pressed="false">2024</button><button type="button" class="filter"
+      data-filter-year="2023" aria-pressed="false">2023</button><button type="button" class="filter"
+      data-filter-year="2022" aria-pressed="false">2022</button><button type="button" class="filter"
+      data-filter-year="2021" aria-pressed="false">2021</button><button type="button" class="filter"
+      data-filter-year="2020" aria-pressed="false">2020</button><button type="button" class="filter"
+      data-filter-year="2019" aria-pressed="false">2019</button><button type="button" class="filter"
+      data-filter-year="2018" aria-pressed="false">2018</button><button type="button" class="filter"
+      data-filter-year="2017" aria-pressed="false">2017</button><button type="button" class="filter"
+      data-filter-year="2016" aria-pressed="false">2016</button>
+    </div>
   </div>
       </section>
       <div

@@ -11,9 +11,10 @@
 <link rel="preload" href="/prototype1/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="/prototype1/site.css" />
 <link rel="modulepreload" href="/prototype1/js/env.js" />
-<link rel="modulepreload" href="/prototype1/js/scramble.js" />
+<link rel="modulepreload" href="/prototype1/js/text-hover.js" />
 <link rel="modulepreload" href="/prototype1/js/nav.js" />
 <link rel="modulepreload" href="/prototype1/js/gallery.js" />
+<link rel="modulepreload" href="/prototype1/js/slider.js" />
 <link rel="modulepreload" href="/prototype1/js/lightbox.js" />
 <link rel="modulepreload" href="/prototype1/js/panels.js" />
 <link rel="modulepreload" href="/prototype1/js/cursor.js" />
@@ -77,11 +78,12 @@
     </header>
 
     <div class="collab">
-    <div class="collab-gallery">
-      <figure class="collab-figure">
+    <div class="slider" data-slider>
+    <div class="slider-track" data-slider-track tabindex="0" aria-label="9 photographs">
+      <figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/0a49db3a087f447a-400.avif 400w, /prototype1/media/0a49db3a087f447a-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/0a49db3a087f447a-400.webp 400w, /prototype1/media/0a49db3a087f447a-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/0a49db3a087f447a-400.avif 400w, /prototype1/media/0a49db3a087f447a-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/0a49db3a087f447a-400.webp 400w, /prototype1/media/0a49db3a087f447a-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/0a49db3a087f447a-800.jpg"
         alt=""
@@ -93,25 +95,25 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/e5a8fb243d8b1a1b-400.avif 400w, /prototype1/media/e5a8fb243d8b1a1b-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/e5a8fb243d8b1a1b-400.webp 400w, /prototype1/media/e5a8fb243d8b1a1b-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/e5a8fb243d8b1a1b-400.avif 400w, /prototype1/media/e5a8fb243d8b1a1b-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/e5a8fb243d8b1a1b-400.webp 400w, /prototype1/media/e5a8fb243d8b1a1b-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/e5a8fb243d8b1a1b-800.jpg"
         alt=""
         width="1000"
         height="1000"
         style="aspect-ratio:1000 / 1000"
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        fetchpriority="high"
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/539da9c284708035-400.avif 400w, /prototype1/media/539da9c284708035-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/539da9c284708035-400.webp 400w, /prototype1/media/539da9c284708035-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/539da9c284708035-400.avif 400w, /prototype1/media/539da9c284708035-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/539da9c284708035-400.webp 400w, /prototype1/media/539da9c284708035-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/539da9c284708035-800.jpg"
         alt=""
@@ -123,10 +125,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/76f40ce93f4301c7-400.avif 400w, /prototype1/media/76f40ce93f4301c7-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/76f40ce93f4301c7-400.webp 400w, /prototype1/media/76f40ce93f4301c7-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/76f40ce93f4301c7-400.avif 400w, /prototype1/media/76f40ce93f4301c7-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/76f40ce93f4301c7-400.webp 400w, /prototype1/media/76f40ce93f4301c7-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/76f40ce93f4301c7-800.jpg"
         alt=""
@@ -138,10 +140,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/4f66e382136502dc-400.avif 400w, /prototype1/media/4f66e382136502dc-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/4f66e382136502dc-400.webp 400w, /prototype1/media/4f66e382136502dc-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/4f66e382136502dc-400.avif 400w, /prototype1/media/4f66e382136502dc-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/4f66e382136502dc-400.webp 400w, /prototype1/media/4f66e382136502dc-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/4f66e382136502dc-800.jpg"
         alt=""
@@ -153,10 +155,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/e1164242f298e9bd-400.avif 400w, /prototype1/media/e1164242f298e9bd-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/e1164242f298e9bd-400.webp 400w, /prototype1/media/e1164242f298e9bd-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/e1164242f298e9bd-400.avif 400w, /prototype1/media/e1164242f298e9bd-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/e1164242f298e9bd-400.webp 400w, /prototype1/media/e1164242f298e9bd-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/e1164242f298e9bd-800.jpg"
         alt=""
@@ -168,10 +170,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/fe126fc058504b0f-400.avif 400w, /prototype1/media/fe126fc058504b0f-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/fe126fc058504b0f-400.webp 400w, /prototype1/media/fe126fc058504b0f-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/fe126fc058504b0f-400.avif 400w, /prototype1/media/fe126fc058504b0f-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/fe126fc058504b0f-400.webp 400w, /prototype1/media/fe126fc058504b0f-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/fe126fc058504b0f-800.jpg"
         alt=""
@@ -183,10 +185,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/8ae8e4391e2f5951-400.avif 400w, /prototype1/media/8ae8e4391e2f5951-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/8ae8e4391e2f5951-400.webp 400w, /prototype1/media/8ae8e4391e2f5951-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/8ae8e4391e2f5951-400.avif 400w, /prototype1/media/8ae8e4391e2f5951-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/8ae8e4391e2f5951-400.webp 400w, /prototype1/media/8ae8e4391e2f5951-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/8ae8e4391e2f5951-800.jpg"
         alt=""
@@ -198,10 +200,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/5d10e748ccb1c87c-400.avif 400w, /prototype1/media/5d10e748ccb1c87c-800.avif 800w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/5d10e748ccb1c87c-400.webp 400w, /prototype1/media/5d10e748ccb1c87c-800.webp 800w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/5d10e748ccb1c87c-400.avif 400w, /prototype1/media/5d10e748ccb1c87c-800.avif 800w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/5d10e748ccb1c87c-400.webp 400w, /prototype1/media/5d10e748ccb1c87c-800.webp 800w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/5d10e748ccb1c87c-800.jpg"
         alt=""
@@ -215,6 +217,12 @@
             
           </figure>
     </div>
+    <div class="slider-bar">
+      <button type="button" class="slider-nav" data-slider-prev aria-label="Anterior">←</button>
+      <span class="slider-count" data-slider-count data-template="{n} de {total}"></span>
+      <button type="button" class="slider-nav" data-slider-next aria-label="Següent">→</button>
+    </div>
+  </div>
     <div class="collab-text">
       <div class="prose"><p><strong>Art to build</strong></p> <p>Idea and project © DadàBarcelona</p> <p>Esther Rovira Carbonell</p> <p><span>Images © Iris Humm</span></p> <p>To build is to create what we inhabit and what inhabits us.</p> <p><span>We want to be building in new ways without forgetting that we are constantly building ourselves.</span></p> <p>Dada Barcelona summer workshops, always collaboarates with a social project that can open children to other realities and help them build a new consciousness of the world that surrounds them.</p> <p>This year, Marc Morro, who, through his NGO Foundation, has worked to build furniture for schools in Senegal. My role was to color the pieces that were built. I decide the black and white color palette and let children paint free different shapes with just this two colors. As the pieces were painted separately, 0nce the chairs were assembled got different identities. letting each one a little bit of all.</p></div>
     </div>

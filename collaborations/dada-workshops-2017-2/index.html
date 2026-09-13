@@ -11,9 +11,10 @@
 <link rel="preload" href="/prototype1/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="/prototype1/site.css" />
 <link rel="modulepreload" href="/prototype1/js/env.js" />
-<link rel="modulepreload" href="/prototype1/js/scramble.js" />
+<link rel="modulepreload" href="/prototype1/js/text-hover.js" />
 <link rel="modulepreload" href="/prototype1/js/nav.js" />
 <link rel="modulepreload" href="/prototype1/js/gallery.js" />
+<link rel="modulepreload" href="/prototype1/js/slider.js" />
 <link rel="modulepreload" href="/prototype1/js/lightbox.js" />
 <link rel="modulepreload" href="/prototype1/js/panels.js" />
 <link rel="modulepreload" href="/prototype1/js/cursor.js" />
@@ -77,11 +78,12 @@
     </header>
 
     <div class="collab">
-    <div class="collab-gallery">
-      <figure class="collab-figure">
+    <div class="slider" data-slider>
+    <div class="slider-track" data-slider-track tabindex="0" aria-label="6 photographs">
+      <figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/34b0e9889b103d7c-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/34b0e9889b103d7c-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/34b0e9889b103d7c-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/34b0e9889b103d7c-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/34b0e9889b103d7c-400.jpg"
         alt=""
@@ -93,25 +95,25 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/83d8c9e2203b6d40-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/83d8c9e2203b6d40-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/83d8c9e2203b6d40-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/83d8c9e2203b6d40-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/83d8c9e2203b6d40-400.jpg"
         alt=""
         width="600"
         height="800"
         style="aspect-ratio:600 / 800"
-        loading="lazy"
-        decoding="async"
+        loading="eager"
+        fetchpriority="high"
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/d685a953c5c5b4b6-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/d685a953c5c5b4b6-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/d685a953c5c5b4b6-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/d685a953c5c5b4b6-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/d685a953c5c5b4b6-400.jpg"
         alt=""
@@ -123,10 +125,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/2fb1ff2458dd6739-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/2fb1ff2458dd6739-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/2fb1ff2458dd6739-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/2fb1ff2458dd6739-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/2fb1ff2458dd6739-400.jpg"
         alt=""
@@ -138,10 +140,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/47b5699bbe64b614-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/47b5699bbe64b614-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/47b5699bbe64b614-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/47b5699bbe64b614-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/47b5699bbe64b614-400.jpg"
         alt=""
@@ -153,10 +155,10 @@
       />
     </picture>
             
-          </figure><figure class="collab-figure reveal">
+          </figure><figure class="slide" data-slide>
             <picture class="">
-      <source type="image/avif" srcset="/prototype1/media/ab6af1c66ad57894-400.avif 400w" sizes="(max-width: 900px) 94vw, 70vw" />
-      <source type="image/webp" srcset="/prototype1/media/ab6af1c66ad57894-400.webp 400w" sizes="(max-width: 900px) 94vw, 70vw" />
+      <source type="image/avif" srcset="/prototype1/media/ab6af1c66ad57894-400.avif 400w" sizes="(max-width: 900px) 90vw, 60vh" />
+      <source type="image/webp" srcset="/prototype1/media/ab6af1c66ad57894-400.webp 400w" sizes="(max-width: 900px) 90vw, 60vh" />
       <img
         src="/prototype1/media/ab6af1c66ad57894-400.jpg"
         alt=""
@@ -170,6 +172,12 @@
             
           </figure>
     </div>
+    <div class="slider-bar">
+      <button type="button" class="slider-nav" data-slider-prev aria-label="Previous">←</button>
+      <span class="slider-count" data-slider-count data-template="{n} of {total}"></span>
+      <button type="button" class="slider-nav" data-slider-next aria-label="Next">→</button>
+    </div>
+  </div>
     <div class="collab-text">
       <div class="prose"><div></div> <p>LA MURALLA ROJA ( The Red Wall)</p> <p>Research and realization of the restored color scheme from Ricardo Bofill’s building, ‘La Muralla Roja’.</p> <p>photos by @gregoricivera and @garatehausmann</p> <p>«Within the context of La Manzanera, La Muralla Roja (The Red Wall) asks to be considered as a case apart. It embodies a clear reference to the popular architecture of the Arab Mediterranean, in particular to the adobe towers of North Africa. The Red Wall is like a fortress which marks a vertical silhouette following the contour lines of the rocky cliff.</p> <p>With this building, RBTA wanted to break the post-Renaissance division between public and private spaces reinterpreting the Mediterranean tradition of the Kasbah. The labyrinth of this recreated Kasbah corresponds to a precise geometric plan based on the typology of…</p> <div><a href="https://ricardobofill.com/projects/la-muralla-roja/">READ FULL ARTICLE</a></div> <div> <p>ARCHITECT RICARDO BOFILL</p> <p>YEAR: 1973<br> LOCATION: CALPE, ALICANTE, SPAIN</p> </div></div>
     </div>
